@@ -1,0 +1,107 @@
+@import 'bootstrap/dist/css/bootstrap.css';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* styles*/
+
+.display_img{
+    height: 100vh;
+}
+
+.details{
+    overflow:hidden;
+}
+
+.url{
+    color:#ab8965;
+}
+
+
+/* Hide spin buttons in Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide spin buttons in Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+label + input{
+    width:80% !important;
+}
+
+
+.reg_btn{
+    background-color:#ab8965 !important;
+    
+}
+
+.reg_btn:hover {
+    background-color: #896d50 !important;
+    color: white !important;
+    transition: all 1s ease-in-out;
+}
+
+.reg_btn:active,
+.reg_btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.img_col {
+    position: fixed;
+    width: 50%;
+}
+
+.form_section {
+    margin-left: 50%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+
+/*phones*/
+@media only screen and (max-width:767.9px){
+    .img_col{
+        width: 100%;
+        height: 10vh;
+    }
+    .form_section{
+        margin-left:0;
+       
+    }
+}
+
+/* larger phones, tablets */
+@media only screen and (min-width:768px) and (max-width:991.9px){
+    .img_col{
+        width: 100%;
+        height: 10%;
+    }
+
+    .form_section{
+        margin-left:0;
+        
+    }
+}
+
+/*preregister notice*/
+
+.notice_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height:100vh
+}
