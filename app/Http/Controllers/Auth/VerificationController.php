@@ -29,7 +29,7 @@ class VerificationController extends Controller
         }
         // Delete the cached data
         Cache::forget('preregister_user' . $code);
-        Cache::forget('preregister_email_token' . $userData['email']); // Also remove email-to-token mapping
+        Cache::forget('preregister_email_token' . $userData['email']);
 
          // Create the user
         User::create($userData);
@@ -37,7 +37,7 @@ class VerificationController extends Controller
         
 
 
-        // return redirect('/login')->with('status', 'Your email has been verified! You can now log in.');
+        return redirect()->route('rapha.login')->with('verifiedSuccess', 'Your email has been verified! You can now log in.');
     }
 
     //Resend code

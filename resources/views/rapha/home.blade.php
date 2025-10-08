@@ -52,7 +52,7 @@
     
                             <!-- Slides 2 -->
                             <div class="swiper-slide">
-                                <div class="swiper-inner" data-bgimage="url({{ asset('images/background/F4.webp') }})">
+                                <div class="swiper-inner" data-bgimage="url({{ asset('images/background/F3.webp') }})">
                                     <div class="sw-caption z-1000">
                                         <div class="container">
                                             <div class="row g-4 align-items-center justify-content-center slider-text">

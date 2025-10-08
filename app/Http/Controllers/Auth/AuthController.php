@@ -49,10 +49,10 @@ class AuthController extends Controller
             $message->subject('Verify Your Email Address');
         });
 
-                session()->flash('show_preregister_notice', true);
-        session()->flash('prereg_email', $userData['email']);
+        session()->flash('show_preregister_notice', true);
+        
 
-        return redirect()->route('preregister.notice');
+        return redirect()->route('preregister.notice')->with('prereg_email', $userData['email']);
         
     }
 
