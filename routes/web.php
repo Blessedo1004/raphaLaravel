@@ -11,10 +11,13 @@ Route::get('/', function () {
 
 
 // guest routes starts
-Route::get('/login',[AuthController::class,'showLogin'])->name('login');
-Route::get('/signup',[AuthController::class,'showSignUp'])->name('rapha.signup');
-Route::post('/signup',[AuthController::class,'signUp'])->name('rapha.signup');
-Route::post('/login',[AuthController::class,'login'])->name('rapha.login');
+Route::middleware('cache.headers:no_store,private')->controller(AuthController::class)->group(function(){
+    Route::get('/login','showLogin')->name('login');
+    Route::get('/signup','showSignUp')->name('rapha.signup');
+    Route::post('/signup','signUp')->name('rapha.signup');
+    Route::post('/login','login')->name('rapha.login');
+});
+
 //verification routes starts
 Route::controller(VerificationController::class)->group(function(){
     Route::get('/preregister/notice', 'showPreregisterNotice')->name('preregister.notice')->middleware('preregister.notice');
@@ -50,7 +53,7 @@ Route::controller(GuestController::class)->group(function(){
 
 // Auth routes start
 
-Route::middleware('auth','cache.headers:no_store,private')->group(function(){
+Route::middleware('auth')->group(function(){
     // Route::post('/logout',[AuthController::class,'logout'])->name('rapha.logout');
     Route::get('/user/make-booking',[UserController::class,'showMakeBooking'])->name('make-booking');
 });

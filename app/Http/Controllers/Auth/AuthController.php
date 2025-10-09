@@ -13,11 +13,17 @@ class AuthController extends Controller
 {
     // show login view
     public function showLogin (){
+        if(Auth::check()){
+            return redirect()->route('make-booking');
+        }
         return view ('rapha.auth.login');
     }
 
     //show sign up view
      public function showSignUp (){
+            if(Auth::check()){
+            return redirect()->route('make-booking');
+        }
         return view ('rapha.auth.signup');
     }
 
