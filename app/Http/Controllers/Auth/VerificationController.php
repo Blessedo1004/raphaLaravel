@@ -33,10 +33,6 @@ class VerificationController extends Controller
 
          // Create the user
         User::create($userData);
-
-        
-
-
         return redirect()->route('rapha.login')->with('verifiedSuccess', 'Your email has been verified! You can now log in.');
     }
 
