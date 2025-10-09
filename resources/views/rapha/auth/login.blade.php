@@ -29,29 +29,18 @@
                     
                     
 
-                    {{-- Username --}}
+                    {{-- Username  or email  --}}
                     <div class="form-group">
-                      <label for="username">Username:</label>
+                      <label for="username">Username or Email:</label>
                     <input 
                       type="text"
-                      name="user_name"
-                      value="{{ old('user_name') }}"
+                      name="login"
+                      value="{{ old('login') }}"
                       required
                       class="bg-white form-control"
                     >
                     </div>
 
-                    {{-- Email --}}
-                  <div class="form-group">
-                      <label for="email">Email:</label>
-                    <input 
-                      type="email"
-                      name="email"
-                      value="{{ old('email') }}"
-                      required
-                      class="bg-white form-control"
-                    >
-                    </div>
 
                     {{-- Password --}}
                     <div class="form-group">
@@ -62,7 +51,6 @@
                         id="password"
                         required
                         class="bg-white form-control"
-                        placeholder="At least 8 characters"
                       >
                     </div>
 

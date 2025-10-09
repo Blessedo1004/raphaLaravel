@@ -58,7 +58,28 @@ class AuthController extends Controller
 
 
     //login
-    public function login(){
+    public function login(Request  $request){
+          $request->validate([
+          'login' => 'required|string',
+          'password' => 'required|string',
+      ]);
 
+      $loginField = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
+
+      $credentials = [
+          $loginField => $request->input('login'),
+          'password' => $request->input('password'),
+      ];
+
+      if (Auth::attempt($credentials)) {
+          $request->session()->regenerate();
+
+          return redirect()->route('make-booking'); // Redirect to your dashboard or home page
+      }
+
+      return back()->withErrors([
+          'login' => 'The provided credentials do not match our records.',
+      ]);
+  }
     }
-}
+

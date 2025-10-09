@@ -78,6 +78,9 @@
                                     <li><a class="menu-item" href="{{ route('rapha.gallery') }}">Gallery</a></li>
                                     <li><a class="menu-item" href="{{ route('rapha.about') }}">About Us</a></li>
                                     <li><a class="menu-item" href="{{ route('rapha.contact') }}">Contact</a></li>
+                                    <li><a href="{{ route('rapha.signup') }}" class="btn-main btn-line sign_up">Sign Up</a> </li>
+                                    <li> <a href="{{ route('rapha.login') }}" class="btn-main btn-line ms-md-4 mt-4 log_in">Log In</a></li>    
+                                    
                                 </ul>
                             </div>
                             <div class="de-flex-col">

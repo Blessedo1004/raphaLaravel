@@ -4,13 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('rapha.home');
 })->name('rapha.home');
 
 
 // guest routes starts
-Route::get('/login',[AuthController::class,'showLogin'])->name('rapha.login');
+Route::get('/login',[AuthController::class,'showLogin'])->name('login');
 Route::get('/signup',[AuthController::class,'showSignUp'])->name('rapha.signup');
 Route::post('/signup',[AuthController::class,'signUp'])->name('rapha.signup');
 Route::post('/login',[AuthController::class,'login'])->name('rapha.login');
@@ -22,14 +23,7 @@ Route::controller(VerificationController::class)->group(function(){
     Route::post('/preregister/resend', 'preregisterResend')->name('preregister.resend');
 });
 //verification routes ends
-
-
-
-
-
 // guest routes ends
-
-
 
 
 Route::controller(GuestController::class)->group(function(){
@@ -53,3 +47,10 @@ Route::controller(GuestController::class)->group(function(){
     Route::get('/contact','contact')->name('rapha.contact');
 });
 
+
+// Auth routes start
+
+Route::middleware('auth','cache.headers:no_store,private')->group(function(){
+    // Route::post('/logout',[AuthController::class,'logout'])->name('rapha.logout');
+    Route::get('/user/make-booking',[UserController::class,'showMakeBooking'])->name('make-booking');
+});

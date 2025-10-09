@@ -69,7 +69,17 @@ label + input{
     overflow-x: hidden;
 }
 
+.sign_up, .log_in{
+        display:none !important;
+    }
 
+@media only screen and (max-width:480px){
+    .sign_up, .log_in{
+        display:block !important;
+     
+    }
+    
+}
 
 /*phones*/
 @media only screen and (max-width:767.9px){
