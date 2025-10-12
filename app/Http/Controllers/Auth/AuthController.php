@@ -80,7 +80,7 @@ class AuthController extends Controller
       if (Auth::attempt($credentials)) {
           $request->session()->regenerate();
 
-          return redirect()->route('make-booking'); // Redirect to your dashboard or home page
+          return redirect()->route('make-booking');
       }
 
       return back()->withErrors([

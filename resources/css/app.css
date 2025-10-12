@@ -21,6 +21,7 @@
 
 .url{
     color:#ab8965;
+    margin-left:23%
 }
 
 
@@ -43,7 +44,7 @@ label + input{
 
 .reg_btn{
     background-color:#ab8965 !important;
-    
+    margin-left: 3%;
 }
 
 .reg_btn:hover {
@@ -65,13 +66,13 @@ label + input{
 
 .form_section {
     margin-left: 50%;
-    overflow-y: auto;
-    overflow-x: hidden;
+
 }
 
 .sign_up, .log_in{
         display:none !important;
     }
+
 
 @media only screen and (max-width:480px){
     .sign_up, .log_in{
@@ -81,6 +82,9 @@ label + input{
     
 }
 
+
+
+
 /*phones*/
 @media only screen and (max-width:767.9px){
     .img_col{
@@ -88,11 +92,11 @@ label + input{
     }
     .form_section{
         margin-left:0;
-       
+       margin-top:20vh;
     }
 
     .display_img{
-        height: 10vh;
+        height: 30vh;
         width: 100%;
     }
 }
@@ -106,12 +110,12 @@ label + input{
 
     .form_section{
         margin-left:0;
+        margin-top:20vh;
         
     }
     .display_img{
-        height: 10vh;
+        height: 30vh;
         width: 100%;
-        object-fit: cover;
     }
 }
 

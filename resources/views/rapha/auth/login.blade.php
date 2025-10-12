@@ -25,7 +25,7 @@
                    <form action="{{ route('rapha.login') }}" method="POST" class="mt-5">
                     @csrf
 
-                    <h2 class="mt-4">Login</h2>
+                    <h1 class="mt-4">Login</h1>
                     
                     
 
@@ -58,10 +58,13 @@
                       <input type="checkbox" id="showPasswordCheckbox">
                       <label>Show Password</label>
                     </div>
-
-                    <input type="submit" class="btn mt-4 reg_btn text-light" value="Log In">
+                    <div class="col-12">
+                      <input type="submit" class="btn mt-4 reg_btn text-light col-9" value="Log In">
+                    </div>
+                    <div class="col-12">
+                      <a href="{{ route('rapha.signup') }}" class="url">Don't have an account? Sign up</a>
+                    </div>
                     
-                    <a href="{{ route('rapha.signup') }}" class="url">Don't have an account? Sign up</a>
                     <!-- validation errors -->
                     @if($errors->any())
                       @foreach ($errors->all() as $error)

@@ -19,7 +19,7 @@
                    <form action="{{ route('rapha.signup') }}" method="POST" class="mt-5">
                     @csrf
 
-                    <h2 class="mt-4">Sign Up</h2>
+                    <h1 class="mt-4">Sign Up</h1>
                     {{-- First Name --}}
                     <div class="form-group">
                       <label for="first_name">First Name:</label>
