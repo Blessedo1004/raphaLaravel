@@ -19,14 +19,14 @@ Route::middleware('cache.headers:no_store,private')->controller(AuthController::
     Route::post('/login','login')->name('rapha.login');
 });
 
-//verification routes starts
+//Pre registration verification routes starts
 Route::controller(VerificationController::class)->group(function(){
     Route::get('/preregister/notice', 'showPreregisterNotice')->name('preregister.notice')->middleware('preregister.notice');
     Route::post('/preregister/verify', 'preregisterVerify')->name('preregister.verify');
     // Resend email verification route for sign up
     Route::post('/preregister/resend', 'preregisterResend')->name('preregister.resend');
 });
-//verification routes ends
+// Pre registration verification routes ends
 
 
 //forgot password routes starts
@@ -35,9 +35,9 @@ Route::controller(ForgotPasswordController::class)->group(function(){
     Route::post('/forgotpassword','forgotPassword')->name('forgotPassword');
     Route::get('/forgotpasswordCode','showCodeVerification')->name('forgotpassword.verify')->middleware('preregister.notice');
 });
-//verification routes ends
+//forgot password routes ends
 
-// guest routes ends
+
 
 
 Route::controller(GuestController::class)->group(function(){
@@ -60,7 +60,7 @@ Route::controller(GuestController::class)->group(function(){
     Route::get('/about','about')->name('rapha.about');
     Route::get('/contact','contact')->name('rapha.contact');
 });
-
+// guest routes ends
 
 // Auth routes start
 
