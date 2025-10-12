@@ -1,0 +1,39 @@
+<x-head-two title="Verify Email" description="Forgot password">
+  <x-slot name="body">
+      <div class="notice_container">
+          <h4>
+            Please enter your registered email address
+          </h4>
+
+          {{-- verification form starts--}}
+          <form action="{{ route('forgotPassword') }}" method="post">
+            @csrf
+            <div class="form-group">
+              <input type="email" name="email" class="form-control verificationInput" required placeholder="Enter email">
+            </div>
+      
+            @if($errors->any())
+              @foreach ( $errors->all() as $error)
+                <div class="alert alert-danger mt-3">
+                    {{ $error }}
+                </div>
+                        
+              @endforeach
+            @endif
+
+            @if(session('emailFailed'))
+              <div class="alert alert-danger mt-3">
+                  {{ session('failed') }}
+              </div>
+              
+            @endif
+            
+
+            <input type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" value="Submit">
+          </form>
+         
+
+          
+     </div>
+  </x-slot>
+</x-head-two>

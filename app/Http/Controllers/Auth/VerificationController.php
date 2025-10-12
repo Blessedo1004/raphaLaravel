@@ -66,4 +66,8 @@ class VerificationController extends Controller
         session()->flash('from_verification_form', true);
         return back()->with('resendSuccess','Code resent. Check your email');
     }
+
+   
+
+    
 }

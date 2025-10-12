@@ -65,6 +65,9 @@
                       <a href="{{ route('rapha.signup') }}" class="url">Don't have an account? Sign up</a>
                     </div>
                     
+                    <div class="col-12">
+                      <a href="{{ route('forgotPassword') }}" class="url">Forgot password?</a>
+                    </div>
                     <!-- validation errors -->
                     @if($errors->any())
                       @foreach ($errors->all() as $error)

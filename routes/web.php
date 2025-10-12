@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('rapha.home');
@@ -26,6 +27,16 @@ Route::controller(VerificationController::class)->group(function(){
     Route::post('/preregister/resend', 'preregisterResend')->name('preregister.resend');
 });
 //verification routes ends
+
+
+//forgot password routes starts
+Route::controller(ForgotPasswordController::class)->group(function(){
+    Route::get('/forgotpassword','showForgotPassword')->name('forgotPassword')->middleware('preregister.notice');
+    Route::post('/forgotpassword','forgotPassword')->name('forgotPassword');
+    Route::get('/forgotpasswordCode','showCodeVerification')->name('forgotpassword.verify')->middleware('preregister.notice');
+});
+//verification routes ends
+
 // guest routes ends
 
 

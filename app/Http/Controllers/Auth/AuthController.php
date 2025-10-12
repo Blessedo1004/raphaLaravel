@@ -16,6 +16,7 @@ class AuthController extends Controller
         if(Auth::check()){
             return redirect()->route('make-booking');
         }
+        session()->flash('from_verification_form', true);
         return view ('rapha.auth.login');
     }
 
