@@ -63,8 +63,8 @@ Route::controller(GuestController::class)->group(function(){
 // guest routes ends
 
 // Auth routes start
-
 Route::middleware('auth')->group(function(){
     // Route::post('/logout',[AuthController::class,'logout'])->name('rapha.logout');
     Route::get('/user/make-booking',[UserController::class,'showMakeBooking'])->name('make-booking');
 });
+// Auth routes ends
