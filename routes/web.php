@@ -12,7 +12,7 @@ Route::get('/', function () {
 
 
 // guest routes starts
-Route::middleware('cache.headers:no_store,private')->controller(AuthController::class)->group(function(){
+Route::controller(AuthController::class)->group(function(){
     Route::get('/login','showLogin')->name('login');
     Route::get('/signup','showSignUp')->name('rapha.signup');
     Route::post('/signup','signUp')->name('rapha.signup');
@@ -33,7 +33,9 @@ Route::controller(VerificationController::class)->group(function(){
 Route::controller(ForgotPasswordController::class)->group(function(){
     Route::get('/forgotpassword','showForgotPassword')->name('forgotPassword')->middleware('preregister.notice');
     Route::post('/forgotpassword','forgotPassword')->name('forgotPassword');
-    Route::get('/forgotpasswordCode','showCodeVerification')->name('forgotpassword.verify')->middleware('preregister.notice');
+    Route::get('/forgotpassword/verify','showCodeVerification')->name('forgotpassword.verify')->middleware('preregister.notice');
+    Route::post('/forgotpassword/verify','codeVerification')->name('forgotpassword.verify');
+    Route::post('/reset-password', 'resetPassword')->name('resetPassword')->middleware('preregister.notice');
 });
 //forgot password routes ends
 

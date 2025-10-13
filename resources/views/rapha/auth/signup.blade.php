@@ -135,6 +135,6 @@
     </div>
   {{-- content ends --}}
 
-  <script src="{{ asset('js/plugins.js') }}"></script>
+  
   </x-slot>
 </x-head-two>

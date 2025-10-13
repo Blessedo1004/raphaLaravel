@@ -31,12 +31,13 @@
 
             <input type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" value="Submit">
           </form>
+          
           <h4 class="mt-4">
             Didn't recieve an email? Click the button below to request for another code.
           </h4>
 
           {{-- resend button--}}
-          {{-- <form action="{{ route('preregister.resend') }}" method="POST">
+           <form action="{{ route('preregister.resend') }}" method="POST">
             @csrf
             <input type="hidden" name="email" value="{{ $email }}">
             <input type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" value="Resend Code">
@@ -46,7 +47,7 @@
               </div>
               
             @endif
-          </form> --}}
+          </form>
      </div>
   </x-slot>
 </x-head-two>

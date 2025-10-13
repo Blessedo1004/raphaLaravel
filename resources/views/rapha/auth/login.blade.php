@@ -5,13 +5,20 @@
   <!-- page preloader begin -->
         <div id="de-loader"></div>
         <!-- page preloader close -->
+
   {{-- content starts --}}
   @if(session('verifiedSuccess'))
     <div class="alert alert-success text-center">
       {{session('verifiedSuccess')}}
     </div>
-    
   @endif
+
+  @if(session('resetSuccess'))
+    <div class="alert alert-success text-center">
+      {{session('resetSuccess')}}
+    </div>
+  @endif
+  
     <div class="container-fluid p-0 details">
         <div class="row g-0">
           <div class="col-12 col-lg-6 img_col">
@@ -88,6 +95,6 @@
     </div>
   {{-- content ends --}}
 
-  <script src="{{ asset('js/plugins.js') }}"></script>
+ 
   </x-slot>
 </x-head-two>
