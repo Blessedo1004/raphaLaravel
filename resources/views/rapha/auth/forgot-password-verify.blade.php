@@ -1,5 +1,7 @@
 <x-head-two title="Verify Email" description="zzzzzz">
   <x-slot name="body">
+    <x-preloader></x-preloader>
+    <div class="content animate__animated animate__fadeIn">
       <div class="notice_container">
           <h4>
             We've sent a password reset code to {{ $email }}. Please check your inbox or spam folder and type in the code below.
@@ -49,5 +51,7 @@
             @endif
           </form>
      </div>
+    </div>
+      
   </x-slot>
 </x-head-two>

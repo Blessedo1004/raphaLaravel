@@ -1,5 +1,7 @@
 <x-head-two title="Reset Password" description="Reset password">
   <x-slot name="body">
+    <x-preloader></x-preloader>
+    <div class="content animate__animated animate__fadeIn">
       <div class="notice_container">
           <h4>
             Enter New Password
@@ -74,5 +76,7 @@
 
           
      </div>
+    </div>
+      
   </x-slot>
 </x-head-two>

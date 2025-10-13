@@ -1,3 +1,4 @@
+@import 'animate.css/animate.min.css';
 @import 'bootstrap/dist/css/bootstrap.css';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -127,4 +128,21 @@ label + input{
     align-items: center;
     flex-direction: column;
     height:100vh;
+}
+
+.preloader{
+    display: flex; 
+    justify-content: center; 
+    height: 100vh; 
+    align-items: center;
+}
+
+.spinner-grow{
+    color:  #896d50 !important;
+    height:10vh;
+    width:10vh;
+}
+
+.content{
+    display:none;
 }

@@ -19,8 +19,15 @@ showPassword.addEventListener('click',()=>{
 })
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   document.querySelectorAll('.form-group').forEach(formGroup=>{
     formGroup.classList.add('mt-3')
   })
+})
+
+window.addEventListener('load', () => {
+  setTimeout(()=>{
+    document.querySelector('.preloader').style.display="none"
+    document.querySelector('.content').style.display="block"
+  }, 1500)
 })

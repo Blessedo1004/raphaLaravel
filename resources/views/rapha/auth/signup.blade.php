@@ -3,10 +3,11 @@
 
 <x-slot name="body">
   <!-- page preloader begin -->
-        <div id="de-loader"></div>
+        <x-preloader></x-preloader>
         <!-- page preloader close -->
-  {{-- content starts --}}
-    <div class="container-fluid p-0 details">
+    {{-- content starts --}}
+    <div class="content animate__animated animate__fadeIn">
+      <div class="container-fluid p-0 details">
         <div class="row g-0">
           <div class="col-12 col-lg-6 img_col">
             <img src="{{ asset('images/gallery/F6.webp') }}" alt="img" class="img-fluid display_img">
@@ -134,6 +135,8 @@
         </div>
     </div>
   {{-- content ends --}}
+    </div>
+    
 
   
   </x-slot>

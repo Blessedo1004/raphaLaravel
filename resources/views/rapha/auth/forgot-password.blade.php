@@ -1,5 +1,7 @@
 <x-head-two title="Verify Email" description="Forgot password">
   <x-slot name="body">
+    <x-preloader></x-preloader>
+    <div class="content animate__animated animate__fadeIn">
       <div class="notice_container">
           <h4>
             Please enter your registered email address
@@ -35,5 +37,7 @@
 
           
      </div>
+    </div>
+      
   </x-slot>
 </x-head-two>

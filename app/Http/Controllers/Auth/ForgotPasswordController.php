@@ -24,7 +24,7 @@ class ForgotPasswordController extends Controller
     public function showResetPassword(Request $request){
         $email = $request->session()->get('email');
         $code = $request->session()->get('code');
-        session(['codeVerifySuccess' => 'You can now reset your password']);
+        session(['codeVerifySuccess' => 'Email verified! You can now reset your password']);
         return view('rapha.auth.reset-password', ['email' => $email, 'code' => $code]);
     }
 
@@ -137,6 +137,6 @@ class ForgotPasswordController extends Controller
         Cache::forget('forgot_password_for' . $details['code']);
         Cache::forget('forgot_password_email_code' . $cachedEmail);
 
-        return redirect()->route('rapha.login')->with('resetSuccess', 'Pssword Reset Successful. You can now login');
+        return redirect()->route('rapha.login')->with('resetSuccess', 'Password Reset Successful! You can now login');
     }
 }
