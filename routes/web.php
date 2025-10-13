@@ -20,7 +20,7 @@ Route::controller(AuthController::class)->group(function(){
 });
 
 //Pre registration verification routes starts
-Route::controller(VerificationController::class)->group(function(){
+Route::middleware('cache.headers:no_store,private')->controller(VerificationController::class)->group(function(){
     Route::get('/preregister/notice', 'showPreregisterNotice')->name('preregister.notice')->middleware('preregister.notice');
     Route::post('/preregister/verify', 'preregisterVerify')->name('preregister.verify');
     // Resend email verification route for sign up
@@ -30,7 +30,7 @@ Route::controller(VerificationController::class)->group(function(){
 
 
 //forgot password routes starts
-Route::controller(ForgotPasswordController::class)->group(function(){
+Route::middleware('cache.headers:no_store,private')->controller(ForgotPasswordController::class)->group(function(){
     Route::get('/forgotpassword','showForgotPassword')->name('forgotPassword')->middleware('preregister.notice');
     Route::post('/forgotpassword','forgotPassword')->name('forgotPassword');
     Route::get('/forgotpassword/verify','showCodeVerification')->name('forgotpassword.verify')->middleware('preregister.notice');
@@ -69,7 +69,7 @@ Route::controller(GuestController::class)->group(function(){
 // guest routes ends
 
 // Auth routes start
-Route::middleware('auth')->group(function(){
+Route::middleware('cache.headers:no_store,private')->middleware('auth')->group(function(){
     // Route::post('/logout',[AuthController::class,'logout'])->name('rapha.logout');
     Route::get('/user/make-booking',[UserController::class,'showMakeBooking'])->name('make-booking');
 });
