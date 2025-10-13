@@ -6,7 +6,7 @@
           <x-preloader></x-preloader>
       <!-- page preloader close -->
 
-      <div class="content animate__animated animate__fadeIn">
+      <div class="content animate__animated animate__fadeIn animate__slow">
         {{-- content starts --}}
       @if(session('verifiedSuccess'))
         <div class="alert alert-success text-center">
