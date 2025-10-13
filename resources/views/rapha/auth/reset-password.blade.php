@@ -15,9 +15,9 @@
           <form action="{{ route('resetPassword') }}" method="post">
             @csrf
 
-            <input type="hidden" name="email" value="{{ $email }}">
+            <input type="hidden" name="email" value="{{ old('email', $email ?? '') }}">
             
-            <input type="hidden" name="code" value="{{ $code }}">
+            <input type="hidden" name="code" value="{{ old('code', $code ?? '') }}">
             
              {{-- Password --}}
                     <div class="form-group">

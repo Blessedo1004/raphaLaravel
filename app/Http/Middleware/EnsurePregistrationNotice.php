@@ -15,7 +15,10 @@ class EnsurePregistrationNotice
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session()->has('show_preregister_notice') || session()->has('from_verification_form')) {
+        // Check for the initial ticket OR for validation errors being flashed
+        if (session()->has('show_preregister_notice') || 
+            session()->has('from_verification_form') ||
+            (session()->has('errors') && session('errors')->any())) { // This is the new, smarter check
             return $next($request);
         }
 

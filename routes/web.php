@@ -35,9 +35,10 @@ Route::controller(ForgotPasswordController::class)->group(function(){
     Route::post('/forgotpassword','forgotPassword')->name('forgotPassword');
     Route::get('/forgotpassword/verify','showCodeVerification')->name('forgotpassword.verify')->middleware('preregister.notice');
     Route::post('/forgotpassword/verify','codeVerification')->name('forgotpassword.verify');
-    Route::get('/reset-password')->name('resetPassword')->middleware('preregister.notice');
+    Route::get('/reset-password', 'showResetPassword')->name('resetPassword')->middleware('preregister.notice');
     Route::post('/reset-password', 'resetPassword')->name('resetPassword');
     // Resend code route for forgot password
+    Route::get('/forgotpassword/resend')->name('forgot-password.resend')->middleware('preregister.notice');
     Route::post('/forgotpassword/resend', 'resendCode')->name('forgot-password.resend');
 });
 //forgot password routes ends
