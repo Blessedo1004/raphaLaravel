@@ -57,6 +57,9 @@ class ForgotPasswordController extends Controller
         return view('rapha.auth.forgot-password-verify', ['email' => $email]);
     }
 
+    
+
+     //verify code
     public function codeVerification(Request $request){
       $code = $request->validate(['code'=>'required|string']);
 
@@ -68,10 +71,41 @@ class ForgotPasswordController extends Controller
       }
 
       session(['codeVerifySuccess' => 'You can now reset your password']);
-      session()->flash('from_verification_form', true);
       return view('rapha.auth.reset-password' , ['code' => $code['code'], 'email' => $userEmail]);
     }
 
+    //resend code
+
+     public function resendCode (Request $request){
+       $email= $request->validate(['email'=>'required|email']);
+
+       
+
+        $oldCode = Cache::get('forgot_password_email_code' . $email['email']);
+        $userEmail = Cache::get('forgot_password_for' . $oldCode);
+
+        
+        if ($userEmail) {
+           Cache::forget('forgot_password_for' . $oldCode);
+           Cache::forget('forgot_password_email_code' . $email['email']);
+        }
+       
+
+        $newCode = Str::random(10);
+        $userEmail = $email['email'];
+
+         Cache::put('forgot_password_for'. $newCode, $userEmail, 60 * 20);
+        Cache::put('forgot_password_email_code'. $userEmail, $newCode, 60 * 20);
+
+         Mail::send('rapha.emails.verify-preregistration', ['code' => $newCode], function ($message) use ($userEmail) {
+            $message->to($userEmail);
+            $message->subject('Verify Your Email Address');
+        });
+        session()->flash('from_verification_form', true);
+        return back()->with('resendSuccess2','Code resent. Check your email');
+    }
+
+     //reset password
     public function resetPassword(Request $request){
         $details = $request->validate([
             'code' => 'required|string',

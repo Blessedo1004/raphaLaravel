@@ -2,7 +2,7 @@
   <x-slot name="body">
       <div class="notice_container">
           <h4>
-            We've sent a verification code to {{ $email }}. Please check your inbox or spam folder and type in the code below.
+            We've sent a password reset code to {{ $email }}. Please check your inbox or spam folder and type in the code below.
           </h4>
 
           {{-- verification form starts--}}
@@ -37,13 +37,13 @@
           </h4>
 
           {{-- resend button--}}
-           <form action="{{ route('preregister.resend') }}" method="POST">
+           <form action="{{ route('forgot-password.resend') }}" method="POST">
             @csrf
             <input type="hidden" name="email" value="{{ $email }}">
             <input type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" value="Resend Code">
-            @if(session('resendSuccess'))
+            @if(session('resendSuccess2'))
               <div class="alert alert-success mt-3">
-                  {{ session('resendSuccess') }}
+                  {{ session('resendSuccess2') }}
               </div>
               
             @endif
