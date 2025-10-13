@@ -28,7 +28,7 @@ class AuthController extends Controller
         return view ('rapha.auth.signup');
     }
 
-    // save user details temporarily and send verification token
+    // save user details temporarily and send verification code
     public function signUp (Request $request){
         $userData = $request->validate([
             'first_name'=>'required|string|min:6|max:20',
