@@ -71,10 +71,14 @@ class AuthController extends Controller
           'password' => 'required|string',
       ]);
 
-      $loginField = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
+      $loginInput = $request->input('login');
+      $loginField = filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name';
+
+      // Convert email to lowercase before attempting to authenticate
+      $loginValue = ($loginField === 'email') ? strtolower($loginInput) : $loginInput;
 
       $credentials = [
-          $loginField => $request->input('login'),
+          $loginField => $loginValue,
           'password' => $request->input('password'),
       ];
 

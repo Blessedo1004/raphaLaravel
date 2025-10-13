@@ -31,15 +31,16 @@ class ForgotPasswordController extends Controller
     // forgot password
     public function forgotPassword (Request $request){
         $verified = $request->validate(['email' => 'required|email']);
+        $lowerCaseEmail = strtolower($verified['email']);
 
-        $existingCode =   Cache::get('forgot_password_email_code'. $verified['email']);
+        $existingCode =   Cache::get('forgot_password_email_code'. $lowerCaseEmail);
 
         if($existingCode){
             Cache::forget('forgot_password_for'. $existingCode);
-            Cache::forget('forgot_password_email_code'. $verified['email']);
+            Cache::forget('forgot_password_email_code'. $lowerCaseEmail);
         }
         
-        $user = User::where('email', $verified['email'])->first();
+        $user = User::where('email', $lowerCaseEmail)->first();
 
         if (!$user) {
             session()->flash('from_verification_form', true);
@@ -47,7 +48,7 @@ class ForgotPasswordController extends Controller
         }
 
         $code = Str::random(10);
-        $email = $verified['email'];
+        $email = $lowerCaseEmail;
         Cache::put('forgot_password_for' . $code, $email, 60 * 20);
         Cache::put('forgot_password_email_code' . $email, $code, 60 * 20);
 
