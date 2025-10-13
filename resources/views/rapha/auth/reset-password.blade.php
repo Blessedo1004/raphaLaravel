@@ -1,14 +1,15 @@
 <x-head-two title="Reset Password" description="Reset password">
   <x-slot name="body">
-    @if (session('codeVerifySuccess'))
-      <div class="alert alert-success mt-3">
-                  {{ session('codeVerifySuccess') }}
-              </div>
-    @endif
       <div class="notice_container">
           <h4>
             Enter New Password
           </h4>
+
+           @if (session('codeVerifySuccess'))
+             <div class="alert alert-success mt-3">
+                  {{ session('codeVerifySuccess') }}
+              </div>
+            @endif
 
           {{-- reset form starts--}}
           <form action="{{ route('resetPassword') }}" method="post">

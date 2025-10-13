@@ -85,7 +85,7 @@ class AuthController extends Controller
       }
 
       return back()->withErrors([
-          'login' => 'The provided credentials do not match our records.',
+          'login' => 'Invalid Cridentials.',
       ]);
   }
     }
