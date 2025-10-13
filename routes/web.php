@@ -69,7 +69,7 @@ Route::controller(GuestController::class)->group(function(){
 // guest routes ends
 
 // Auth routes start
-Route::middleware('cache.headers:no_store,private')->middleware('auth')->group(function(){
+Route::middleware(['auth','cache.headers:no_store,private'])->group(function(){
     // Route::post('/logout',[AuthController::class,'logout'])->name('rapha.logout');
     Route::get('/user/make-booking',[UserController::class,'showMakeBooking'])->name('make-booking');
 });
