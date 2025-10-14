@@ -3,7 +3,7 @@
     <x-preloader></x-preloader>
     <div class="content animate__animated animate__fadeIn">
        <div class="notice_container">
-          <h4>
+          <h4 class="text-center text-lg-start">
             We've sent a verification code to {{ $email }}. Please check your inbox or spam folder and type in the code below.
           </h4>
 
@@ -33,7 +33,7 @@
 
             <input type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" value="Submit">
           </form>
-          <h4 class="mt-4">
+          <h4 class="mt-4 text-center text-lg-start">
             Didn't recieve an email? Click the button below to request for another code.
           </h4>
 

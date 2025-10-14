@@ -14,6 +14,14 @@
         </div>
       @endif
 
+      @if(session('logoutSuccess'))
+
+      <div class="alert alert-success text-center">
+          {{session('logoutSuccess')}}
+      </div>
+      
+      @endif
+
       @if(session('resetSuccess'))
         <div class="alert alert-success text-center">
           {{session('resetSuccess')}}

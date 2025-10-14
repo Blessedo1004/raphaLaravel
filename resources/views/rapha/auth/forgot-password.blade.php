@@ -3,7 +3,7 @@
     <x-preloader></x-preloader>
     <div class="content animate__animated animate__fadeIn">
       <div class="notice_container">
-          <h4>
+          <h4 class="text-center text-lg-start">
             Please enter your registered email address
           </h4>
 

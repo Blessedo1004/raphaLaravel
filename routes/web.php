@@ -19,6 +19,8 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('/login','login')->name('rapha.login');
 });
 
+Route::post('/logout',[AuthController::class,'logout'])->name('logout');
+
 //Pre registration verification routes starts
 Route::middleware('cache.headers:no_store,private')->controller(VerificationController::class)->group(function(){
     Route::get('/preregister/notice', 'showPreregisterNotice')->name('preregister.notice')->middleware('preregister.notice');
@@ -71,6 +73,7 @@ Route::controller(GuestController::class)->group(function(){
 // Auth routes start
 Route::middleware(['auth','cache.headers:no_store,private'])->group(function(){
     // Route::post('/logout',[AuthController::class,'logout'])->name('rapha.logout');
+    Route::get('/user/dashboard',[UserController::class,'showDashboard'])->name('dashboard');
     Route::get('/user/make-booking',[UserController::class,'showMakeBooking'])->name('make-booking');
 });
 // Auth routes ends

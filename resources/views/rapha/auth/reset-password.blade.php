@@ -3,7 +3,7 @@
     <x-preloader></x-preloader>
     <div class="content animate__animated animate__fadeIn">
       <div class="notice_container">
-          <h4>
+          <h4 class="text-center text-lg-start">
             Enter New Password
           </h4>
 

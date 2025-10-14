@@ -8,12 +8,16 @@ if (showPassword){
 showPassword.addEventListener('click',()=>{
   if (!clicked){
     password.type="text"
+    if (passwordConfirm){
     passwordConfirm.type="text"
+    }
     clicked=true;
   }
   else if(clicked){
     password.type="password";
+    if (passwordConfirm){
     passwordConfirm.type="password"
+    }
     clicked=false
   }
 })
@@ -31,3 +35,13 @@ window.addEventListener('load', () => {
     document.querySelector('.content').style.display="block"
   }, 1500)
 })
+
+setTimeout(() => {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+        alert.classList.add('fade-out');
+        alert.addEventListener('animationend', () => {
+            alert.classList.add('d-none');
+        });
+    });
+}, 3000);

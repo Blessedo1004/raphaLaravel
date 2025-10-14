@@ -14,7 +14,7 @@ class AuthController extends Controller
     // show login view
     public function showLogin (){
         if(Auth::check()){
-            return redirect()->route('make-booking');
+            return redirect()->route('dashboard');
         }
         session()->flash('from_verification_form', true);
         return view ('rapha.auth.login');
@@ -23,7 +23,7 @@ class AuthController extends Controller
     //show sign up view
      public function showSignUp (){
             if(Auth::check()){
-            return redirect()->route('make-booking');
+            return redirect()->route('dashboard');
         }
         return view ('rapha.auth.signup');
     }
@@ -85,12 +85,21 @@ class AuthController extends Controller
       if (Auth::attempt($credentials)) {
           $request->session()->regenerate();
 
-          return redirect()->route('make-booking');
+          return redirect()->route('dashboard')->with('loginSuccess', 'Login Successful');
       }
 
       return back()->withErrors([
-          'login' => 'Invalid Cridentials.',
+          'login' => 'Invalid Credentials.',
       ]);
   }
+
+     public function logout (Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('rapha.login')->with('logoutSuccess', "You've been logged out");
     }
 
+    }
+
+   

@@ -25,7 +25,33 @@
     margin-left:23%
 }
 
+.header{
+    color:#ab8965;
+    box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
+    border-radius: 10px;
+}
 
+.header > .row{
+    height:10vh;
+    align-items:center;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation: fade-out 1s ease-in-out forwards;
+}
+
+input[type="checkbox"]{
+    cursor:pointer;
+}
 /* Hide spin buttons in Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -39,13 +65,27 @@ input[type="number"] {
 }
 
 label + input{
-    width:80% !important;
+    width:70% !important;
 }
 
+.nav-column{
+    box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
+    border-radius: 10px;
+}
+
+.nav-row{
+    height:80vh;
+}
 
 .reg_btn{
     background-color:#ab8965 !important;
     margin-left: 3%;
+}
+
+.active{
+    background-color:#896d50 !important;
+    color:white !important;
+    border-radius:10px;
 }
 
 .reg_btn:hover {
@@ -100,9 +140,30 @@ label + input{
         height: 30vh;
         width: 100%;
     }
+
+    .header > .row{
+    height:30vh;
+    }
+
+    input[value="logout"] {
+  width:50% !important;
+}
+.nav-row{
+    height:30vh;
 }
 
-/* larger phones, tablets */
+}
+
+/* larger phones */
+@media only screen and (min-width:576px) and (max-width:767.9px){
+    .header > .row{
+    height:10vh;
+    align-items:center;
+}
+   
+}
+
+/* small tablets */
 @media only screen and (min-width:768px) and (max-width:991.9px){
     .img_col{
         width: 100%;
@@ -118,6 +179,15 @@ label + input{
         height: 30vh;
         width: 100%;
     }
+
+    label + input{
+    width:50% !important;
+}
+
+    .nav-row{
+    height:30vh;
+}
+
 }
 
 /*preregister notice*/

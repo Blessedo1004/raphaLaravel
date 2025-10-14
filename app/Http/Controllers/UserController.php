@@ -9,4 +9,8 @@ class UserController extends Controller
     public function showMakeBooking(){
         return view('rapha.user.make-booking');
     }
+
+     public function showDashboard(){
+        return view('rapha.user.dashboard');
+    }
 }

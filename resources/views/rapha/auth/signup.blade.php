@@ -113,9 +113,13 @@
                       <label>Show Password</label>
                     </div>
 
-                    <input type="submit" class="btn mt-4 reg_btn text-light" value="Sign Up">
+                     <div class="col-12">
+                          <input type="submit" class="btn mt-4 reg_btn text-light col-9" value="Sign Up">
+                     </div>
                     
-                    <a href="{{ route('rapha.login') }}" class="url">Already signed up? Log in</a>
+                     <div class="col-12 mt-3">
+                          <a href="{{ route('rapha.login') }}" class="url">Already signed up? Log In</a>
+                    </div>
                     <!-- validation errors -->
                     @if($errors->any())
                       @foreach ($errors->all() as $error)
