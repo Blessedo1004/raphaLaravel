@@ -6,7 +6,7 @@
         <x-preloader></x-preloader>
         <!-- page preloader close -->
     {{-- content starts --}}
-    <div class="content animate__animated animate__fadeIn animate__slow">
+    <div class="content animate__animated animate__fadeIn">
       <div class="container-fluid p-0 details">
         <div class="row g-0">
           <div class="col-12 col-lg-6 img_col">
