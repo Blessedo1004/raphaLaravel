@@ -13,7 +13,7 @@
             <img src="{{ asset('images/gallery/F6.webp') }}" alt="img" class="img-fluid display_img">
           </div>
           <div class="col-12 col-lg-6 form_section">
-            <div class="row mt-5 offset-lg-2">
+            <div class="row mt-5 offset-lg-2 mb-5">
       
                  <a href="{{ route('rapha.home') }}" class="url mt-5 mt-lg-0">Back To Home</a>
                  {{-- Form starts --}}

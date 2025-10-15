@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
    <head>
     <link rel="icon" href="{{ asset('images/icon1.png') }}" type="image/png" sizes="16x16">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <title>{{ $title ?? 'Rapha Hotel' }}</title>
     <meta name="description" content="{{ $metaDescription ?? 'Welcome to Rapha Hotel, a luxurious hotel in the heart of the city. We offer a wide range of rooms and suites, as well as a variety of amenities to make your stay as comfortable as possible.' }}">
@@ -83,6 +83,11 @@
                                         <li> <a href="{{ route('rapha.login') }}" class="btn-main btn-line ms-md-4 mt-4 log_in">Log In</a></li> 
                                     @endguest
 
+                                     @auth
+                                         <li><a href="{{ route('dashboard') }}" class="btn-main btn-line sign_up">Dashboard</a> </li>
+
+                                    @endauth
+                                   
                                     
                                 </ul>
                             </div>
@@ -92,6 +97,9 @@
                                     <a href="{{ route('rapha.signup') }}" class="btn-main btn-line">Sign Up</a>          
                                     <a href="{{ route('rapha.login') }}" class="btn-main btn-line ms-md-4">Log In</a>
                                     @endguest
+                                     @auth
+                                    <a href="{{ route('dashboard') }}" class="btn-main btn-line">Dashboard</a>
+                                    @endauth
                                     <span id="menu-btn"></span>
                                 </div>
                             </div>

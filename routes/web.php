@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EditProfileController;
 Route::get('/', function () {
     return view('rapha.home');
 })->name('rapha.home');
@@ -72,8 +73,19 @@ Route::controller(GuestController::class)->group(function(){
 
 // Auth routes start
 Route::middleware(['auth','cache.headers:no_store,private'])->group(function(){
-    // Route::post('/logout',[AuthController::class,'logout'])->name('rapha.logout');
-    Route::get('/user/dashboard',[UserController::class,'showDashboard'])->name('dashboard');
-    Route::get('/user/make-booking',[UserController::class,'showMakeBooking'])->name('make-booking');
+    Route::controller(UserController::class)->group(function(){
+    Route::get('/user/dashboard','showDashboard')->name('dashboard');
+    Route::get('/user/make-reservation','showMakeReservation')->name('make-reservation');
+    Route::get('/user/reservations','showReservations')->name('reservations');
+    Route::get('/user/write-review','showWriteReview')->name('write-review');
+    Route::get('/user/reviews','showReviews')->name('reviews');
+    Route::get('/user/profile','showProfile')->name('profile');
+    });
+
+    //edit profile info starts
+    Route::controller(EditProfileController::class)->group(function(){
+    Route::put('/user/profile-edit-first-name/{firstName}','editFirstName')->name('edit-first-name');
+    });
+    //edit profile info ends
 });
 // Auth routes ends

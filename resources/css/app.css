@@ -82,7 +82,7 @@ label + input{
     margin-left: 3%;
 }
 
-.active{
+.active2{
     background-color:#896d50 !important;
     color:white !important;
     border-radius:10px;
@@ -114,7 +114,9 @@ label + input{
         display:none !important;
     }
 
-
+a{
+    text-decoration:none !important;
+}
 @media only screen and (max-width:480px){
     .sign_up, .log_in{
         display:block !important;
@@ -133,7 +135,7 @@ label + input{
     }
     .form_section{
         margin-left:0;
-       margin-top:20vh;
+       margin-top:25vh;
     }
 
     .display_img{
@@ -172,7 +174,7 @@ label + input{
 
     .form_section{
         margin-left:0;
-        margin-top:20vh;
+        margin-top:25vh;
         
     }
     .display_img{
@@ -215,4 +217,8 @@ label + input{
 
 .content{
     display:none;
+}
+
+.nav-row a{
+    color:black;
 }
