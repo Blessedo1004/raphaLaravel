@@ -88,6 +88,10 @@ Route::middleware(['auth','cache.headers:no_store,private'])->group(function(){
     Route::put('/user/profile-edit-first-name/{edit}','editFirstName')->name('edit-first-name');
     Route::get('/user/profile-edit-last-name','showEditLastName')->name('show-edit-last-name')->middleware('one-time-user');
     Route::put('/user/profile-edit-last-name/{edit}','editLastName')->name('edit-last-name');
+    Route::get('/user/profile-edit-user-name','showEditUserName')->name('show-edit-user-name')->middleware('one-time-user');
+    Route::put('/user/profile-edit-user-name/{edit}','editUserName')->name('edit-user-name');
+    Route::get('/user/profile-edit-phone-number','showEditPhoneNumber')->name('show-edit-phone-number')->middleware('one-time-user');
+    Route::put('/user/profile-edit-phone-number/{edit}','editPhoneNumber')->name('edit-phone-number');
     });
     //edit profile info ends
 });
