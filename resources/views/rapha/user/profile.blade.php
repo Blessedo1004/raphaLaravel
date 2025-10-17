@@ -29,14 +29,14 @@
         {{-- user name --}}
         <h4 class="text-center mt-4">User Name:&nbsp;{{$profile->user_name}} 
           <a href="{{ route('show-edit-user-name') }}">
-            <i class="fa-solid fa-user-pen"></i>
+            <i class="fa-solid fa-user-pen" title="Edit"></i>
           </a>
         </h4>
 
         {{-- phone number --}}
         <h4 class="text-center mt-4">Phone Number:&nbsp;{{$profile->phone_number}} 
           <a href="{{ route('show-edit-phone-number')}}">
-            <i class="fa-solid fa-user-pen"></i>
+            <i class="fa-solid fa-user-pen" title="Edit"></i>
           </a>
         </h4>
 
