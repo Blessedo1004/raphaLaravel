@@ -22,7 +22,7 @@
           <x-preloader></x-preloader>
   <!-- page preloader close -->
 
-   <div class="content animate__animated animate__fadeIn">
+   <div class="content animate__animated animate__fadeIn" style="position: relative;">
   {{-- header starts --}}
   <div class="container-fluid container-sm header py-2">
     <div class="row justify-content-center">
@@ -32,8 +32,14 @@
         </a>
         
       </div>
-      <div class="col-12 col-sm-5 text-center text-sm-start">
-         <h5> Welcome ,</h5> <h2> {{Auth::user()->last_name}}</h2>
+      <div class="col-12 col-sm-5 text-sm-start mt-2">
+        <div class="row justify-content-center justify-content-md-start align-items-center">
+          <div class="col-7 col-md-12">
+            <h5> Welcome ,</h5> <h2> {{Auth::user()->last_name}}</h2> 
+          </div>
+          <h1 class="col-1 col-md-12"><i class="fa-solid fa-bars"></i> <i class="fa-solid fa-xmark"></i></h1>
+        </div>
+         
       </div>
       <div class="col-7 col-sm-2">
         <form action="{{ route('logout') }}" method="post">
@@ -87,16 +93,12 @@
       {{-- navigation ends --}}
 
       {{-- content starts --}}
-      <div class="col-12 col-lg-10">
+      <div class="col-12 col-lg-10 content-div">
         {{ $content }}
       </div>
       {{-- content ends --}}
     </div>
   </div>
   </div>
-
- 
-
-   
 </body>
 </html>

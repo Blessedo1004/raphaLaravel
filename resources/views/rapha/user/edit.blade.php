@@ -1,18 +1,19 @@
-<x-head-two title="Verify Email" description="Forgot password">
+<x-head-two title="{{$header}}" description="{{$header}}">
   <x-slot name="body">
     <x-preloader></x-preloader>
     <div class="content animate__animated animate__fadeIn">
       <img class="logo-main mx-auto d-block mx-sm-0" src="{{asset('images/logo-white1.webp')}}" alt="logo" >
       <div class="notice_container">
           <h4 class="text-center text-lg-start">
-            Please enter your registered email address
+           {{$header}}
           </h4>
 
           {{-- verification form starts--}}
-          <form action="{{ route('forgotPassword') }}" method="post">
+          <form action="{{ route($route,$profile->$wildcard) }}" method="post">
             @csrf
+            @method('put')
             <div class="form-group">
-              <input type="email" name="email" class="form-control verificationInput" required placeholder="Enter email">
+              <input type="text" name="{{ $wildcard }}" class="form-control verificationInput" required placeholder="{{ $placeholder }}">
             </div>
       
             @if($errors->any())
@@ -22,13 +23,6 @@
                 </div>
                         
               @endforeach
-            @endif
-
-            @if(session('emailFailed'))
-              <div class="alert alert-danger mt-3">
-                  {{ session('failed') }}
-              </div>
-              
             @endif
             
 

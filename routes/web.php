@@ -84,7 +84,10 @@ Route::middleware(['auth','cache.headers:no_store,private'])->group(function(){
 
     //edit profile info starts
     Route::controller(EditProfileController::class)->group(function(){
-    Route::put('/user/profile-edit-first-name/{firstName}','editFirstName')->name('edit-first-name');
+    Route::get('/user/profile-edit-first-name','showEditFirstName')->name('show-edit-first-name')->middleware('one-time-user');
+    Route::put('/user/profile-edit-first-name/{edit}','editFirstName')->name('edit-first-name');
+    Route::get('/user/profile-edit-last-name','showEditLastName')->name('show-edit-last-name')->middleware('one-time-user');
+    Route::put('/user/profile-edit-last-name/{edit}','editLastName')->name('edit-last-name');
     });
     //edit profile info ends
 });

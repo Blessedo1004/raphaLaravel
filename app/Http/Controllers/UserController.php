@@ -32,19 +32,9 @@ class UserController extends Controller
         return view('rapha.user.reviews');
     }
 
-        public function showProfile(){
-
-            $profile = Auth::user();
-
-            $header = 'Edit First Name';
-
-            $placeholder = 'New first name';
-
-            $route = 'edit-first-name';
-
-            $wildcard = 'first_name';
-
-            return view('rapha.user.profile', compact('profile', 'header', 'placeholder', 'route', 'wildcard'));
-
-        }
+    public function showProfile(){
+        $profile = User::where('id', Auth::user()->id)->first();
+        session()->flash('edit_form', true);
+        return view('rapha.user.profile', compact('profile'));
+    }
 }

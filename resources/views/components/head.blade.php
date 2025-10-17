@@ -64,7 +64,7 @@
                                 <!-- logo begin -->
                                 <div id="logo">
                                     <a href="{{ route('rapha.home') }}">
-                                        <img class="logo-main" src="{{asset('images/logo-white1.webp')}}" alt="" >
+                                        <img class="logo-main" src="{{asset('images/logo-white1.webp')}}" alt="logo" >
                                         <img class="logo-scroll" src="{{asset('images/logo-black1.webp')}}" alt="" >
                                         <img class="logo-mobile" src="{{asset('images/logo-white1.webp')}}" alt="" >
                                     </a>

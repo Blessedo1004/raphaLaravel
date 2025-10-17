@@ -1,5 +1,6 @@
-// import './bootstrap';
+import './bootstrap';
 
+// show and hide passwords
 const showPassword = document.querySelector('#showPasswordCheckbox');
 const password = document.querySelector('#password');
 const passwordConfirm = document.querySelector('#password_confirmation');
@@ -23,12 +24,14 @@ showPassword.addEventListener('click',()=>{
 })
 }
 
+//adds margin top to form groups
 window.addEventListener('load', () => {
   document.querySelectorAll('.form-group').forEach(formGroup=>{
     formGroup.classList.add('mt-3')
   })
 })
 
+//preloader
 window.addEventListener('load', () => {
   setTimeout(()=>{
     document.querySelector('.preloader').style.display="none"
@@ -36,6 +39,7 @@ window.addEventListener('load', () => {
   }, 1500)
 })
 
+//fade out alerts after 3 seconds
 setTimeout(() => {
     const alerts = document.querySelectorAll('.alert');
     alerts.forEach(alert => {
@@ -45,3 +49,31 @@ setTimeout(() => {
         });
     });
 }, 3000);
+
+// modal for editing user profile
+document.querySelector('.fa-user-pen').addEventListener('click', ()=>{
+      document.querySelector('.modal_container').style.display="flex"
+    })
+
+// document.querySelector('.closeBtn').addEventListener('click', ()=>{
+//       document.querySelector('.modal_container').style.display="none"
+//  })
+
+    // user profile navigation display
+document.querySelector('.fa-bars').addEventListener('click', ()=>{
+    const navRow = document.querySelector('.nav-row');
+        navRow.style.display = 'flex';
+        navRow.classList.add('fade-in');
+         document.querySelector('.content-div').style.marginTop = '10%';
+         document.querySelector('.fa-xmark').style.display = 'block';
+         document.querySelector('.fa-bars').style.display = 'none';
+})
+
+document.querySelector('.fa-xmark').addEventListener('click', ()=>{
+    const navRow = document.querySelector('.nav-row');
+        navRow.classList.add('fade-out');
+        navRow.style.display = 'none';
+        document.querySelector('.content-div').style.marginTop = '0';
+        document.querySelector('.fa-xmark').style.display = 'none';
+        document.querySelector('.fa-bars').style.display = 'block';
+})

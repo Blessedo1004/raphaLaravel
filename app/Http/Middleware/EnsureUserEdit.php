@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnsurePregistrationNotice
+class EnsureUserEdit
 {
     /**
      * Handle an incoming request.
@@ -16,13 +16,13 @@ class EnsurePregistrationNotice
     public function handle(Request $request, Closure $next): Response
     {
         // Check for the initial ticket OR for validation errors being flashed
-        if (session()->has('show_preregister_notice') || 
-            session()->has('from_verification_form') ||
+        if (session()->has('edit_form') || 
             (session()->has('errors') && session('errors')->any())) { // This is the new, smarter check
             return $next($request);
         }
 
-          return redirect()->route('rapha.home');
+          return redirect()->route('profile');
+        
     }
 
     

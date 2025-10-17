@@ -3,21 +3,23 @@
   <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-12">
-        @if(session('firstName'))
+        @if(session('editSuccess'))
           <div class="alert alert-success text-center">
-          {{session('firstName')}}
+          {{session('editSuccess')}}
         </div>
         @endif
-        <h2 class="text-center mb-4">User Profile</h2>
-        <h4 class="text-center">First Name: &nbsp; &nbsp;{{$profile->first_name}}
-          <button type="button" class="btn">
-            <i class="fa-solid fa-user-pen" data-bs-toggle="modal" data-bs-target="#myModal"></i>
-          </button>
+        <h1 class="text-center mb-4"><strong>User Profile</strong></h1>
+        <h4 class="text-center d-flex justify-content-center">First Name: &nbsp;{{$profile->first_name}}
+           <a href="{{ route('show-edit-first-name') }}"><i class="fa-solid fa-user-pen" title="Edit"></i></a> 
+          
         </h4>
 
-        {{-- <h4 class="text-center mt-4">Last Name:&nbsp; &nbsp;{{$profile->last_name}} 
-        <a href="{{ route('edit-last-name',$profile->last_name) }}">
-          <i class="fa-solid fa-user-pen"></i></a></h4>
+         <h4 class="text-center d-flex justify-content-center mt-3">Last Name: &nbsp;{{$profile->last_name}}
+           <a href="{{ route('show-edit-last-name') }}"><i class="fa-solid fa-user-pen" title="Edit"></i></a> 
+          
+        </h4>
+
+        {{-- 
 
         <h4 class="text-center mt-4">User Name:&nbsp; &nbsp;{{$profile->user_name}} 
           <a href="{{ route('edit-user-name',$profile->user_name) }}">
@@ -31,21 +33,20 @@
       </div>
     </div>
   </div> 
-  
-  {{-- modal --}}
-  <div class="modal" id="myModal">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">{{$header}}</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
+</x-slot>  
+</x-user-layout>
 
-      <!-- Modal body -->
-      <div class="modal-body">
-        <form action="{{ route($route,$profile->$wildcard) }}" method="post">
+   {{-- <div class="modal_container">
+      <div class="modal_body">
+        <span class="text-end">
+          <i class="fa-solid fa-xmark closeBtn" title="close"></i>
+        </span> --}}
+         
+        {{-- <h3>{{$header}}</h3> --}}
+       
+
+         {{-- <form action="{{ route($route,$profile->$wildcard) }}" method="post" class="mt-4">
           @csrf
           @method('put')
           <div class="form-group">
@@ -67,14 +68,7 @@
               
             @endforeach
           @endif
-        </form>
-      </div>
+        </form> --}}
+      {{-- </div>
+    </div> --}}
 
-    </div>
-  </div>
-</div>
-  
-
-
-</x-slot>  
-</x-user-layout>

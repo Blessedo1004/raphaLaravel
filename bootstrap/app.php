@@ -15,6 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'preregister.notice' => \App\Http\Middleware\EnsurePregistrationNotice::class,
         ]);
     })
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'one-time-user' => \App\Http\Middleware\EnsureUserEdit::class,
+        ]);
+    })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
