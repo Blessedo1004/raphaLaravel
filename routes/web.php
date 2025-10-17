@@ -13,7 +13,7 @@ Route::get('/', function () {
 
 
 // guest routes starts
-Route::controller(AuthController::class)->group(function(){
+Route::middleware('cache.headers:no_store,private')->controller(AuthController::class)->group(function(){
     Route::get('/login','showLogin')->name('login');
     Route::get('/signup','showSignUp')->name('rapha.signup');
     Route::post('/signup','signUp')->name('rapha.signup');

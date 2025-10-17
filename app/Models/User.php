@@ -62,4 +62,9 @@ class User extends Authenticatable
             set: fn ($value) => strtolower($value),
         );
     }
+
+    public function review()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

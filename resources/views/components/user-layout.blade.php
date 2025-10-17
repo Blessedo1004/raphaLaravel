@@ -77,11 +77,11 @@
                <i class="fa-solid fa-comment"></i> Write a Review
             </x-nav>
           </div>
-          <div class="col-12 text-center">
+          {{-- <div class="col-12 text-center">
              <x-nav :activePage="Route::currentRouteName()" page="reviews">
-               <i class="fa-solid fa-comments"></i> Reviews
+               <i class="fa-solid fa-comments"></i> My Review
             </x-nav>
-          </div>
+          </div> --}}
 
           <div class="col-12 text-center">
              <x-nav :activePage="Route::currentRouteName()" page="profile">
@@ -93,7 +93,7 @@
       {{-- navigation ends --}}
 
       {{-- content starts --}}
-      <div class="col-12 col-lg-10 content-div">
+      <div class="col-12 col-lg-10 content-div pb-5 pb-lg-0">
         {{ $content }}
       </div>
       {{-- content ends --}}

@@ -1,6 +1,5 @@
-import './bootstrap';
-
-// show and hide passwords
+document.addEventListener('DOMContentLoaded', function() {
+    // show and hide passwords
 const showPassword = document.querySelector('#showPasswordCheckbox');
 const password = document.querySelector('#password');
 const passwordConfirm = document.querySelector('#password_confirmation');
@@ -41,7 +40,7 @@ window.addEventListener('load', () => {
 
 //fade out alerts after 3 seconds
 setTimeout(() => {
-    const alerts = document.querySelectorAll('.alert');
+    const alerts = document.querySelectorAll('.alert-success');
     alerts.forEach(alert => {
         alert.classList.add('fade-out');
         alert.addEventListener('animationend', () => {
@@ -51,29 +50,43 @@ setTimeout(() => {
 }, 3000);
 
 // modal for editing user profile
-document.querySelector('.fa-user-pen').addEventListener('click', ()=>{
-      document.querySelector('.modal_container').style.display="flex"
-    })
+const userPen = document.querySelector('.fa-user-pen');
+if (userPen) {
+    userPen.addEventListener('click', () => {
+        document.querySelector('.modal_container').style.display = "flex";
+    });
+}
+
 
 // document.querySelector('.closeBtn').addEventListener('click', ()=>{
 //       document.querySelector('.modal_container').style.display="none"
 //  })
 
     // user profile navigation display
-document.querySelector('.fa-bars').addEventListener('click', ()=>{
+    const bars = document.querySelector('.fa-bars');
+    const xmark = document.querySelector('.fa-xmark');
+
+if (bars){
+bars.addEventListener('click', ()=>{
     const navRow = document.querySelector('.nav-row');
         navRow.style.display = 'flex';
         navRow.classList.add('fade-in');
          document.querySelector('.content-div').style.marginTop = '10%';
          document.querySelector('.fa-xmark').style.display = 'block';
+         document.querySelector('.fa-xmark').style.cursor = 'pointer';
          document.querySelector('.fa-bars').style.display = 'none';
 })
+}
 
-document.querySelector('.fa-xmark').addEventListener('click', ()=>{
+if (xmark){
+xmark.addEventListener('click', ()=>{
     const navRow = document.querySelector('.nav-row');
         navRow.classList.add('fade-out');
         navRow.style.display = 'none';
         document.querySelector('.content-div').style.marginTop = '0';
         document.querySelector('.fa-xmark').style.display = 'none';
         document.querySelector('.fa-bars').style.display = 'block';
+
 })
+}
+});

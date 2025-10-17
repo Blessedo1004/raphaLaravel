@@ -41,7 +41,7 @@
         </h4>
 
         {{-- email address --}}
-        <h4 class="text-center mt-4">Email Address:&nbsp;{{$profile->email}}</h4>
+        <h4 class="text-center mt-4">Email Address:&nbsp;<span class="email"></span>{{$profile->email}}</h4>
       </div>
     </div>
   </div> 
