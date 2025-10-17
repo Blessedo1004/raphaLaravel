@@ -9,29 +9,39 @@
         </div>
         @endif
         <h1 class="text-center mb-4"><strong>User Profile</strong></h1>
+
+        {{-- first name --}}
         <h4 class="text-center d-flex justify-content-center">First Name: &nbsp;{{$profile->first_name}}
-           <a href="{{ route('show-edit-first-name') }}"><i class="fa-solid fa-user-pen" title="Edit"></i></a> 
+           <a href="{{ route('show-edit-first-name') }}">
+            <i class="fa-solid fa-user-pen" title="Edit"></i>
+          </a> 
           
         </h4>
 
+        {{-- last name --}}
          <h4 class="text-center d-flex justify-content-center mt-3">Last Name: &nbsp;{{$profile->last_name}}
-           <a href="{{ route('show-edit-last-name') }}"><i class="fa-solid fa-user-pen" title="Edit"></i></a> 
+           <a href="{{ route('show-edit-last-name') }}">
+            <i class="fa-solid fa-user-pen" title="Edit"></i>
+          </a> 
           
         </h4>
 
-        
-
-        <h4 class="text-center mt-4">User Name:&nbsp; &nbsp;{{$profile->user_name}} 
+        {{-- user name --}}
+        <h4 class="text-center mt-4">User Name:&nbsp;{{$profile->user_name}} 
           <a href="{{ route('show-edit-user-name') }}">
-            <i class="fa-solid fa-user-pen"></i></a>
+            <i class="fa-solid fa-user-pen"></i>
+          </a>
         </h4>
 
-        <h4 class="text-center mt-4">Phone Number:&nbsp; &nbsp;{{$profile->phone_number}} 
+        {{-- phone number --}}
+        <h4 class="text-center mt-4">Phone Number:&nbsp;{{$profile->phone_number}} 
           <a href="{{ route('show-edit-phone-number')}}">
-            <i class="fa-solid fa-user-pen"></i></a>
+            <i class="fa-solid fa-user-pen"></i>
+          </a>
         </h4>
 
-        <h4 class="text-center mt-4">Email Address:&nbsp; &nbsp;{{$profile->email}}</h4>
+        {{-- email address --}}
+        <h4 class="text-center mt-4">Email Address:&nbsp;{{$profile->email}}</h4>
       </div>
     </div>
   </div> 
