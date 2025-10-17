@@ -17,7 +17,7 @@ class EnsureUserEdit
     {
         // Check for the initial ticket OR for validation errors being flashed
         if (session()->has('edit_form') || 
-            (session()->has('errors') && session('errors')->any())) { // This is the new, smarter check
+            (session()->has('errors') && session('errors')->any())) {
             return $next($request);
         }
 

@@ -8,7 +8,7 @@
           {{session('editSuccess')}}
         </div>
         @endif
-        <h1 class="text-center mb-4"><strong>User Profile</strong></h1>
+        <h1 class="text-center mb-5"><strong>User Profile</strong></h1>
 
         {{-- first name --}}
         <h4 class="text-center d-flex justify-content-center">First Name: &nbsp;{{$profile->first_name}}
