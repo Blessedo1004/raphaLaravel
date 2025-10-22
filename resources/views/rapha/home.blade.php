@@ -317,7 +317,7 @@
                                     <br>
                                     <img src="{{ asset('images/' . $review->rating->rating_photo ) }}" alt="rating">
                                     <h3 class="mb-4 wow fadeInUp fs-36 mt-3">{{$review->content}}</h3>
-                                    <span class="wow fadeInUp">{{$review->user->first_name . ' ' .  $review->user->last_name}}</span>
+                                    <span class="wow fadeInUp">{{$review->user->last_name . ' ' .  $review->user->first_name}}</span>
                                 </div>
                                 @endforeach
                             </div>
