@@ -7,7 +7,7 @@ class GuestController extends Controller
 {
 
     public function home(){
-      $reviews =  Review::withoutGlobalScope('user')->get(); // Bypass the global scope
+      $reviews =  Review::withoutGlobalScope('user')->limit(5)->orderBy('id', 'desc')->get();
       $reviews->load('user','rating');
         return view('rapha.home', compact('reviews'));
     }
