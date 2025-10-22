@@ -89,4 +89,24 @@ xmark.addEventListener('click', ()=>{
 
 })
 }
+
+// ratings
+  const stars = document.querySelectorAll('.star');
+      const ratingValue = document.getElementById('rating-value');
+
+      if (stars){
+      stars.forEach(star => {
+        star.addEventListener('click', () => {
+          const value = parseInt(star.dataset.value);
+          ratingValue.value = value;
+          stars.forEach((s, i) => {
+            if (i < value) {
+              s.classList.add('selected');
+            } else {
+              s.classList.remove('selected');
+            }
+          });
+        });
+      });
+    }
 });

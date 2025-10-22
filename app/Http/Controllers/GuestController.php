@@ -1,10 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Review;
 
 class GuestController extends Controller
 {
+
+    public function home(){
+      $reviews =  Review::withoutGlobalScope('user')->get(); // Bypass the global scope
+      $reviews->load('user','rating');
+        return view('rapha.home', compact('reviews'));
+    }
+
+
     public function showRooms(){
         return view('rapha.rooms.rooms');
     }

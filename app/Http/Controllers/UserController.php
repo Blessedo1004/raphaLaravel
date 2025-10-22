@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Review;
+
 
 class UserController extends Controller
 {
@@ -26,11 +28,22 @@ class UserController extends Controller
 
     public function showWriteReview(){
         return view('rapha.user.write-review');
+    
     }
 
-    public function showReviews(){
-        return view('rapha.user.reviews');
+    public function writeReview (Request $request){
+        $verified = $request->validate([
+            "rating_id" => "required|exists:ratings,id",
+            "content" => "required|string|min:20|max:250"       
+    ]);
+        
+        Review::create($verified);
+        return back()->with('reviewSuccess','Review Created. Thank you!');
     }
+
+    // public function showReviews(){
+    //     return view('rapha.user.reviews');
+    // }
 
     public function showProfile(){
         $profile = User::where('id', Auth::user()->id)->first();

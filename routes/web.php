@@ -7,9 +7,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EditProfileController;
-Route::get('/', function () {
-    return view('rapha.home');
-})->name('rapha.home');
+
 
 
 // guest routes starts
@@ -64,7 +62,7 @@ Route::controller(GuestController::class)->group(function(){
     Route::get('/rooms/apartment','apartment')->name('room.apartment');
     //Room routes end
 
-
+    Route::get('/','home')->name('rapha.home');
     Route::get('/gallery','gallery')->name('rapha.gallery');
     Route::get('/about','about')->name('rapha.about');
     Route::get('/contact','contact')->name('rapha.contact');
@@ -78,7 +76,8 @@ Route::middleware(['auth','cache.headers:no_store,private'])->group(function(){
     Route::get('/user/make-reservation','showMakeReservation')->name('make-reservation');
     Route::get('/user/reservations','showReservations')->name('reservations');
     Route::get('/user/write-review','showWriteReview')->name('write-review');
-    Route::get('/user/reviews','showReviews')->name('reviews');
+    Route::post('/user/write-review','writeReview')->name('write-review');
+    // Route::get('/user/reviews','showReviews')->name('reviews');
     Route::get('/user/profile','showProfile')->name('profile');
     });
 

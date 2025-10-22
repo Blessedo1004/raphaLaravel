@@ -311,29 +311,15 @@
                     <div class="row">
                         <div class="col-lg-8 offset-lg-2 text-center">
                             <div class="owl-single-dots owl-carousel owl-theme">
+                                @foreach ($reviews as $review)
                                 <div class="item">
                                     <i class="icofont-quote-left id-color fs-40 mb-4 wow fadeInUp"></i>
-                                    <h3 class="mb-4 wow fadeInUp fs-36">Experience unparalleled luxury and personalized service at Rapha Hotel, where every stay is a journey into sophistication, comfort, and unforgettable memories.</h3>
-                                    <span class="wow fadeInUp">Opara Divine</span>
+                                    <br>
+                                    <img src="{{ asset('images/' . $review->rating->rating_photo ) }}" alt="rating">
+                                    <h3 class="mb-4 wow fadeInUp fs-36 mt-3">{{$review->content}}</h3>
+                                    <span class="wow fadeInUp">{{$review->user->first_name . ' ' .  $review->user->last_name}}</span>
                                 </div>
-
-                                <div class="item">
-                                    <i class="icofont-quote-left id-color fs-40 mb-4 wow fadeInUp"></i>
-                                    <h3 class="mb-4 wow fadeInUp fs-36">From the moment you arrive, Rapha Hotel envelopes you in timeless elegance, thoughtful attention, and the kind of comfort that lingers long after your stay.</h3>
-                                    <span class="wow fadeInUp">Chidera Kalu</span>
-                                </div>
-
-                                <div class="item">
-                                    <i class="icofont-quote-left id-color fs-40 mb-4 wow fadeInUp"></i>
-                                    <h3 class="mb-4 wow fadeInUp fs-36">Rapha Hotel isn’t just a place to stay it’s an experience of indulgence, where world-class amenities and warm service come together in perfect harmony.</h3>
-                                    <span class="wow fadeInUp">Abisola Grace</span>
-                                </div>
-
-                                <div class="item">
-                                    <i class="icofont-quote-left id-color fs-40 mb-4 wow fadeInUp"></i>
-                                    <h3 class="mb-4 wow fadeInUp fs-36">Discover a sanctuary of style and serenity at Rapha Hotel, where each visit is more than a getaway—it’s a celebration of life’s finest pleasures.</h3>
-                                    <span class="wow fadeInUp">Emmanuel Eze</span>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

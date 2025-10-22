@@ -202,6 +202,27 @@ a{
 }
 
 
+.rating {
+  display: inline-block;
+  font-size: 30px;
+}
+
+.rating .star {
+  color: #ccc;
+  cursor: pointer;
+}
+
+.rating .selected {
+  color: #ffc107;
+}
+
+
+.owl-carousel .item h3 {
+  word-wrap: break-word;
+}
+
+
+
 @media only screen and (max-width:480px){
     .sign_up, .log_in{
         display:block !important;
@@ -255,6 +276,7 @@ border-radius:10px;
 .text-center ~ .text-center{
     font-size:17px
 } 
+
 }
 /* larger phones */
 @media only screen and (min-width:576px) and (max-width:767.9px){
