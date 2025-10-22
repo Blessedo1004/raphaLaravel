@@ -109,4 +109,40 @@ xmark.addEventListener('click', ()=>{
         });
       });
     }
+
+    // Review character counter and button disabler
+    const reviewContent = document.getElementById('review-content');
+    const charCount = document.getElementById('char-count');
+    const submitButton = document.getElementById('submit-review-btn');
+     if (reviewContent.value.length < 20) {
+                submitButton.disabled = true;
+            }
+    if (reviewContent && charCount && submitButton) {
+        reviewContent.addEventListener('keyup', function() {
+            const currentLength = reviewContent.value.length;
+            const maxLength = 250;
+            const minLength = 20;
+
+            charCount.innerText = `${currentLength}/${maxLength}`;
+
+            if (currentLength >= 240) {
+                charCount.style.color = 'red';
+                document.querySelector('.message').innerText = `${maxLength - currentLength} Characters Left`
+            } else {
+                charCount.style.color = '';
+                document.querySelector('.message').innerText = ''
+            }
+
+            if (currentLength < minLength) {
+                submitButton.disabled = true;
+            }
+            else {
+                submitButton.disabled = false;
+            }
+
+            if(currentLength >= maxLength){
+              document.querySelector('.message').innerText = "Maximum Characters Reached."
+            }
+        });
+    }
 });

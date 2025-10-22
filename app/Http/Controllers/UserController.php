@@ -36,7 +36,6 @@ class UserController extends Controller
             "rating_id" => "required|exists:ratings,id",
             "content" => "required|string|min:20|max:250"       
     ]);
-        
         Review::create($verified);
         return back()->with('reviewSuccess','Review Created. Thank you!');
     }
