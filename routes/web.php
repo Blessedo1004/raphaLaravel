@@ -6,12 +6,12 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\EditProfileController;
+use App\Http\Controllers\EditController;
 
 
 
 // guest routes starts
-Route::middleware('cache.headers:no_store,private')->controller(AuthController::class)->group(function(){
+Route::middleware('noheaders')->controller(AuthController::class)->group(function(){
     Route::get('/login','showLogin')->name('login');
     Route::post('/login','login')->name('rapha.login');
     Route::get('/signup','showSignUp')->name('rapha.signup');
@@ -21,7 +21,7 @@ Route::middleware('cache.headers:no_store,private')->controller(AuthController::
 Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
 //Pre registration verification routes starts
-Route::middleware('cache.headers:no_store,private')->controller(VerificationController::class)->group(function(){
+Route::middleware('noheaders')->controller(VerificationController::class)->group(function(){
     Route::get('/preregister/notice', 'showPreregisterNotice')->name('preregister.notice')->middleware('preregister.notice');
     Route::post('/preregister/verify', 'preregisterVerify')->name('preregister.verify');
     // Resend email verification route for sign up
@@ -31,7 +31,7 @@ Route::middleware('cache.headers:no_store,private')->controller(VerificationCont
 
 
 //forgot password routes starts
-Route::middleware('cache.headers:no_store,private')->controller(ForgotPasswordController::class)->group(function(){
+Route::middleware('noheaders')->controller(ForgotPasswordController::class)->group(function(){
     Route::get('/forgotpassword','showForgotPassword')->name('forgotPassword')->middleware('preregister.notice');
     Route::post('/forgotpassword','forgotPassword')->name('forgotPassword');
     Route::get('/forgotpassword/verify','showCodeVerification')->name('forgotpassword.verify')->middleware('preregister.notice');
@@ -70,7 +70,7 @@ Route::controller(GuestController::class)->group(function(){
 // guest routes ends
 
 // Auth routes start
-Route::middleware(['auth','cache.headers:no_store,private'])->group(function(){
+Route::middleware(['auth','noheaders'])->group(function(){
     Route::controller(UserController::class)->group(function(){
     Route::get('/user/dashboard','showDashboard')->name('dashboard');
     Route::get('/user/make-reservation','showMakeReservation')->name('make-reservation');
@@ -81,8 +81,9 @@ Route::middleware(['auth','cache.headers:no_store,private'])->group(function(){
     Route::get('/user/profile','showProfile')->name('profile');
     });
 
+    
+    Route::controller(EditController::class)->group(function(){
     //edit profile info starts
-    Route::controller(EditProfileController::class)->group(function(){
     Route::get('/user/profile-edit-first-name','showEditFirstName')->name('show-edit-first-name')->middleware('one-time-user');
     Route::put('/user/profile-edit-first-name/{edit}','editFirstName')->name('edit-first-name');
     Route::get('/user/profile-edit-last-name','showEditLastName')->name('show-edit-last-name')->middleware('one-time-user');
@@ -91,7 +92,12 @@ Route::middleware(['auth','cache.headers:no_store,private'])->group(function(){
     Route::put('/user/profile-edit-user-name/{edit}','editUserName')->name('edit-user-name');
     Route::get('/user/profile-edit-phone-number','showEditPhoneNumber')->name('show-edit-phone-number')->middleware('one-time-user');
     Route::put('/user/profile-edit-phone-number/{edit}','editPhoneNumber')->name('edit-phone-number');
-    });
     //edit profile info ends
+
+    //edit review
+    Route::get('/user/edit-review','showEditReview')->name('show-edit-review')->middleware('one-time-user');
+    Route::put('/user/edit-review/{edit}','editReview')->name('edit-review');
+    });
+    
 });
 // Auth routes ends

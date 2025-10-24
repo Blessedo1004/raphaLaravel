@@ -27,8 +27,13 @@ class UserController extends Controller
     }
 
     public function showWriteReview(){
-        return view('rapha.user.write-review');
-    
+        $review = Review::first();
+
+        if ($review) {
+            $review->load('rating');
+        }
+        session()->flash('edit_form', true);
+        return view('rapha.user.write-review', compact('review'));
     }
 
     public function writeReview (Request $request){

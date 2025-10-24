@@ -49,19 +49,6 @@ setTimeout(() => {
     });
 }, 3000);
 
-// modal for editing user profile
-const userPen = document.querySelector('.fa-user-pen');
-if (userPen) {
-    userPen.addEventListener('click', () => {
-        document.querySelector('.modal_container').style.display = "flex";
-    });
-}
-
-
-// document.querySelector('.closeBtn').addEventListener('click', ()=>{
-//       document.querySelector('.modal_container').style.display="none"
-//  })
-
     // user profile navigation display
     const bars = document.querySelector('.fa-bars');
     const xmark = document.querySelector('.fa-xmark');
@@ -113,6 +100,7 @@ xmark.addEventListener('click', ()=>{
     // Review character counter and button disabler
     const reviewContent = document.getElementById('review-content');
     const charCount = document.getElementById('char-count');
+    charCount.innerText = `${reviewContent.value.length}/250`
     const submitButton = document.getElementById('submit-review-btn');
      if (reviewContent.value.length < 20) {
                 submitButton.disabled = true;
@@ -145,4 +133,13 @@ xmark.addEventListener('click', ()=>{
             }
         });
     }
-});
+}); // This closes the DOMContentLoaded listener
+
+// Force reload on back/forward navigation to prevent bfcache issues
+(function() {
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+})();

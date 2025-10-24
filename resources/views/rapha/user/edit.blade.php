@@ -11,11 +11,11 @@
           </h4>
 
           {{-- verification form starts--}}
-          <form action="{{ route($route,$profile->$wildcard) }}" method="post">
+          <form action="{{ route($route,$profile->id) }}" method="post">
             @csrf
             @method('put')
             <div class="form-group">
-              <input type="text" name="{{ $wildcard }}" class="form-control verificationInput" required placeholder="{{ $placeholder }}">
+              <input type="text" name="{{ $name }}" class="form-control verificationInput" required placeholder="{{ $placeholder }}">
             </div>
       
             @if($errors->any())

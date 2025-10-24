@@ -30,7 +30,9 @@
     color:#ab8965;
     margin-left:23%
 }
-
+.content .text-center .url{
+    margin-left:0 !important;
+}
 .header{
     color:#ab8965;
     box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
@@ -171,27 +173,6 @@ a{
 }
 
 
-.modal_container{
-    position:absolute;
-    width: 100%;
-    background-color: rgba(0,0,0,0.5); 
-    justify-content:center;
-    align-items:center;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    display:none;
-}
-.modal_body{
-    background-color:white;
-    width:30vw;
-    padding:0 2% 2% 2%;
-}
-.modal_container .closeBtn{
-    cursor:pointer;
-}
-
 .fa-bars{
     cursor:pointer;
     display:none;
@@ -226,6 +207,7 @@ a{
     box-shadow: 0 0 0 0.25rem rgba(171, 137, 101, 0.25);
 }
 
+/*phone screen styles starts*/
 
 @media only screen and (max-width:480px){
     .sign_up, .log_in{
@@ -236,9 +218,6 @@ a{
 }
 
 
-
-
-/*phones*/
 @media only screen and (max-width:767.9px){
     .img_col{
         width: 100%;
@@ -280,8 +259,12 @@ border-radius:10px;
 .text-center ~ .text-center{
     font-size:17px
 } 
-
+.notice_container #review-content{
+    width:40vh
+  }
 }
+
+
 /* larger phones */
 @media only screen and (min-width:576px) and (max-width:767.9px){
     .header > .row{
@@ -291,10 +274,15 @@ border-radius:10px;
 .text-center ~ .text-center{
     font-size:21px
 } 
-   
+   .notice_container #review-content{
+    width:60vh
+  }
 }
 
-/* small tablets */
+/*phone screen styles ends*/
+
+
+/* small tablets styles starts */
 @media only screen and (min-width:768px) and (max-width:991.9px){
     .img_col{
         width: 100%;
@@ -331,9 +319,14 @@ border-radius:10px;
 .header > .row{
     height:15vh;
     }
+    .notice_container #review-content{
+    width:50vh
+  }
 }
+/* small tablets styles ends */
 
 
+/* Tablets and pc styles starts */
 @media only screen and (min-width: 992px) {
   .nav-row {
     display: flex !important;
@@ -347,4 +340,8 @@ border-radius:10px;
   .content-div {
     margin:0 !important;
   }
+  .notice_container #review-content{
+    width:50vh
+  }
 }
+/* Tablets and pc styles ends */

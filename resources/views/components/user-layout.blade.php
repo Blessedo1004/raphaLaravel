@@ -104,7 +104,7 @@
 
   <script>
         window.loginUrl = "{{ route('login') }}";
-    </script>
+  </script>
    <script src="{{ asset('js/main.js') }}?v={{ filemtime(public_path('js/main.js')) }}"></script>
 </body>
 </html>

@@ -21,7 +21,7 @@ class EnsureUserEdit
             return $next($request);
         }
 
-          return redirect()->route('profile');
+          return redirect()->route('dashboard');
         
     }
 

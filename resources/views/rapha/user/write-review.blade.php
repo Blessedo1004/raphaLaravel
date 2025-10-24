@@ -8,8 +8,17 @@
         </div>
       @endif
       {{-- Review success alert ends --}}
+      
+        {{-- Edit Review success alert starts --}}
+      @if(session('editReviewSuccess'))
+        <div class="alert alert-success text-center">
+          {{session('editReviewSuccess')}}
+        </div>
+      @endif
+      {{-- Edit Review success alert ends --}}
 
-      <form action="{{ route('write-review') }}" method="post">
+      @if(is_null($review))
+         <form action="{{ route('write-review') }}" method="post">
         @csrf
         <h3 class="text-center">Select a Rating:</h3>
         <div class="rating text d-flex justify-content-center ">
@@ -37,6 +46,16 @@
           @endforeach
         @endif
       </form>
+
+      @else
+      <h3 class="text-center">Your Review :</h3>
+      <img src="{{ asset('images/' . $review->rating->rating_photo ) }}" alt="rating" class="col-4 col-sm-2 mx-auto d-block mt-2 mt-md-4">
+      <h3 class="mb-4 wow fadeInUp fs-36 mt-3 col-12 col-md-11 text-center">{{$review->content}}</h3>
+      <div class="col-12 mt-3 text-center">
+      <a href="{{ route('show-edit-review') }}" class="url"><h5>Edit Review</h5></a>
+      </div>
+       @endif
+     
     </div>
   </x-slot>
 </x-user-layout>

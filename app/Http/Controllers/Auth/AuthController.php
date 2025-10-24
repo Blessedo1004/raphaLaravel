@@ -31,8 +31,8 @@ class AuthController extends Controller
     // save user details temporarily and send verification code
     public function signUp (Request $request){
         $userData = $request->validate([
-            'first_name'=>'required|string|min:6|max:20',
-            'last_name'=>'required|string|min:6|max:20',
+            'first_name'=>'required|string|min:3|max:20',
+            'last_name'=>'required|string|min:3|max:20',
             'user_name'=>'required|string|min:6|max:20|unique:users,user_name',
             'phone_number'=>'required|string|size:11',
             'email'=>'required|email|unique:users,email',
