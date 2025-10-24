@@ -14,9 +14,25 @@
           <form action="{{ route($route,$profile->id) }}" method="post">
             @csrf
             @method('put')
-            <div class="form-group">
-              <input type="text" name="{{ $name }}" class="form-control verificationInput" required placeholder="{{ $placeholder }}">
-            </div>
+            
+               @if($name==="password")
+               <div class="form-group">
+                  <input type="password" name="{{ $name }}" id="password" class="form-control verificationInput" required placeholder="{{ $placeholder }}">
+              </div>
+              <div class="form-group">
+                  <input type="password" name="password_confirmation" id="password_confirmation" class="form-control verificationInput mt-3" required placeholder="Confirm password">
+              </div>
+               <div class="form-group">
+                    <input type="checkbox" id="showPasswordCheckbox">
+                    <label>Show Password</label>
+                </div>
+                @else
+                <div class="form-group">
+                  <input type="text" name="{{ $name }}" class="form-control verificationInput" required placeholder="{{ $placeholder }}">
+                </div>
+                @endif
+               
+            
       
             @if($errors->any())
               @foreach ( $errors->all() as $error)

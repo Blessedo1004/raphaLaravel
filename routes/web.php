@@ -11,7 +11,7 @@ use App\Http\Controllers\EditController;
 
 
 // guest routes starts
-Route::middleware('noheaders')->controller(AuthController::class)->group(function(){
+Route::middleware('cache.headers:no_store,private')->controller(AuthController::class)->group(function(){
     Route::get('/login','showLogin')->name('login');
     Route::post('/login','login')->name('rapha.login');
     Route::get('/signup','showSignUp')->name('rapha.signup');
@@ -21,7 +21,7 @@ Route::middleware('noheaders')->controller(AuthController::class)->group(functio
 Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
 //Pre registration verification routes starts
-Route::middleware('noheaders')->controller(VerificationController::class)->group(function(){
+Route::middleware('cache.headers:no_store,private')->controller(VerificationController::class)->group(function(){
     Route::get('/preregister/notice', 'showPreregisterNotice')->name('preregister.notice')->middleware('preregister.notice');
     Route::post('/preregister/verify', 'preregisterVerify')->name('preregister.verify');
     // Resend email verification route for sign up
@@ -31,7 +31,7 @@ Route::middleware('noheaders')->controller(VerificationController::class)->group
 
 
 //forgot password routes starts
-Route::middleware('noheaders')->controller(ForgotPasswordController::class)->group(function(){
+Route::middleware('cache.headers:no_store,private')->controller(ForgotPasswordController::class)->group(function(){
     Route::get('/forgotpassword','showForgotPassword')->name('forgotPassword')->middleware('preregister.notice');
     Route::post('/forgotpassword','forgotPassword')->name('forgotPassword');
     Route::get('/forgotpassword/verify','showCodeVerification')->name('forgotpassword.verify')->middleware('preregister.notice');
@@ -70,7 +70,7 @@ Route::controller(GuestController::class)->group(function(){
 // guest routes ends
 
 // Auth routes start
-Route::middleware(['auth','noheaders'])->group(function(){
+Route::middleware(['auth','cache.headers:no_store,private'])->group(function(){
     Route::controller(UserController::class)->group(function(){
     Route::get('/user/dashboard','showDashboard')->name('dashboard');
     Route::get('/user/make-reservation','showMakeReservation')->name('make-reservation');
@@ -92,6 +92,8 @@ Route::middleware(['auth','noheaders'])->group(function(){
     Route::put('/user/profile-edit-user-name/{edit}','editUserName')->name('edit-user-name');
     Route::get('/user/profile-edit-phone-number','showEditPhoneNumber')->name('show-edit-phone-number')->middleware('one-time-user');
     Route::put('/user/profile-edit-phone-number/{edit}','editPhoneNumber')->name('edit-phone-number');
+    Route::get('/user/change-password','showChangePassword')->name('show-change-password')->middleware('one-time-user');
+    Route::put('/user/change-password/{edit}','changePassword')->name('change-password');
     //edit profile info ends
 
     //edit review

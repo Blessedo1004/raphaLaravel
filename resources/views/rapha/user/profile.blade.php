@@ -42,6 +42,10 @@
 
         {{-- email address --}}
         <h4 class="text-center mt-4">Email Address:&nbsp;<span class="email"></span>{{$profile->email}}</h4>
+
+          <a href="{{ route('show-change-password') }}">
+            <input type="button" class="btn mt-4 reg_btn text-light col-5 col-md-3 mx-auto d-block mt-5" value="Change Password">
+          </a>
       </div>
     </div>
   </div> 

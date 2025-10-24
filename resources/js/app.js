@@ -136,10 +136,8 @@ xmark.addEventListener('click', ()=>{
 }); // This closes the DOMContentLoaded listener
 
 // Force reload on back/forward navigation to prevent bfcache issues
-(function() {
-    window.addEventListener('pageshow', function(event) {
-        if (event.persisted) {
-            window.location.reload();
-        }
-    });
-})();
+window.addEventListener('pageshow', function(event) {
+  if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
+    window.location.reload();
+  }
+});

@@ -64,7 +64,7 @@ class EditController extends Controller
         return redirect()->route('profile')->with('editSuccess', $name . ' Updated');
     }
 
-    // show user name details in view
+    // show phone Number in view
     public function showEditPhoneNumber(){
         $header = 'Edit Phone Number';
         $placeholder = 'New Phone Number';
@@ -83,6 +83,23 @@ class EditController extends Controller
         return redirect()->route('profile')->with('editSuccess', $name . ' Updated');
     }
 
+    // show password in view
+    public function showChangePassword(){
+        $header = 'Change Password';
+        $placeholder = 'New Password';
+        $route = 'change-password';
+        $name = 'password';
+        $profile = User::where('id', Auth::user()->id)->first();
+        return view('rapha.user.edit', compact('header','placeholder','route','name','profile'));
+    }
+
+    // change password
+     public function changePassword(Request $request, User  $edit){
+        $verified = $request->validate(['password'=>'required|string|min:8|confirmed']);
+        $edit->update($verified);
+        $name = 'Password';
+        return redirect()->route('profile')->with('editSuccess', $name . ' Updated');
+    }
 
     //show edit review
     public function showEditReview(){
