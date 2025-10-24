@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    //
+    public function pendingReservations(){
+        $this->hasMany(PendingReservation::class);
+    }
+
+    public function activeReservations(){
+        $this->hasMany(ActiveReservation::class);
+    }
+
+    public function clearedReservations(){
+        $this->hasMany(ClearedReservation::class);
+    }
 }

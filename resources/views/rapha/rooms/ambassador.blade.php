@@ -111,7 +111,7 @@
                   <div class="col-lg-3 col-6 wow fadeInRight" data-wow-delay=".2s">
                       <div class="d-block relative">
                           <img src="{{asset('images/icons/guests.png')}}" class="w-40px" alt="">
-                          <p class="absolute abs-middle ml70 text-dark fw-500">4 Guests</p>
+                          <p class="absolute abs-middle ml70 text-dark fw-500">2 Guests</p>
                       </div>
                   </div>
 

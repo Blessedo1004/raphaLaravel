@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Review;
+use App\Models\Room;
 
 
 class UserController extends Controller
 {
     public function showMakeReservation(){
-        return view('rapha.user.make-reservation');
+        $rooms = Room::all();
+        return view('rapha.user.make-reservation', compact('rooms'));
     }
 
      public function showDashboard(){

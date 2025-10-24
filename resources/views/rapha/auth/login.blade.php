@@ -51,7 +51,7 @@
                         <input 
                           type="text"
                           name="login"
-                          value="{{ old('login') }}"
+                          value="{{ old('user_name') ? old('user_name') : old('email') }}"
                           required
                           class="bg-white form-control"
                         >
