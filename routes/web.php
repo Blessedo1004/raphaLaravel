@@ -99,6 +99,9 @@ Route::middleware(['auth','cache.headers:no_store,private'])->group(function(){
     //edit review
     Route::get('/user/edit-review','showEditReview')->name('show-edit-review')->middleware('one-time-user');
     Route::put('/user/edit-review/{edit}','editReview')->name('edit-review');
+
+    Route::delete('/user/delete-review/{review}', 'deleteReview')->name('delete-review');
+    Route::delete('/user/delete-account/{account}', 'deleteAccount')->name('delete-account');
     });
     
 });

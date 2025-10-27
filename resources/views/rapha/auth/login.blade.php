@@ -28,6 +28,12 @@
         </div>
       @endif
       
+      
+      @if(session('deleteAccountSuccess'))
+        <div class="alert alert-success text-center">
+          {{session('deleteAccountSuccess')}}
+        </div>
+      @endif
         <div class="container-fluid p-0 details">
             <div class="row g-0">
               <div class="col-12 col-lg-6 img_col">
@@ -75,7 +81,7 @@
                           <label>Show Password</label>
                         </div>
                         <div class="col-12">
-                          <input type="submit" class="btn mt-4 reg_btn text-light col-9" value="Log In">
+                          <input type="submit" class="btn mt-4 reg_btn text-light  col-7 col-md-6 col-lg-9" value="Log In">
                         </div>
                         <div class="col-12 mt-3">
                           <a href="{{ route('rapha.signup') }}" class="url">Don't have an account? Sign up</a>

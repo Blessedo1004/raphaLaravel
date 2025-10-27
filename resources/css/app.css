@@ -1,5 +1,5 @@
-@import 'animate.css/animate.min.css';
 @import 'bootstrap/dist/css/bootstrap.css';
+@import 'animate.css/animate.min.css';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
@@ -11,6 +11,12 @@
 }
 
 /* styles*/
+
+.modal-footer{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+}
 
 .fa-user-pen{
     color:black;
@@ -90,6 +96,9 @@ label + input{
     width:70% !important;
 }
 
+input[type="date"] {
+  width:10% !important;
+}
 
 
 .nav-column{
@@ -207,11 +216,17 @@ a{
     box-shadow: 0 0 0 0.25rem rgba(171, 137, 101, 0.25);
 }
 
-.rooms_select{
+.reservation{
   display:flex;
   justify-content:center;
   gap:20px;
 }
+
+.expired_session_alert{
+  background: rgba(237, 186, 240, 0.84);
+}
+
+
 
 /*phone screen styles starts*/
 
@@ -268,6 +283,16 @@ border-radius:10px;
 .notice_container #review-content{
     width:40vh
   }
+
+  select, option{
+    width:50% !important;
+  }
+  .reservation{
+  gap:10px;
+}
+input[type="date"]{
+  width:70% !important
+}
 }
 
 
@@ -328,6 +353,9 @@ border-radius:10px;
     .notice_container #review-content{
     width:50vh
   }
+  input[type="date"]{
+  width:50% !important
+}
 }
 /* small tablets styles ends */
 
@@ -349,5 +377,8 @@ border-radius:10px;
   .notice_container #review-content{
     width:50vh
   }
+  input[type="date"]{
+  width:30% !important
+}
 }
 /* Tablets and pc styles ends */

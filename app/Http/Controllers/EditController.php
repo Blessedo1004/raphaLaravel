@@ -116,4 +116,18 @@ class EditController extends Controller
         $edit->update($verified);
          return redirect()->route('write-review')->with('editReviewSuccess','Review Edited Successfully');
     }
+
+    // delete review
+    public function deleteReview(Review $review){
+        $review->delete();
+        return back()->with('deleteReviewSuccess', 'Review Deleted');
+    }
+
+    // delete account
+    public function deleteAccount(Request $request,User $account){
+        $account->delete();
+        Auth::logout();
+        $request->session()->invalidate();
+        return redirect()->route('login')->with('deleteAccountSuccess', 'Account Deleted');
+    }
 }

@@ -17,6 +17,15 @@
       @endif
       {{-- Edit Review success alert ends --}}
 
+      {{-- Delete Review success alert starts --}}
+      @if(session('deleteReviewSuccess'))
+        <div class="alert alert-success text-center">
+          {{session('deleteReviewSuccess')}}
+        </div>
+      @endif
+      {{-- Delete Review success alert ends --}}
+
+
       @if(is_null($review))
          <form action="{{ route('write-review') }}" method="post">
         @csrf
@@ -54,6 +63,19 @@
       <div class="col-12 mt-3 text-center">
       <a href="{{ route('show-edit-review') }}" class="url"><h5>Edit Review</h5></a>
       </div>
+
+        <button type="button" class="btn btn-danger col-5 col-sm-4 col-md-2 mx-auto d-block mt-4" data-bs-toggle="modal" data-bs-target="#reviewDeleteModal">
+        Delete Review
+      </button>
+
+      <x-slot name="deleteReviewForm">
+        <form action="{{ route('delete-review', $review->id) }}" method="post">
+                @csrf
+                @method('delete')
+                <input type="submit" value="Delete Review!" class="btn btn-danger">
+       </form>
+      </x-slot>
+      
        @endif
      
     </div>

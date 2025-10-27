@@ -106,5 +106,45 @@
         window.loginUrl = "{{ route('login') }}";
   </script>
    <script src="{{ asset('js/main.js') }}?v={{ filemtime(public_path('js/main.js')) }}"></script>
+
+      <!-- Delete Review modal starts -->
+      <div class="modal" id="reviewDeleteModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <!-- Modal body -->
+            <div class="modal-body">
+             <h4 class="text-danger"> Are you sure you want to delete your review?</h4>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn reg_btn text-white" data-bs-dismiss="modal">No</button>
+              {{ $deleteReviewForm ?? '' }}
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- Delete Review modal ends -->
+
+       <!-- Delete Account modal starts -->
+      <div class="modal" id="accountDeleteModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <!-- Modal body -->
+            <div class="modal-body">
+             <h4 class="text-danger"> Are you sure you want to delete your account? This will be permanent and cannot be undone.</h4>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn reg_btn text-white" data-bs-dismiss="modal">No</button>
+              {{ $deleteAccountForm ?? '' }}
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- Delete Account modal ends -->
 </body>
 </html>

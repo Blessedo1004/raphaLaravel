@@ -1,3 +1,5 @@
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 document.addEventListener('DOMContentLoaded', function() {
     // show and hide passwords
 const showPassword = document.querySelector('#showPasswordCheckbox');
@@ -41,12 +43,14 @@ window.addEventListener('load', () => {
 //fade out alerts after 3 seconds
 setTimeout(() => {
     const alerts = document.querySelectorAll('.alert-success');
+    if (alerts){
     alerts.forEach(alert => {
         alert.classList.add('fade-out');
         alert.addEventListener('animationend', () => {
             alert.classList.add('d-none');
         });
     });
+  }
 }, 3000);
 
     // user profile navigation display

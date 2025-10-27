@@ -114,7 +114,7 @@
                     </div>
 
                      <div class="col-12">
-                          <input type="submit" class="btn mt-4 reg_btn text-light col-9" value="Sign Up">
+                          <input type="submit" class="btn mt-4 reg_btn text-light col-7 col-md-6 col-lg-9" value="Sign Up">
                      </div>
                     
                      <div class="col-12 mt-3">

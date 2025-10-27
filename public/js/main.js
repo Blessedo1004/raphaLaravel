@@ -27,7 +27,7 @@ function resetLogoutTimer() {
     }, logoutAfter);
 }
 
-window.onload = resetLogoutTimer;
+window.onload = resetLogoutTimer; 
 document.onmousemove = resetLogoutTimer;
 document.onkeydown = resetLogoutTimer;
 document.onclick = resetLogoutTimer;

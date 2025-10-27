@@ -44,8 +44,20 @@
         <h4 class="text-center mt-4">Email Address:&nbsp;<span class="email"></span>{{$profile->email}}</h4>
 
           <a href="{{ route('show-change-password') }}">
-            <input type="button" class="btn mt-4 reg_btn text-light col-5 col-md-3 mx-auto d-block mt-5" value="Change Password">
+            <input type="button" class="btn mt-4 reg_btn text-light col-5 col-md-2 mx-auto d-block mt-5" value="Change Password">
           </a>
+
+          <button type="button" class="btn btn-danger col-5 col-sm-4 col-md-2 mx-auto d-block mt-4" data-bs-toggle="modal" data-bs-target="#accountDeleteModal">
+        Delete Account
+      </button>
+
+      <x-slot name="deleteAccountForm">
+        <form action="{{ route('delete-account', Auth::user()->id) }}" method="post">
+                @csrf
+                @method('delete')
+                <input type="submit" value="Delete Account!" class="btn btn-danger">
+       </form>
+      </x-slot>
       </div>
     </div>
   </div> 

@@ -16,7 +16,7 @@ class DSeeder extends Seeder
     {
        $room =  Room::where('id',7);
        $room->update([
-        "guest_number" =>"Multiple Guests"
+        "guest_number" =>"Multiple"
        ]);
     }
 }
