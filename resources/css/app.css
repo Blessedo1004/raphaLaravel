@@ -222,9 +222,6 @@ a{
   gap:20px;
 }
 
-.expired_session_alert{
-  background: rgba(237, 186, 240, 0.84);
-}
 
 
 
@@ -254,7 +251,10 @@ a{
     }
 
     .header > .row{
-    height:28vh;
+    height:100%;
+    }
+    .header  h2, .header h5{
+      font-size:medium
     }
 
     input[value="logout"] {

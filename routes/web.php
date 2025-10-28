@@ -70,38 +70,39 @@ Route::controller(GuestController::class)->group(function(){
 // guest routes ends
 
 // Auth routes start
-Route::middleware(['auth','cache.headers:no_store,private'])->group(function(){
+Route::group(['middleware'=>'auth','cache.headers:no_store,private','prefix'=>'user'],function(){
     Route::controller(UserController::class)->group(function(){
-    Route::get('/user/dashboard','showDashboard')->name('dashboard');
-    Route::get('/user/make-reservation','showMakeReservation')->name('make-reservation');
-    Route::get('/user/reservations','showReservations')->name('reservations');
-    Route::get('/user/write-review','showWriteReview')->name('write-review');
-    Route::post('/user/write-review','writeReview')->name('write-review');
+    Route::get('/dashboard','showDashboard')->name('dashboard');
+    Route::get('/make-reservation','showMakeReservation')->name('make-reservation');
+    Route::post('/make-reservation','makeReservation')->name('make-reservation');
+    Route::get('/reservations','showReservations')->name('reservations');
+    Route::get('/write-review','showWriteReview')->name('write-review');
+    Route::post('/write-review','writeReview')->name('write-review');
     // Route::get('/user/reviews','showReviews')->name('reviews');
-    Route::get('/user/profile','showProfile')->name('profile');
+    Route::get('/profile','showProfile')->name('profile');
     });
 
     
     Route::controller(EditController::class)->group(function(){
     //edit profile info starts
-    Route::get('/user/profile-edit-first-name','showEditFirstName')->name('show-edit-first-name')->middleware('one-time-user');
-    Route::put('/user/profile-edit-first-name/{edit}','editFirstName')->name('edit-first-name');
-    Route::get('/user/profile-edit-last-name','showEditLastName')->name('show-edit-last-name')->middleware('one-time-user');
-    Route::put('/user/profile-edit-last-name/{edit}','editLastName')->name('edit-last-name');
-    Route::get('/user/profile-edit-user-name','showEditUserName')->name('show-edit-user-name')->middleware('one-time-user');
-    Route::put('/user/profile-edit-user-name/{edit}','editUserName')->name('edit-user-name');
-    Route::get('/user/profile-edit-phone-number','showEditPhoneNumber')->name('show-edit-phone-number')->middleware('one-time-user');
-    Route::put('/user/profile-edit-phone-number/{edit}','editPhoneNumber')->name('edit-phone-number');
-    Route::get('/user/change-password','showChangePassword')->name('show-change-password')->middleware('one-time-user');
-    Route::put('/user/change-password/{edit}','changePassword')->name('change-password');
+    Route::get('/profile-edit-first-name','showEditFirstName')->name('show-edit-first-name')->middleware('one-time-user');
+    Route::put('/profile-edit-first-name/{edit}','editFirstName')->name('edit-first-name');
+    Route::get('/profile-edit-last-name','showEditLastName')->name('show-edit-last-name')->middleware('one-time-user');
+    Route::put('/profile-edit-last-name/{edit}','editLastName')->name('edit-last-name');
+    Route::get('/profile-edit-user-name','showEditUserName')->name('show-edit-user-name')->middleware('one-time-user');
+    Route::put('/profile-edit-user-name/{edit}','editUserName')->name('edit-user-name');
+    Route::get('/profile-edit-phone-number','showEditPhoneNumber')->name('show-edit-phone-number')->middleware('one-time-user');
+    Route::put('/profile-edit-phone-number/{edit}','editPhoneNumber')->name('edit-phone-number');
+    Route::get('/change-password','showChangePassword')->name('show-change-password')->middleware('one-time-user');
+    Route::put('/change-password/{edit}','changePassword')->name('change-password');
     //edit profile info ends
 
     //edit review
-    Route::get('/user/edit-review','showEditReview')->name('show-edit-review')->middleware('one-time-user');
-    Route::put('/user/edit-review/{edit}','editReview')->name('edit-review');
-
-    Route::delete('/user/delete-review/{review}', 'deleteReview')->name('delete-review');
-    Route::delete('/user/delete-account/{account}', 'deleteAccount')->name('delete-account');
+    Route::get('/edit-review','showEditReview')->name('show-edit-review')->middleware('one-time-user');
+    Route::put('/edit-review/{edit}','editReview')->name('edit-review');
+    //delete review and account
+    Route::delete('/delete-review/{review}', 'deleteReview')->name('delete-review');
+    Route::delete('/delete-account/{account}', 'deleteAccount')->name('delete-account');
     });
     
 });

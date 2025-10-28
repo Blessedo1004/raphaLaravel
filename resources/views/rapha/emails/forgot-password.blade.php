@@ -1,4 +1,4 @@
-<x-head-two title="Verify Email" description="zzzzzz">
+<x-head-two>
     <x-slot name="body">
      <img src="https://raphahotel.ng/images/logo-white1.webp" alt="logo">
     <p style="text-align:center">Hello. Your email verification code to reset your password is {{$code}}</p>
