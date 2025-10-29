@@ -12,6 +12,15 @@
 
 /* styles*/
 
+#reservationModal{
+  display:block !important;
+}
+
+.reservation_div{
+    box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
+    border-radius: 10px;
+}
+
 .modal-footer{
   display:flex;
   justify-content:center;
@@ -46,7 +55,7 @@
 }
 
 .header > .row{
-    height:10vh;
+    height:100%;
     align-items:center;
 }
 
@@ -107,7 +116,7 @@ input[type="date"] {
 }
 
 .nav-row{
-    height:70vh;
+    height:100%;
 }
 
 .reg_btn{
@@ -261,7 +270,6 @@ a{
   width:50% !important;
 }
 .nav-row{
-    height:50vh;
     display:none;
 }
 .fa-bars{
@@ -292,6 +300,10 @@ border-radius:10px;
 }
 input[type="date"]{
   width:70% !important
+}
+
+.reservation_nav{
+  font-size: smaller;
 }
 }
 
@@ -335,7 +347,6 @@ input[type="date"]{
 }
 
     .nav-row{
-    height:50vh;
     display:none;
 }
 .fa-bars{
@@ -347,9 +358,6 @@ input[type="date"]{
 box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
 border-radius:10px;
 }
-.header > .row{
-    height:15vh;
-    }
     .notice_container #review-content{
     width:50vh
   }
@@ -364,6 +372,7 @@ border-radius:10px;
 @media only screen and (min-width: 992px) {
   .nav-row {
     display: flex !important;
+    min-height:70vh;
   }
 
   .fa-xmark,

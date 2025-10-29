@@ -29,8 +29,11 @@
                       name="first_name"
                       value="{{ old('first_name') }}"
                       required
-                      class="bg-white form-control"
+                      class="bg-white form-control @error('first_name') is-invalid @enderror"
                     >
+                    @error('first_name')
+                      <div class="invalid-feedback mt-1 ">{{ $message }}</div>
+                    @enderror
                     </div>
                     
                     {{-- Last name --}}
@@ -41,8 +44,11 @@
                       name="last_name"
                       value="{{ old('last_name') }}"
                       required
-                      class="bg-white form-control"
+                      class="bg-white form-control @error ('last_name') is-invalid @enderror"
                     >
+                    @error('last_name')
+                      <div class="invalid-feedback mt-1 ">{{ $message }}</div>
+                    @enderror
                     </div>
 
                     {{-- Username --}}
@@ -53,8 +59,11 @@
                       name="user_name"
                       value="{{ old('user_name') }}"
                       required
-                      class="bg-white form-control"
+                      class="bg-white form-control @error('user_name') is-invalid @enderror"
                     >
+                    @error('user_name')
+                      <div class="invalid-feedback mt-1 ">{{ $message }}</div>
+                    @enderror
                     </div>
 
                     {{-- Phone Number --}}
@@ -65,10 +74,12 @@
                       name="phone_number"
                       value="{{ old('phone_number') }}"
                       required
-                      class="bg-white form-control"
+                      class="bg-white form-control @error('phone_number') is-invalid @enderror"
                       placeholder="e.g 09012345678"
-
                     >
+                    @error('phone_number')
+                      <div class="invalid-feedback mt-1 ">{{ $message }}</div>
+                    @enderror
                     </div>
 
                     {{-- Email --}}
@@ -79,8 +90,11 @@
                       name="email"
                       value="{{ old('email') }}"
                       required
-                      class="bg-white form-control"
+                      class="bg-white form-control @error('email') is-invalid @enderror"
                     >
+                    @error('email')
+                      <div class="invalid-feedback mt-1 ">{{ $message }}</div>
+                    @enderror
                     </div>
 
                     {{-- Password --}}
@@ -91,9 +105,12 @@
                         name="password"
                         id="password"
                         required
-                        class="bg-white form-control"
+                        class="bg-white form-control @error('password') is-invalid @enderror"
                         placeholder="At least 8 characters"
                       >
+                      @error('password')
+                        <div class="invalid-feedback mt-1 ">{{ $message }}</div>
+                      @enderror
                     </div>
 
                     {{-- Confirm Password --}}
@@ -104,8 +121,11 @@
                         name="password_confirmation"
                         id="password_confirmation"
                         required
-                        class="bg-white form-control"
+                        class="bg-white form-control @error('password_confirmation') is-invalid @enderror"
                       >
+                      @error('password_confirmation')
+                        <div class="invalid-feedback mt-1 ">{{ $message }}</div>
+                      @enderror
                     </div>
 
                     <div class="form-group">
@@ -120,16 +140,6 @@
                      <div class="col-12 mt-3">
                           <a href="{{ route('rapha.login') }}" class="url">Already signed up? Log In</a>
                     </div>
-                    <!-- validation errors -->
-                    @if($errors->any())
-                      @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger mt-3">
-                          {{ $error }}
-                        </div>
-                        
-                      @endforeach
-                    @endif
-                  </form>
                   {{-- Form ends --}}
             
             </div>

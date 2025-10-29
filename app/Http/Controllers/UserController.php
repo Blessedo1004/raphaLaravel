@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Mail;
 class UserController extends Controller
 {
     public function showMakeReservation(){
-        $rooms = Room::all();
+        $rooms = Room::orderBy('name')->get();
         return view('rapha.user.make-reservation', compact('rooms'));
     }
 
@@ -23,7 +23,7 @@ class UserController extends Controller
         return view('rapha.user.dashboard');
     }
 
-    public function showReservations(){
+    public function showPendingReservations(){
         $reservations = PendingReservation::get();
         return view('rapha.user.reservations', compact('reservations'));
     }
@@ -80,5 +80,11 @@ class UserController extends Controller
         $profile = Auth::user();;
         session()->flash('edit_form', true);
         return view('rapha.user.profile', compact('profile'));
+    }
+
+
+    public function showPendingDetails(PendingReservation $pending){
+        $pending->load('room');
+        return view('rapha.user.show-reservation-details', compact('pending'));
     }
 }

@@ -75,7 +75,12 @@ Route::group(['middleware'=>'auth','cache.headers:no_store,private','prefix'=>'u
     Route::get('/dashboard','showDashboard')->name('dashboard');
     Route::get('/make-reservation','showMakeReservation')->name('make-reservation');
     Route::post('/make-reservation','makeReservation')->name('make-reservation');
-    Route::get('/reservations','showReservations')->name('reservations');
+        Route::group(['prefix'=>'reservations'], function(){
+            Route::get('/pending','showPendingReservations')->name('reservations');
+            Route::get('/active','showActiveReservations')->name('active');
+            Route::get('/cleared','showClearedReservations')->name('cleared');
+            Route::get('/pending/{pending}','showPendingDetails');
+        });
     Route::get('/write-review','showWriteReview')->name('write-review');
     Route::post('/write-review','writeReview')->name('write-review');
     // Route::get('/user/reviews','showReviews')->name('reviews');

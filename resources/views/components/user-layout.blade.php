@@ -102,10 +102,6 @@
   </div>
   </div>
 
-  <script>
-        window.loginUrl = "{{ route('login') }}";
-  </script>
-   <script src="{{ asset('js/main.js') }}?v={{ filemtime(public_path('js/main.js')) }}"></script>
 
       <!-- Delete Review modal starts -->
       <div class="modal" id="reviewDeleteModal">
@@ -145,6 +141,24 @@
           </div>
         </div>
       </div>
-      <!-- Delete Account modal ends -->
+      <!-- Delete account modal ends -->
+
+         <!-- Reservation modal starts -->
+      {{-- @if(session('reservationModal'))
+      <div class="modal" id="reservationModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            mmm
+            {{ $reservationContent ?? ''}}
+          </div>
+        </div>
+      </div>
+      @endif --}}
+      <!-- Reservation modal ends -->
+
+  <script>
+        window.loginUrl = "{{ route('login') }}";
+  </script>
+  <script src="{{ asset('js/main.js') }}?v={{ filemtime(public_path('js/main.js')) }}"></script>
 </body>
 </html>
