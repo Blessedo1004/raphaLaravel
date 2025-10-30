@@ -8,11 +8,12 @@
               {{ session('reservationSuccess') }}
             </div>
           @endif
+          <h2 class="text-center"><strong>Make Reservation</strong></h2>
           {{-- Reservation form starts --}}
           <form action="{{ route('make-reservation') }}" method="post">
             @csrf
           <!-- Room Select starts -->
-          <div class="form-group">
+          <div class="form-group mt-5">
             <div class="reservation">
               <label for="room_id"><h5>Available Rooms:</h5></label>
               <select id="room_id" name="room_id" required class="@error('room_id') is-invalid @enderror">

@@ -101,6 +101,7 @@ xmark.addEventListener('click', ()=>{
       });
     }
 
+    function reviewCharCountCheck (){
     // Review character counter and button disabler
     const reviewContent = document.getElementById('review-content');
     const charCount = document.getElementById('char-count');
@@ -114,8 +115,8 @@ xmark.addEventListener('click', ()=>{
             const currentLength = reviewContent.value.length;
             const maxLength = 250;
             const minLength = 20;
-
             charCount.innerText = `${currentLength}/${maxLength}`;
+            checkValues();
 
             if (currentLength >= 240) {
                 charCount.style.color = 'red';
@@ -137,6 +138,36 @@ xmark.addEventListener('click', ()=>{
             }
         });
     }
+
+    //ensuring user submits only edited reviews
+    const hiddenRating = document.querySelector('#ratingHidden');
+    const hiddenContent = document.querySelector('#contentHidden');
+    const rating = document.querySelector('#rating-value');
+    const content = document.querySelector('#review-content');
+
+    function checkValues (){
+      if(hiddenRating.value === rating.value && hiddenContent.value === content.value){
+        submitButton.disabled = true;
+      }
+
+      else{
+        submitButton.disabled = false;
+      }
+    }
+
+    if (hiddenRating || hiddenContent){
+      const stars = document.querySelectorAll('.star');
+       stars.forEach((s, i) => {
+            if (i < hiddenRating.value) {
+              s.classList.add('selected');
+            }
+          });
+
+          checkValues();
+    }
+    }
+
+    reviewCharCountCheck()
 }); // This closes the DOMContentLoaded listener
 
 // Force reload on back/forward navigation to prevent bfcache issues

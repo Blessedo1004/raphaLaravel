@@ -18,7 +18,9 @@
           <span class="star" data-value="4">&#9733;</span>
           <span class="star" data-value="5">&#9733;</span>
         </div>
-        <input type="hidden" name="rating_id" id="rating-value">
+        <input type="hidden" name="" id="ratingHidden" value="{{ old('content',$review->rating_id) }}">
+        <input type="hidden" name="" id="contentHidden" value="{{ old('content',$review->content) }}">
+        <input type="hidden" name="rating_id" id="rating-value" value="{{ old('content',$review->rating_id) }}">
         <div>
            <textarea name="content" id="review-content" class="mx-auto d-block col-12 text-center mt-4" placeholder="Talk About Your Experience" rows="8" maxlength="250">{{old('content',$review->content)}}</textarea>
            <span id="char-count" class="d-block text-center">0/250</span>
