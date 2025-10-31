@@ -84,8 +84,13 @@
                                     @endguest
 
                                      @auth
-                                         <li><a href="{{ route('dashboard') }}" class="btn-main btn-line sign_up">Dashboard</a> </li>
-
+                                      @can('manage-regular')
+                                          <li><a href="{{ route('dashboard') }}" class="btn-main btn-line sign_up">Dashboard</a> </li>
+                                      @endcan
+                                         
+                                    @can('manage-admin')
+                                        <li><a href="{{ route('admin-dashboard') }}" class="btn-main btn-line sign_up">Dashboard</a> </li>
+                                    @endcan
                                     @endauth
                                    
                                     
@@ -98,7 +103,13 @@
                                     <a href="{{ route('rapha.login') }}" class="btn-main btn-line ms-md-4">Log In</a>
                                     @endguest
                                      @auth
-                                    <a href="{{ route('dashboard') }}" class="btn-main btn-line">Dashboard</a>
+                                        @can('manage-regular')
+                                            <a href="{{ route('dashboard') }}" class="btn-main btn-line">Dashboard</a>   
+                                        @endcan
+                                    
+                                        @can('manage-admin')
+                                            <a href="{{ route('admin-dashboard') }}" class="btn-main btn-line">Dashboard</a>
+                                        @endcan
                                     @endauth
                                     <span id="menu-btn"></span>
                                 </div>

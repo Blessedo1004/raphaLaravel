@@ -71,6 +71,7 @@ Route::controller(GuestController::class)->group(function(){
 // guest routes ends
 
 // Auth routes starts
+
 Route::group(['middleware'=>['auth','cache.headers:no_store,private']],function(){
     Route::controller(EditController::class)->group(function(){
         //edit profile info starts
