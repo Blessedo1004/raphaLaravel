@@ -101,73 +101,116 @@ xmark.addEventListener('click', ()=>{
       });
     }
 
-    function reviewCharCountCheck (){
-    // Review character counter and button disabler
-    const reviewContent = document.getElementById('review-content');
-    const charCount = document.getElementById('char-count');
-    charCount.innerText = `${reviewContent.value.length}/250`
-    const submitButton = document.getElementById('submit-review-btn');
-     if (reviewContent.value.length < 20) {
+    // review char count
+    function reviewCharCountCheck() {
+        const reviewContent = document.getElementById('review-content');
+        const charCount = document.getElementById('char-count');
+        const submitButton = document.getElementById('submit-review-btn');
+
+        if (reviewContent && charCount && submitButton) {
+            charCount.innerText = `${reviewContent.value.length}/250`;
+
+            if (reviewContent.value.length < 20) {
                 submitButton.disabled = true;
             }
-    if (reviewContent && charCount && submitButton) {
-        reviewContent.addEventListener('keyup', function() {
-            const currentLength = reviewContent.value.length;
-            const maxLength = 250;
-            const minLength = 20;
-            charCount.innerText = `${currentLength}/${maxLength}`;
-            checkValues();
 
-            if (currentLength >= 240) {
-                charCount.style.color = 'red';
-                document.querySelector('.message').innerText = `${maxLength - currentLength} Characters Left`
+            reviewContent.addEventListener('keyup', function() {
+                const currentLength = reviewContent.value.length;
+                const maxLength = 250;
+                const minLength = 20;
+                charCount.innerText = `${currentLength}/${maxLength}`;
+
+                if (currentLength >= 240) {
+                    charCount.style.color = 'red';
+                    document.querySelector('.message').innerText = `${maxLength - currentLength} Characters Left`;
+                } else {
+                    charCount.style.color = '';
+                    document.querySelector('.message').innerText = '';
+                }
+
+                if (currentLength < minLength) {
+                    submitButton.disabled = true;
+                } else {
+                    submitButton.disabled = false;
+                }
+
+                if (currentLength >= maxLength) {
+                    document.querySelector('.message').innerText = "Maximum Characters Reached.";
+                }
+
+                checkValues(); 
+            });
+        }
+    }
+
+    // ensures user doesn't submit same review again
+    function checkValues() {
+        const hiddenRating = document.querySelector('#ratingHidden');
+        const hiddenContent = document.querySelector('#contentHidden');
+        const rating = document.querySelector('#rating-value');
+        const content = document.querySelector('#review-content');
+        const submitButton = document.getElementById('submit-review-btn');
+
+        if (hiddenRating && hiddenContent && rating && content && submitButton) {
+            if (hiddenRating.value === rating.value && hiddenContent.value === content.value) {
+                submitButton.disabled = true;
             } else {
-                charCount.style.color = '';
-                document.querySelector('.message').innerText = ''
+                if (content.value.length >= 20) {
+                    submitButton.disabled = false;
+                }
             }
+        }
+    }
 
-            if (currentLength < minLength) {
-                submitButton.disabled = true;
-            }
-            else {
-                submitButton.disabled = false;
-            }
+    if (document.getElementById('review-content')) {
+        reviewCharCountCheck();
+    }
 
-            if(currentLength >= maxLength){
-              document.querySelector('.message').innerText = "Maximum Characters Reached."
-            }
+        const hiddenRating = document.querySelector('#ratingHidden');
+        if (hiddenRating) {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((s, i) => {
+                if (i < hiddenRating.value) {
+                    s.classList.add('selected');
+                }
+            });
+            checkValues();
+        }
+
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', () => {
+                setTimeout(checkValues, 0);
+            });
         });
-    }
 
-    //ensuring user submits only edited reviews
-    const hiddenRating = document.querySelector('#ratingHidden');
-    const hiddenContent = document.querySelector('#contentHidden');
-    const rating = document.querySelector('#rating-value');
-    const content = document.querySelector('#review-content');
+        //prevent user from submitting the same user profile detail when editting
 
-    function checkValues (){
-      if(hiddenRating.value === rating.value && hiddenContent.value === content.value){
-        submitButton.disabled = true;
-      }
-
-      else{
-        submitButton.disabled = false;
-      }
-    }
-
-    if (hiddenRating || hiddenContent){
-      const stars = document.querySelectorAll('.star');
-       stars.forEach((s, i) => {
-            if (i < hiddenRating.value) {
-              s.classList.add('selected');
+        function checkProfileDetails (){
+        const hiddenInput = document.querySelector("#inputHidden")
+        const editBtn = document.querySelector("#editBtn")
+        const input = document.querySelector("#editInput")
+        if (hiddenInput.value === input.value){
+              editBtn.disabled=true
+              document.querySelector('.edit_error_message').innerText= "Please type a different value"
             }
-          });
+            else{
+              editBtn.disabled = false
+              document.querySelector('.edit_error_message').innerText= ""
+            }
+        }
 
-          checkValues();
-    }
-    }
+        checkProfileDetails()
 
-    reviewCharCountCheck()
+        const hiddenInput = document.querySelector("#inputHidden")
+        const editBtn = document.querySelector("#editBtn")
+        const input = document.querySelector("#editInput")
+        if(hiddenInput && editBtn && input ){
+          
+          input.addEventListener('keyup', function(){
+            checkProfileDetails()
+          })
+        }
+    
 }); // This closes the DOMContentLoaded listener
 
 // Force reload on back/forward navigation to prevent bfcache issues
