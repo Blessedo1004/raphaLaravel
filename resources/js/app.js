@@ -101,6 +101,20 @@ xmark.addEventListener('click', ()=>{
       });
     }
 
+    // check review rating and content before enabling submit button
+    function checkReview(){
+      const reviewContent = document.getElementById('review-content');
+      const currentLength = reviewContent.value.length;
+      const minLength = 20;
+       const submitButton = document.getElementById('submit-review-btn');
+      if (currentLength < minLength || ratingValue.value === '') {
+           submitButton.disabled = true;
+        } else {
+            submitButton.disabled = false;
+       }
+    }
+
+    checkReview();
     // review char count
     function reviewCharCountCheck() {
         const reviewContent = document.getElementById('review-content');
@@ -110,14 +124,11 @@ xmark.addEventListener('click', ()=>{
         if (reviewContent && charCount && submitButton) {
             charCount.innerText = `${reviewContent.value.length}/250`;
 
-            if (reviewContent.value.length < 20) {
-                submitButton.disabled = true;
-            }
-
+            checkReview();
             reviewContent.addEventListener('keyup', function() {
                 const currentLength = reviewContent.value.length;
                 const maxLength = 250;
-                const minLength = 20;
+                
                 charCount.innerText = `${currentLength}/${maxLength}`;
 
                 if (currentLength >= 240) {
@@ -128,16 +139,11 @@ xmark.addEventListener('click', ()=>{
                     document.querySelector('.message').innerText = '';
                 }
 
-                if (currentLength < minLength) {
-                    submitButton.disabled = true;
-                } else {
-                    submitButton.disabled = false;
-                }
-
                 if (currentLength >= maxLength) {
                     document.querySelector('.message').innerText = "Maximum Characters Reached.";
                 }
 
+                checkReview();
                 checkValues(); 
             });
         }
@@ -180,6 +186,7 @@ xmark.addEventListener('click', ()=>{
         document.querySelectorAll('.star').forEach(star => {
             star.addEventListener('click', () => {
                 setTimeout(checkValues, 0);
+                setTimeout(checkReview, 0);
             });
         });
 
