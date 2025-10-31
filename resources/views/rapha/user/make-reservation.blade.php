@@ -3,11 +3,6 @@
     <div class="container mt-5">
       <div class="row justify-content-center">
         <div class="col-12">
-          @if(session('reservationSuccess'))
-            <div class="alert alert-success text-center">
-              {{ session('reservationSuccess') }}
-            </div>
-          @endif
           <h2 class="text-center"><strong>Make Reservation</strong></h2>
           {{-- Reservation form starts --}}
           <form action="{{ route('make-reservation') }}" method="post">

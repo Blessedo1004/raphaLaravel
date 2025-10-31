@@ -36,7 +36,12 @@
       <div class="col-12 col-sm-5 text-sm-start mt-2">
         <div class="row justify-content-center justify-content-md-start align-items-center">
           <div class="col-7 col-md-12">
+           @can('manage-regular')
             <h5> Welcome ,</h5> <h2> {{Auth::user()->last_name}}</h2> 
+           @endcan
+           @can('manage-admin')
+            <h5> Welcome ,</h5> <h2> Admin</h2> 
+           @endcan
           </div>
           <h1 class="col-1 col-md-12"><i class="fa-solid fa-bars"></i> <i class="fa-solid fa-xmark"></i></h1>
         </div>
@@ -57,6 +62,7 @@
     <div class="row">
       <div class="col-12 col-lg-2 nav-column mt-4">
         <div class="row nav-row justify-content-center align-items-center">
+          @can('manage-regular')
           <div class="col-12 text-center">
             <x-nav :activePage="Route::currentRouteName()" page="dashboard">
               <i class="fa-solid fa-grip"></i> Dashboard
@@ -78,17 +84,38 @@
                <i class="fa-solid fa-comment"></i> Write a Review
             </x-nav>
           </div>
-          {{-- <div class="col-12 text-center">
-             <x-nav :activePage="Route::currentRouteName()" page="reviews">
-               <i class="fa-solid fa-comments"></i> My Review
-            </x-nav>
-          </div> --}}
 
           <div class="col-12 text-center">
              <x-nav :activePage="Route::currentRouteName()" page="profile">
                <i class="fa-solid fa-user-tie"></i> User Profile
             </x-nav>
           </div>
+          @endcan
+          {{-- <div class="col-12 text-center">
+             <x-nav :activePage="Route::currentRouteName()" page="reviews">
+               <i class="fa-solid fa-comments"></i> My Review
+            </x-nav>
+          </div> --}}
+
+          @can('manage-admin')
+            <div class="col-12 text-center">
+            <x-nav :activePage="Route::currentRouteName()" page="admin-dashboard">
+              <i class="fa-solid fa-grip"></i> Dashboard
+            </x-nav>
+          </div>
+
+           <div class="col-12 text-center">
+            <x-nav :activePage="Route::currentRouteName()" page="admin-reservation">
+             <i class="fa-solid fa-calendar-days"></i> Reservations
+            </x-nav>
+          </div>
+
+          <div class="col-12 text-center">
+             <x-nav :activePage="Route::currentRouteName()" page="admin-profile">
+               <i class="fa-solid fa-user-tie"></i> User Profile
+            </x-nav>
+          </div>
+          @endcan
         </div>
       </div>
       {{-- navigation ends --}}

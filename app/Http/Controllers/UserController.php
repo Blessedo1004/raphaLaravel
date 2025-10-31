@@ -50,7 +50,7 @@ class UserController extends Controller
             $message->subject('Reservation Details');
         });
 
-        return redirect()->route('make-reservation')->with('reservationSuccess', 'Reservation made. Please check your email for reservation details.');
+        return redirect()->route('reservations')->with('reservationSuccess', 'Reservation made. Please check your email for reservation details.');
     }
 
     public function showWriteReview(){

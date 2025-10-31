@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\Auth\AuthController;
@@ -69,8 +70,27 @@ Route::controller(GuestController::class)->group(function(){
 });
 // guest routes ends
 
-// Auth routes start
-Route::group(['middleware'=>'auth','cache.headers:no_store,private','prefix'=>'user'],function(){
+// Auth routes starts
+Route::group(['middleware'=>['auth','cache.headers:no_store,private']],function(){
+    Route::controller(EditController::class)->group(function(){
+        //edit profile info starts
+    Route::get('/profile-edit-first-name','showEditFirstName')->name('show-edit-first-name')->middleware('one-time-user');
+    Route::put('/profile-edit-first-name/{edit}','editFirstName')->name('edit-first-name');
+    Route::get('/profile-edit-last-name','showEditLastName')->name('show-edit-last-name')->middleware('one-time-user');
+    Route::put('/profile-edit-last-name/{edit}','editLastName')->name('edit-last-name');
+    Route::get('/profile-edit-user-name','showEditUserName')->name('show-edit-user-name')->middleware('one-time-user');
+    Route::put('/profile-edit-user-name/{edit}','editUserName')->name('edit-user-name');
+    Route::get('/profile-edit-phone-number','showEditPhoneNumber')->name('show-edit-phone-number')->middleware('one-time-user');
+    Route::put('/profile-edit-phone-number/{edit}','editPhoneNumber')->name('edit-phone-number');
+    Route::get('/change-password','showChangePassword')->name('show-change-password')->middleware('one-time-user');
+    Route::put('/change-password/{edit}','changePassword')->name('change-password');
+    //edit profile info ends
+    });    
+});
+
+
+// regular user routes starts
+Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store,private'],'prefix'=>'user'],function(){
     Route::controller(UserController::class)->group(function(){
     Route::get('/dashboard','showDashboard')->name('dashboard');
     Route::get('/make-reservation','showMakeReservation')->name('make-reservation');
@@ -89,19 +109,6 @@ Route::group(['middleware'=>'auth','cache.headers:no_store,private','prefix'=>'u
 
     
     Route::controller(EditController::class)->group(function(){
-    //edit profile info starts
-    Route::get('/profile-edit-first-name','showEditFirstName')->name('show-edit-first-name')->middleware('one-time-user');
-    Route::put('/profile-edit-first-name/{edit}','editFirstName')->name('edit-first-name');
-    Route::get('/profile-edit-last-name','showEditLastName')->name('show-edit-last-name')->middleware('one-time-user');
-    Route::put('/profile-edit-last-name/{edit}','editLastName')->name('edit-last-name');
-    Route::get('/profile-edit-user-name','showEditUserName')->name('show-edit-user-name')->middleware('one-time-user');
-    Route::put('/profile-edit-user-name/{edit}','editUserName')->name('edit-user-name');
-    Route::get('/profile-edit-phone-number','showEditPhoneNumber')->name('show-edit-phone-number')->middleware('one-time-user');
-    Route::put('/profile-edit-phone-number/{edit}','editPhoneNumber')->name('edit-phone-number');
-    Route::get('/change-password','showChangePassword')->name('show-change-password')->middleware('one-time-user');
-    Route::put('/change-password/{edit}','changePassword')->name('change-password');
-    //edit profile info ends
-
     //edit review
     Route::get('/edit-review','showEditReview')->name('show-edit-review')->middleware('one-time-user');
     Route::put('/edit-review/{edit}','editReview')->name('edit-review');
@@ -111,4 +118,19 @@ Route::group(['middleware'=>'auth','cache.headers:no_store,private','prefix'=>'u
     });
     
 });
+
+// normal user routes ends
+
+//admin routes starts
+Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,private'],'prefix'=>'admin'],function(){
+    Route::controller(AdminController::class)->group(function(){
+        Route::get('/dashboard', 'showAdminDashboard')->name('admin-dashboard');
+        Route::group(['prefix'=>'reservations'], function(){
+            Route::get('/pending', 'showAllPendingReservations')->name('admin-reservation');
+        });
+        Route::get('/profile','showAdminProfile')->name('admin-profile');
+    });
+    
+});
+//admin routes ends
 // Auth routes ends

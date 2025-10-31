@@ -24,7 +24,10 @@ class EditController extends Controller
         $verified = $request->validate(['first_name'=>'required|string|min:3|max:20']);
         $edit->update($verified);
         $name = 'First Name';
+        if(Auth::user()->role==="regular"){
         return redirect()->route('profile')->with('editSuccess', $name . ' Updated');
+        }
+        return redirect()->route('admin-profile')->with('editSuccess', $name . ' Updated');
     }
 
     // show last name details in view
@@ -42,7 +45,10 @@ class EditController extends Controller
         $verified = $request->validate(['last_name'=>'required|string|min:3|max:20']);
         $edit->update($verified);
         $name = 'Last Name';
+        if(Auth::user()->role==="regular"){
         return redirect()->route('profile')->with('editSuccess', $name . ' Updated');
+        }
+        return redirect()->route('admin-profile')->with('editSuccess', $name . ' Updated');
     }
 
     // show user name details in view
@@ -61,7 +67,10 @@ class EditController extends Controller
         $verified = $request->validate(['user_name'=>'required|string|min:6|max:20|unique:users,user_name']);
         $edit->update($verified);
         $name = 'User Name';
+        if(Auth::user()->role==="regular"){
         return redirect()->route('profile')->with('editSuccess', $name . ' Updated');
+        }
+        return redirect()->route('admin-profile')->with('editSuccess', $name . ' Updated');
     }
 
     // show phone Number in view
@@ -80,7 +89,10 @@ class EditController extends Controller
         $verified = $request->validate(['phone_number'=>'required|string|size:11']);
         $edit->update($verified);
         $name = 'Phone Number';
+        if(Auth::user()->role==="regular"){
         return redirect()->route('profile')->with('editSuccess', $name . ' Updated');
+        }
+        return redirect()->route('admin-profile')->with('editSuccess', $name . ' Updated');
     }
 
     // show password in view
@@ -98,7 +110,10 @@ class EditController extends Controller
         $verified = $request->validate(['password'=>'required|string|min:8|confirmed']);
         $edit->update($verified);
         $name = 'Password';
+        if(Auth::user()->role==="regular"){
         return redirect()->route('profile')->with('editSuccess', $name . ' Updated');
+        }
+        return redirect()->route('admin-profile')->with('editSuccess', $name . ' Updated');
     }
 
     //show edit review

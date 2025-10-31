@@ -5,6 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class EnsureUserEdit
 {
@@ -20,8 +23,12 @@ class EnsureUserEdit
             (session()->has('errors') && session('errors')->any())) {
             return $next($request);
         }
-
+        $user = Auth::user();
+        if($user->role==="regular"){
           return redirect()->route('dashboard');
+        }
+        
+        return redirect()->route('admin-dashboard');
         
     }
 

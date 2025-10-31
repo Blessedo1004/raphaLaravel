@@ -36,7 +36,8 @@ class AuthController extends Controller
             'user_name'=>'required|string|min:6|max:20|unique:users,user_name',
             'phone_number'=>'required|string|size:11',
             'email'=>'required|email|unique:users,email',
-            'password'=>'required|string|min:8|confirmed'
+            'password'=>'required|string|min:8|confirmed',
+            'role' => 'regular'
         ]);
 
          $existingCode =   Cache::get('preregister_email_token'. $userData['email']);
@@ -84,6 +85,10 @@ class AuthController extends Controller
 
       if (Auth::attempt($credentials)) {
           $request->session()->regenerate();
+
+          if (Auth::user()->role === 'admin') {
+              return redirect()->route('admin-dashboard')->with('loginSuccess', 'Login Successful');
+          }
 
           return redirect()->route('dashboard')->with('loginSuccess', 'Login Successful');
       }

@@ -1,15 +1,10 @@
 <x-user-layout title="Reservations">
   <x-slot name="content">
     <div class="container mt-5">
-      @if(session('reservationSuccess'))
-            <div class="alert alert-success text-center">
-              {{ session('reservationSuccess') }}
-            </div>
-      @endif
       <div class="row justify-content-center">
         <div class="col-8">
           <div class="row justify-content-center">
-            <x-reservation-nav :activePage="Route::currentRouteName()" page="reservations">
+            <x-reservation-nav :activePage="Route::currentRouteName()" page="admin-reservation">
               Pending
             </x-reservation-nav>
               
@@ -32,10 +27,6 @@
       </div>
     </div> 
 
-     <h6 class="text-center mt-5 text-danger">Note: If you didn't get any email with your pending reservation details, please call or email us to send it to you</h6>
-    <h6 class="text-center mt-2">Email: raphahotelltd25@gmail.com</h6>
-    <h6 class="text-center mt-2">Phone Number: 0916 443 9220, 0904 621 0001</h6>
-    
     <x-slot name="reservationContent">
       <!-- Modal body -->
         <div class="modal-body">
