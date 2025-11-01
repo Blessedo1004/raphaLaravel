@@ -97,6 +97,8 @@ xmark.addEventListener('click', ()=>{
               s.classList.remove('selected');
             }
           });
+          checkReview();
+          checkValues(ratingValue); 
         });
       });
     }
@@ -150,10 +152,10 @@ xmark.addEventListener('click', ()=>{
     }
 
     // ensures user doesn't submit same review again
-    function checkValues() {
+    function checkValues(ratingValue) {
         const hiddenRating = document.querySelector('#ratingHidden');
         const hiddenContent = document.querySelector('#contentHidden');
-        const rating = document.querySelector('#rating-value');
+        const rating = ratingValue || document.getElementById('rating-value');
         const content = document.querySelector('#review-content');
         const submitButton = document.getElementById('submit-review-btn');
 
@@ -183,12 +185,8 @@ xmark.addEventListener('click', ()=>{
             checkValues();
         }
 
-        document.querySelectorAll('.star').forEach(star => {
-            star.addEventListener('click', () => {
-                setTimeout(checkValues, 0);
-                setTimeout(checkReview, 0);
-            });
-        });
+                
+           
 
         //prevent user from submitting the same user profile detail when editting
 

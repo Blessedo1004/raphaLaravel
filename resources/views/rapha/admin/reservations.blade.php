@@ -18,7 +18,7 @@
           </div>
         </div>
         @foreach ($reservations as $reservation)
-        <a href="{{ url('/user/reservations/pending/' . $reservation->id )}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2">
+        <a href="{{ url('/admin/reservations/pending/' . $reservation->id )}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2">
             <h4 class="text-center">{{$reservation->room->name}}</h4>
             <h6 class="mt-3 text-center">{{$reservation->updated_at}}</h6>
         </a>
