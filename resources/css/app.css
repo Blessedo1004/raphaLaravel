@@ -11,7 +11,21 @@
 }
 
 /* styles*/
+.dashboard_item{
+   box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
+    border-radius: 10px;
+}
 
+.total_border{
+  border:2px solid #896d50;
+  border-radius:50%;
+  width:40px;
+  height:40px; 
+}
+
+.total{
+  margin-top:-35px;
+}
 .modal_container{
   position:fixed;
   width:100%;

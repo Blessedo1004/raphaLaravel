@@ -20,7 +20,8 @@ class UserController extends Controller
     }
 
      public function showDashboard(){
-        return view('rapha.user.dashboard');
+        $pending = PendingReservation::get()->count();
+        return view('rapha.user.dashboard', compact('pending'));
     }
 
     public function showPendingReservations(Request $request){

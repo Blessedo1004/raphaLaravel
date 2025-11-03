@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     public function showAdminDashboard(){
-        return view('rapha.admin.dashboard');
+        $pending = PendingReservation::withoutGlobalScope('user')->get()->count();
+        return view('rapha.admin.dashboard', compact('pending'));
     }
 
      public function showAllPendingReservations(Request $request){
