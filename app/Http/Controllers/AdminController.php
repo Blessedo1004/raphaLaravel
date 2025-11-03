@@ -13,10 +13,10 @@ class AdminController extends Controller
         return view('rapha.admin.dashboard');
     }
 
-     public function showAllPendingReservations(){
+     public function showAllPendingReservations(Request $request){
         $reservations = PendingReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
-        $reservations->load('room');
-        return view('rapha.admin.reservations', compact('reservations'));
+        $pending = $request->session()->get('pending');
+        return view('rapha.admin.reservations', compact('reservations','pending'));
     }
 
     public function showAdminProfile(){
@@ -24,4 +24,11 @@ class AdminController extends Controller
         session()->flash('edit_form', true);
         return view('rapha.admin.profile', compact('profile'));
     }
+
+    public function showPendingDetails($pending){
+        $pending = PendingReservation::withoutGlobalScope('user')->findOrFail($pending);
+        $pending->load('room');
+        return back()->with('reservationModal','reservationDetails')->with('pending',$pending);
+    }
+
 }

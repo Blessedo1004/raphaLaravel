@@ -23,7 +23,7 @@
           </div>
         </div>
         @foreach ($reservations as $reservation)
-        <a href="{{ url('/user/reservations/pending/' . $reservation->id )}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2">
+        <a href="{{ route('pending', $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2" title="Click to view reservation details">
             <h4 class="text-center">{{$reservation->room->name}}</h4>
             <h6 class="mt-3 text-center">{{$reservation->updated_at}}</h6>
         </a>
@@ -32,34 +32,25 @@
       </div>
     </div> 
 
-     <h6 class="text-center mt-5 text-danger">Note: If you didn't get any email with your pending reservation details, please call or email us to send it to you</h6>
-    <h6 class="text-center mt-2">Email: raphahotelltd25@gmail.com</h6>
-    <h6 class="text-center mt-2">Phone Number: 0916 443 9220, 0904 621 0001</h6>
+     <h6 class="text-center mt-5 text-danger">Note: All pending reservations that haven't been cleared at the counter will expire 24 hours after the check-in-date. Please do well to visit the counter and check-in with your reservation details.</h6>
     
-    <x-slot name="reservationContent">
-      <!-- Modal body -->
-        <div class="modal-body">
-          <h4></h4>
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn reg_btn text-white" data-bs-dismiss="modal">Ok</button>
-          
-        </div>
-    </x-slot>
-  
+ 
     
-    
-  </x-slot>
-  @if(session('reservationModal'))
-      <div class="modal" id="reservationModal">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            mmm
-            {{ $reservationContent ?? ''}}
+    @if(session('reservationModal'))
+      <div class="modal_container">
+          <div class="modal_content">
+            <h1 class="text-end mb-3"><i class="fa-solid fa-xmark" id="reservationModalClose" title="close"></i></h1>
+            <h4>Room Type : {{$pending->room->name}}</h4>
+            <h4>Check In Date : {{$pending->check_in_date}}</h4>
+            <h4>Check Out Date : {{$pending->check_out_date}}</h4>
+            <h4>Reservation ID : {{$pending->reservation_id}}</h4>
+            <h4>Expiry Date : {{$pending->expires_at}}</h4>
           </div>
-        </div>
       </div>
       @endif
+  </x-slot>
+ 
 </x-user-layout>
+
+   
+   

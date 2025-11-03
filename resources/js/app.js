@@ -185,11 +185,7 @@ xmark.addEventListener('click', ()=>{
             checkValues();
         }
 
-                
-           
-
-        //prevent user from submitting the same user profile detail when editting
-
+        //prevents user from submitting the same user profile detail when editting
         function checkProfileDetails (){
         const hiddenInput = document.querySelector("#inputHidden")
         const editBtn = document.querySelector("#editBtn")
@@ -206,6 +202,7 @@ xmark.addEventListener('click', ()=>{
 
         checkProfileDetails()
 
+        //checks edit profile details input when user types
         const hiddenInput = document.querySelector("#inputHidden")
         const editBtn = document.querySelector("#editBtn")
         const input = document.querySelector("#editInput")

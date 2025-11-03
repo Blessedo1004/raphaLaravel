@@ -18,7 +18,7 @@
           </div>
         </div>
         @foreach ($reservations as $reservation)
-        <a href="{{ url('/admin/reservations/pending/' . $reservation->id )}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2">
+        <a href="{{ route('admin-pending', $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2">
             <h4 class="text-center">{{$reservation->room->name}}</h4>
             <h6 class="mt-3 text-center">{{$reservation->updated_at}}</h6>
         </a>
@@ -26,31 +26,18 @@
         
       </div>
     </div> 
-
-    <x-slot name="reservationContent">
-      <!-- Modal body -->
-        <div class="modal-body">
-          <h4></h4>
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn reg_btn text-white" data-bs-dismiss="modal">Ok</button>
-          
-        </div>
-    </x-slot>
   
-    
-    
-  </x-slot>
-  @if(session('reservationModal'))
-      <div class="modal" id="reservationModal">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            mmm
-            {{ $reservationContent ?? ''}}
+    @if(session('reservationModal'))
+      <div class="modal_container">
+          <div class="modal_content">
+            <h1 class="text-end mb-3"><i class="fa-solid fa-xmark" id="reservationModalClose" title="close"></i></h1>
+            <h4>Room Type : {{$pending->room->name}}</h4>
+            <h4>Check In Date : {{$pending->check_in_date}}</h4>
+            <h4>Check Out Date : {{$pending->check_out_date}}</h4>
+            <h4>Reservation ID : {{$pending->reservation_id}}</h4>
+            <h4>Expiry Date : {{$pending->expires_at}}</h4>
           </div>
-        </div>
       </div>
       @endif
+  </x-slot>
 </x-user-layout>

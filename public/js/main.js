@@ -27,8 +27,19 @@ function resetLogoutTimer() {
     }, logoutAfter);
 }
 
-window.onload = resetLogoutTimer; 
+window.onload = resetLogoutTimer;
 document.onmousemove = resetLogoutTimer;
 document.onkeydown = resetLogoutTimer;
 document.onclick = resetLogoutTimer;
 document.onscroll = resetLogoutTimer;
+
+const closeReservationModal = document.querySelector('#reservationModalClose')
+    if (closeReservationModal){
+        closeReservationModal.addEventListener('click', ()=>{
+        const modalContainer = document.querySelector('.modal_container')
+        modalContainer.classList.add('fade-out')
+        modalContainer.addEventListener('animationend', () => {
+        modalContainer.classList.add('d-none');
+    });
+        })
+}

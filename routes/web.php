@@ -100,7 +100,7 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
             Route::get('/pending','showPendingReservations')->name('reservations');
             Route::get('/active','showActiveReservations')->name('active');
             Route::get('/cleared','showClearedReservations')->name('cleared');
-            Route::get('/pending/{pending}','showPendingDetails');
+            Route::get('/pending/{pending}','showPendingDetails')->name('pending');
         });
     Route::get('/write-review','showWriteReview')->name('write-review');
     Route::post('/write-review','writeReview')->name('write-review');
@@ -128,6 +128,7 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
         Route::get('/dashboard', 'showAdminDashboard')->name('admin-dashboard');
         Route::group(['prefix'=>'reservations'], function(){
             Route::get('/pending', 'showAllPendingReservations')->name('admin-reservation');
+            Route::get('/pending/{pending}','showPendingDetails')->name('admin-pending');
         });
         Route::get('/profile','showAdminProfile')->name('admin-profile');
     });

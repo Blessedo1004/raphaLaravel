@@ -43,7 +43,7 @@
             <h5> Welcome ,</h5> <h2> Admin</h2> 
            @endcan
           </div>
-          <h1 class="col-1 col-md-12"><i class="fa-solid fa-bars"></i> <i class="fa-solid fa-xmark"></i></h1>
+          <h1 class="col-1 col-md-12"><i class="fa-solid fa-bars show_nav"></i> <i class="fa-solid fa-xmark hide_nav"></i></h1>
         </div>
          
       </div>

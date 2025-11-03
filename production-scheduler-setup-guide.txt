@@ -1,0 +1,82 @@
+# Guide: Setting Up the Laravel Scheduler in Production
+
+This guide provides the steps to automate your Laravel scheduled tasks (like clearing reservations) on a production server.
+
+The strategy is to use the server's built-in task scheduler to run Laravel's scheduler command (`php artisan schedule:run`) every minute.
+
+---
+### **Scenario A: You have full Administrator access (VPS or Dedicated Windows Server)**
+---
+
+If you have full control over your Windows Server, follow these steps.
+
+#### **Step 1: Create the Production Batch File**
+
+This file tells the server exactly what to do.
+
+1.  On your server, create a new file named `run-production-scheduler.bat` in your project's root directory.
+2.  Copy the following code into that file. **You must edit the paths in this file.**
+
+    ```bat
+    @echo off
+    
+    :: --- EDIT THESE PATHS ---
+    
+    :: 1. Set this to the full path of your project on the server.
+    set PROJECT_PATH="C:\path\to\your\laravel\project"
+    
+    :: 2. Set this to the full path of your server's php.exe file.
+    ::    (To find this, open cmd on the server and run: where php.exe)
+    set PHP_PATH="C:\path\to\your\php.exe"
+    
+    :: --- END OF EDITS ---
+    
+    :: Change to the project directory and run the Laravel scheduler
+    cd /d %PROJECT_PATH%
+    %PHP_PATH% artisan schedule:run
+    ```
+
+#### **Step 2: Set Up the Windows Task Scheduler**
+
+This step automates the running of the batch file.
+
+1.  Log in to your production server.
+2.  Open the Command Prompt **as an Administrator**.
+3.  Run the following command. **Remember to change the file path** to the exact location of your `run-production-scheduler.bat` file.
+
+    ```cmd
+schtasks /create /tn "Production Laravel Scheduler" /tr "C:\path\to\your\laravel\project\run-production-scheduler.bat" /sc MINUTE /mo 1 /ru "SYSTEM" /rl HIGHEST /f
+    ```
+
+**Explanation of the command:**
+*   `/tn "Production Laravel Scheduler"`: A unique name for your task.
+*   `/tr "..."`: The full path to the batch file you created.
+*   `/sc MINUTE /mo 1`: Sets the schedule to run every minute.
+*   `/ru "SYSTEM"`: Runs the task as the main `SYSTEM` user, so it can run even if you are not logged in. This is critical for servers.
+*   `/rl HIGHEST"`: Runs the task with the highest administrator privileges.
+
+---
+### **Scenario B: You use a Hosting Platform with a Control Panel (cPanel, Plesk, etc.)**
+---
+
+If you don't have full administrator access to the server, you probably have a web-based control panel. These panels use "Cron Jobs" to schedule tasks.
+
+1.  Log in to your hosting control panel (like cPanel).
+2.  Find the section for "Cron Jobs" or "Scheduled Tasks".
+3.  You will need to create a new cron job. The control panel will ask you for the **schedule** and the **command**.
+4.  **Schedule:** Set the schedule to run every minute. Most control panels have a "Common Settings" dropdown where you can select "Every Minute" or `* * * * *`.
+5.  **Command:** This is the most important part. You need to provide the command to run the Laravel scheduler. It will look something like this (you must use the full, absolute paths provided by your host):
+
+    ```bash
+    /usr/local/bin/php /home/your_username/public_html/artisan schedule:run
+    ```
+    
+    **OR**, a more reliable version that first changes directory:
+
+    ```bash
+    cd /home/your_username/public_html && /usr/local/bin/php artisan schedule:run
+    ```
+
+**IMPORTANT:** The exact paths (`/usr/local/bin/php` and `/home/your_username/public_html`) are different for every hosting provider. You **must** check your hosting provider's documentation or ask their support for the correct absolute path to your project and their PHP executable.
+
+---

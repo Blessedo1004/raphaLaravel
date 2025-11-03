@@ -1,5 +1,5 @@
 @import 'bootstrap/dist/css/bootstrap.css';
-@import 'animate.css/animate.min.css';
+/* @import 'animate.css/animate.min.css'; */
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
@@ -12,8 +12,30 @@
 
 /* styles*/
 
-#reservationModal{
-  display:block !important;
+.modal_container{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  z-index:1;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background:hsla(0, 0%, 0%, 0.60);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.modal_content{
+  background:white;
+  min-width:40vh;
+  padding:2%;
+  min-height:20vh;
+}
+
+#reservationModalClose{
+  cursor:pointer;
 }
 
 .reservation_div{
@@ -191,12 +213,12 @@ a{
 }
 
 
-.fa-bars{
+.show_nav{
     cursor:pointer;
     display:none;
 }
 
-.fa-xmark{
+.hide_nav{
     display:none;
 }
 
@@ -272,7 +294,7 @@ a{
 .nav-row{
     display:none;
 }
-.fa-bars{
+.show_nav{
     cursor:pointer;
     display:block;
 }
@@ -349,7 +371,7 @@ input[type="date"]{
     .nav-row{
     display:none;
 }
-.fa-bars{
+.show_nav{
     cursor:pointer;
     display:block;
 }
@@ -375,8 +397,8 @@ border-radius:10px;
     min-height:70vh;
   }
 
-  .fa-xmark,
-  .fa-bars {
+  .hide_nav,
+  .show_nav {
     display: none !important;
   }
 

@@ -23,9 +23,10 @@ class UserController extends Controller
         return view('rapha.user.dashboard');
     }
 
-    public function showPendingReservations(){
+    public function showPendingReservations(Request $request){
+        $pending = $request->session()->get('pending');
         $reservations = PendingReservation::get();
-        return view('rapha.user.reservations', compact('reservations'));
+        return view('rapha.user.reservations', compact('reservations','pending'));
     }
 
     public function makeReservation(Request $request){
@@ -85,6 +86,6 @@ class UserController extends Controller
 
     public function showPendingDetails(PendingReservation $pending){
         $pending->load('room');
-        return view('rapha.user.show-reservation-details', compact('pending'));
+        return back()->with('reservationModal','reservationDetails')->with('pending',$pending);
     }
 }
