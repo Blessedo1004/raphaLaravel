@@ -22,7 +22,7 @@
                 <div class="invalid-feedback d-block mt-1 text-center">{{ $message }}</div>
               @enderror
           </div>  
-          <!-- Room Select starts -->
+          <!-- Room Select ends -->
 
           <!-- Check-in Date starts -->
           <div class="form-group mt-4">

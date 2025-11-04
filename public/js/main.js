@@ -45,3 +45,38 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
     });
         })
 }
+      
+// Logic for edit reservation form
+    const hiddenRoom = document.querySelector('#hiddenRoom');
+    const hiddenCheckIn = document.querySelector('#hiddenCheckIn');
+    const hiddenCheckOut = document.querySelector('#hiddenCheckOut');
+    const roomSelect = document.querySelector('.edit_select');
+    const checkInInput = document.querySelector('#check_in_date');
+    const checkOutInput = document.querySelector('#check_out_date');
+    const submitButton = document.querySelector('.submit_edit_reservation');
+
+    function checkFormChanges() {
+        // Ensure all elements exist before proceeding
+        if (!hiddenRoom || !hiddenCheckIn || !hiddenCheckOut || !roomSelect || !checkInInput || !checkOutInput || !submitButton) {
+            return;
+        }
+
+        const roomChanged = hiddenRoom.value !== roomSelect.value;
+        const checkInChanged = hiddenCheckIn.value !== checkInInput.value;
+        const checkOutChanged = hiddenCheckOut.value !== checkOutInput.value;
+
+        // If any value has changed, enable the button. Otherwise, disable it.
+        if (roomChanged || checkInChanged || checkOutChanged) {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+        }
+    }
+
+    // Add event listeners to the form elements
+    roomSelect.addEventListener('change', checkFormChanges);
+    checkInInput.addEventListener('change', checkFormChanges);
+    checkOutInput.addEventListener('change', checkFormChanges);
+
+    // Run the check once on page load
+    checkFormChanges();

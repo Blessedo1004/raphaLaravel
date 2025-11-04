@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PendingReservation;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -145,4 +146,11 @@ class EditController extends Controller
         $request->session()->invalidate();
         return redirect()->route('login')->with('deleteAccountSuccess', 'Account Deleted');
     }
+
+    //show edit reservation modal 
+    // public function showEditPendingReservation (PendingReservation $pendingDetails){
+    //     $reservations = PendingReservation::get();
+    //     session(['showEditReservationModal' => 'edit']);
+    //     return view('rapha.user.reservations', compact('pendingDetails','reservations'));
+    // }
 }

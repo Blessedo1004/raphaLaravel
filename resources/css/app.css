@@ -427,5 +427,11 @@ border-radius:10px;
   input[type="date"]{
   width:30% !important
 }
+.nav-column > .fade-in{
+  animation: none
+}
+.nav-column > .fade-out{
+  animation: none
+}
 }
 /* Tablets and pc styles ends */

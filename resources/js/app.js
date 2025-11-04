@@ -60,8 +60,12 @@ setTimeout(() => {
 if (bars){
 bars.addEventListener('click', ()=>{
     const navRow = document.querySelector('.nav-row');
-        navRow.style.display = 'flex';
         navRow.classList.add('fade-in');
+        navRow.classList.remove('fade-out')
+         navRow.style.display = 'flex';
+         navRow.addEventListener('animationend', ()=>{
+          navRow.style.display = 'flex';
+        })
          document.querySelector('.content-div').style.marginTop = '10%';
          document.querySelector('.fa-xmark').style.display = 'block';
          document.querySelector('.fa-xmark').style.cursor = 'pointer';
@@ -72,8 +76,11 @@ bars.addEventListener('click', ()=>{
 if (xmark){
 xmark.addEventListener('click', ()=>{
     const navRow = document.querySelector('.nav-row');
-        navRow.classList.add('fade-out');
-        navRow.style.display = 'none';
+        navRow.classList.add('fade-out')
+        navRow.classList.remove('fade-in')
+        navRow.addEventListener('animationend', ()=>{
+          navRow.style.display = 'none';
+        })
         document.querySelector('.content-div').style.marginTop = '0';
         document.querySelector('.fa-xmark').style.display = 'none';
         document.querySelector('.fa-bars').style.display = 'block';

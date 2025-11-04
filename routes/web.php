@@ -106,6 +106,8 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
     Route::post('/write-review','writeReview')->name('write-review');
     // Route::get('/user/reviews','showReviews')->name('reviews');
     Route::get('/profile','showProfile')->name('profile');
+    //edit reservation
+    Route::get('/edit-reservation/{pendingDetails}', 'showEditPendingReservation')->name('edit-pending-reservation');
     });
 
     
@@ -116,6 +118,8 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
     //delete review and account
     Route::delete('/delete-review/{review}', 'deleteReview')->name('delete-review');
     Route::delete('/delete-account/{account}', 'deleteAccount')->name('delete-account');
+    
+    
     });
     
 });
