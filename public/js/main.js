@@ -35,7 +35,9 @@ document.onscroll = resetLogoutTimer;
 
 const closeReservationModal = document.querySelector('#reservationModalClose')
     if (closeReservationModal){
+        document.body.style.overflow="hidden"
         closeReservationModal.addEventListener('click', ()=>{
+        document.body.style.overflow="visible"
         const modalContainer = document.querySelector('.modal_container')
         modalContainer.classList.add('fade-out')
         modalContainer.addEventListener('animationend', () => {

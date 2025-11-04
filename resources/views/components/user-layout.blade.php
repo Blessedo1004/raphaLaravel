@@ -169,20 +169,6 @@
         </div>
       </div>
       <!-- Delete account modal ends -->
-
-         <!-- Reservation modal starts -->
-      {{-- @if(session('reservationModal'))
-      <div class="modal" id="reservationModal">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            mmm
-            {{ $reservationContent ?? ''}}
-          </div>
-        </div>
-      </div>
-      @endif --}}
-      <!-- Reservation modal ends -->
-
   <script>
         window.loginUrl = "{{ route('login') }}";
   </script>

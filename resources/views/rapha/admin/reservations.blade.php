@@ -31,11 +31,11 @@
       <div class="modal_container">
           <div class="modal_content">
             <h1 class="text-end mb-3"><i class="fa-solid fa-xmark" id="reservationModalClose" title="close"></i></h1>
-            <h4>Room Type : {{$pending->room->name}}</h4>
-            <h4>Check In Date : {{$pending->check_in_date}}</h4>
-            <h4>Check Out Date : {{$pending->check_out_date}}</h4>
-            <h4>Reservation ID : {{$pending->reservation_id}}</h4>
-            <h4>Expiry Date : {{$pending->expires_at}}</h4>
+             <h4> <span class="name">Room Type : </span>{{$pending->room->name}}</h4>
+            <h4 class="mt-3"> <span class="name">Check In Date : </span>{{$pending->check_in_date}}</h4>
+            <h4 class="mt-3"> <span class="name">Check Out Date :</span> {{$pending->check_out_date}}</h4>
+            <h4 class="mt-3"> <span class="name">Reservation ID :</span> {{$pending->reservation_id}}</h4>
+            <h4 class="mt-3"> <span class="name">Expiry Date :</span> {{$pending->expires_at}}</h4>
           </div>
       </div>
       @endif

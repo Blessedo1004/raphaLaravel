@@ -35,19 +35,25 @@
      <h6 class="text-center mt-5 text-danger">Note: All pending reservations that haven't been cleared at the counter will expire 24 hours after the check-in-date. Please do well to visit the counter and check-in with your reservation details.</h6>
     
  
-    
+    {{-- reservation details modal starts --}}
     @if(session('reservationModal'))
       <div class="modal_container">
           <div class="modal_content">
             <h1 class="text-end mb-3"><i class="fa-solid fa-xmark" id="reservationModalClose" title="close"></i></h1>
-            <h4>Room Type : {{$pending->room->name}}</h4>
-            <h4>Check In Date : {{$pending->check_in_date}}</h4>
-            <h4>Check Out Date : {{$pending->check_out_date}}</h4>
-            <h4>Reservation ID : {{$pending->reservation_id}}</h4>
-            <h4>Expiry Date : {{$pending->expires_at}}</h4>
+            <h4> <span class="name">Room Type : </span>{{$pending->room->name}}</h4>
+            <h4 class="mt-3"> <span class="name">Check In Date : </span>{{$pending->check_in_date}}</h4>
+            <h4 class="mt-3"> <span class="name">Check Out Date :</span> {{$pending->check_out_date}}</h4>
+            <h4 class="mt-3"> <span class="name">Reservation ID :</span> {{$pending->reservation_id}}</h4>
+            <h4 class="mt-3"> <span class="name">Expiry Date :</span> {{$pending->expires_at}}</h4>
+            <div class="d-flex justify-content-center mt-4">
+              <a class="btn reg_btn text-light">Edit</a>
+              <a class="btn btn-danger ms-3">Delete</a>
+            </div>
+            
           </div>
       </div>
       @endif
+      {{-- reservation details modal starts --}}
   </x-slot>
  
 </x-user-layout>
