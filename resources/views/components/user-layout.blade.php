@@ -105,7 +105,7 @@
           </div>
 
            <div class="col-12 text-center">
-            <x-nav :activePage="Route::currentRouteName()" page="admin-reservation">
+            <x-nav :activePage="Route::currentRouteName()" page="admin-reservations">
              <i class="fa-solid fa-calendar-days"></i> Reservations
             </x-nav>
           </div>

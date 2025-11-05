@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PendingReservation;
+use App\Models\ActiveReservation;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +17,16 @@ class AdminController extends Controller
 
      public function showAllPendingReservations(Request $request){
         $reservations = PendingReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
-        $pending = $request->session()->get('pending');
-        return view('rapha.admin.reservations', compact('reservations','pending'));
+        $details = $request->session()->get('details');
+        $route = "admin-pending";
+        return view('rapha.admin.reservations', compact('reservations','details','route'));
+    }
+
+    public function showAllActiveReservations(Request $request){
+        $reservations = ActiveReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
+        $details = $request->session()->get('details');
+        $route = "admin-active";
+        return view('rapha.admin.reservations', compact('reservations','details','route'));
     }
 
     public function showAdminProfile(){
@@ -26,10 +35,31 @@ class AdminController extends Controller
         return view('rapha.admin.profile', compact('profile'));
     }
 
-    public function showPendingDetails($pending){
-        $pending = PendingReservation::withoutGlobalScope('user')->findOrFail($pending);
-        $pending->load('room');
-        return back()->with('reservationModal','reservationDetails')->with('pending',$pending);
+    public function showPendingDetails($details){
+        $details = PendingReservation::withoutGlobalScope('user')->findOrFail($details);
+        $details->load('room');
+        return back()->with('reservationModal','reservationDetails')->with('details',$details);
+    }
+
+     public function showActiveDetails($details){
+        $details = ActiveReservation::withoutGlobalScope('user')->findOrFail($details);
+        $details->load('room');
+        return back()->with('reservationModal','reservationDetails')->with('details',$details);
+    }
+
+    public function checkIn($checkin){
+        $checkin = PendingReservation::withoutGlobalScope('user')->findOrFail($checkin);
+        ActiveReservation::create([
+            "user_id" => $checkin->user_id,
+            "room_id" => $checkin->room_id,
+            "check_in_date" => $checkin->check_in_date,
+            "check_out_date" => $checkin->check_out_date,
+            "reservation_id" => $checkin->reservation_id
+        ]);
+
+        $checkin->delete();
+
+        return redirect()->route('admin-reservations')->with('checkinSuccess', 'Check In Successful');
     }
 
 }

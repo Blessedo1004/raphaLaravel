@@ -3,15 +3,31 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\FilterByUser;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Builder;
 class ClearedReservation extends Model
 {
-  use FilterByUser;
+  protected $fillable = [
+        "user_id", "reservation_id", "check_in_date", "check_out_date", "room_id"
+    ];
+
+
      public function room (){
        return  $this->belongsTo(Room::class);
     }
 
      public function user (){
         return  $this->belongsTo(User::class);
+    }
+
+
+     protected static function bootFilterByUser()
+    {
+
+        self::addGlobalScope('user', function (Builder $builder) {
+            if (Auth::check()) {
+                $builder->where('user_id', Auth::id());
+            }
+        });
     }
 }

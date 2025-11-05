@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Review;
 use App\Models\Room;
 use App\Models\PendingReservation;
+use App\Models\ActiveReservation;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -25,13 +26,20 @@ class UserController extends Controller
     }
 
     public function showPendingReservations(Request $request){
-        $pending = $request->session()->get('pending');
-        $pendingDetails = $request->session()->get('pendingDetails');
+        $details = $request->session()->get('details');
+        $pendingEdit = $request->session()->get('pendingDetails');
         $pendingDelete = $request->session()->get('pendingDelete');
-        $type = $request->session()->get('type');
+        $route = "pending";
         $reservations = PendingReservation::get();
         $rooms = Room::all();
-        return view('rapha.user.reservations', compact('reservations','pending', 'pendingDetails', 'rooms','type','pendingDelete'));
+        return view('rapha.user.reservations', compact('reservations','details', 'pendingEdit', 'rooms','route','pendingDelete'));
+    }
+
+    public function showActiveReservations(Request $request){
+        $details = $request->session()->get('details');
+        $route = "active";
+        $reservations = ActiveReservation::get();
+        return view('rapha.user.reservations', compact('reservations','details','route'));
     }
 
     public function makeReservation(Request $request){
@@ -89,14 +97,18 @@ class UserController extends Controller
     }
 
 
-    public function showPendingDetails(PendingReservation $pending){
-        $pending->load('room');
-        $type = "pending";
-        return back()->with('reservationModal','reservationDetails')->with('pending',$pending)->with('type', $type);
+    public function showPendingDetails(PendingReservation $details){
+        $details->load('room');
+        return back()->with('reservationModal','reservationDetails')->with('details',$details);
+    }
+
+    public function showActiveDetails(ActiveReservation $details){
+        $details->load('room');
+        return back()->with('reservationModal','reservationDetails')->with('details',$details);
     }
 
      public function showEditPendingReservation (PendingReservation $pendingDetails){
-        return back()->with('showEditReservation','reservationDetails')->with('pendingDetails',$pendingDetails);
+        return back()->with('showEditReservation','reservationDetails')->with('pendingEdit',$pendingDetails);
     }
 
     public function showDeletePendingReservation (PendingReservation $pendingDetails){
