@@ -6,6 +6,12 @@
           {{session('checkinSuccess')}}
         </div>
       @endif
+
+       @if(session('checkoutSuccess'))
+        <div class="alert alert-success text-center">
+          {{session('checkoutSuccess')}}
+        </div>
+      @endif
       <div class="row justify-content-center">
         <div class="col-8">
           <div class="row justify-content-center">
@@ -44,8 +50,8 @@
               <h4 class="mt-3"> <span class="name">Expiry Date :</span> {{$details->expires_at}}</h4>
               <a href="{{ route('checkin', $details->id) }}" class="reg_btn btn mx-auto d-block text-white mt-3 col-4">Check In</a>
 
-              @else
-              <a href="" class="reg_btn btn mx-auto d-block text-white mt-3 col-4">Check Out</a>
+              @elseif($route === "admin-active")
+              <a href="{{ route('checkout', $details->id) }}" class="reg_btn btn mx-auto d-block text-white mt-3 col-4">Check Out</a>
             @endif
           </div>
       </div>

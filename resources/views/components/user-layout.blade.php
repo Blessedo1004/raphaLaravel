@@ -74,9 +74,9 @@
             </x-nav>
           </div>
           <div class="col-12 text-center">
-             <x-nav :activePage="Route::currentRouteName()" page="reservations">
+             <x-nav-two :activePage="Route::currentRouteName()" page="reservations" page2="active-reservations" page3="cleared-reservations">
               <i class="fa-solid fa-calendar-days"></i> Reservations
-            </x-nav>
+            </x-nav-two>
            
           </div>
           <div class="col-12 text-center">
@@ -105,9 +105,9 @@
           </div>
 
            <div class="col-12 text-center">
-            <x-nav :activePage="Route::currentRouteName()" page="admin-reservations">
+            <x-nav-two :activePage="Route::currentRouteName()" page="admin-reservations" page2="admin-active-reservations" page3="admin-cleared-reservations">
              <i class="fa-solid fa-calendar-days"></i> Reservations
-            </x-nav>
+            </x-nav-two>
           </div>
 
           <div class="col-12 text-center">

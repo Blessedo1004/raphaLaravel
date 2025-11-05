@@ -9,6 +9,7 @@ use App\Models\Review;
 use App\Models\Room;
 use App\Models\PendingReservation;
 use App\Models\ActiveReservation;
+use App\Models\ClearedReservation;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -22,7 +23,9 @@ class UserController extends Controller
 
      public function showDashboard(){
         $pending = PendingReservation::get()->count();
-        return view('rapha.user.dashboard', compact('pending'));
+        $active = ActiveReservation::get()->count();
+        $cleared = ClearedReservation::get()->count();
+        return view('rapha.user.dashboard', compact('pending', 'active', 'cleared'));
     }
 
     public function showPendingReservations(Request $request){
@@ -39,6 +42,14 @@ class UserController extends Controller
         $details = $request->session()->get('details');
         $route = "active";
         $reservations = ActiveReservation::get();
+        return view('rapha.user.reservations', compact('reservations','details','route'));
+    }
+
+
+    public function showClearedReservations(Request $request){
+        $details = $request->session()->get('details');
+        $route = "cleared";
+        $reservations = ClearedReservation::get();
         return view('rapha.user.reservations', compact('reservations','details','route'));
     }
 
@@ -103,6 +114,11 @@ class UserController extends Controller
     }
 
     public function showActiveDetails(ActiveReservation $details){
+        $details->load('room');
+        return back()->with('reservationModal','reservationDetails')->with('details',$details);
+    }
+
+      public function showClearedDetails(ClearedReservation $details){
         $details->load('room');
         return back()->with('reservationModal','reservationDetails')->with('details',$details);
     }
