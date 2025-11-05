@@ -33,7 +33,7 @@ class UserController extends Controller
         $pendingEdit = $request->session()->get('pendingDetails');
         $pendingDelete = $request->session()->get('pendingDelete');
         $route = "pending";
-        $reservations = PendingReservation::get();
+        $reservations = PendingReservation::orderBy('id', 'desc')->get();
         $rooms = Room::all();
         return view('rapha.user.reservations', compact('reservations','details', 'pendingEdit', 'rooms','route','pendingDelete'));
     }
@@ -41,7 +41,7 @@ class UserController extends Controller
     public function showActiveReservations(Request $request){
         $details = $request->session()->get('details');
         $route = "active";
-        $reservations = ActiveReservation::get();
+        $reservations = ActiveReservation::orderBy('id', 'desc')->get();
         return view('rapha.user.reservations', compact('reservations','details','route'));
     }
 
@@ -49,7 +49,7 @@ class UserController extends Controller
     public function showClearedReservations(Request $request){
         $details = $request->session()->get('details');
         $route = "cleared";
-        $reservations = ClearedReservation::get();
+        $reservations = ClearedReservation::orderBy('id', 'desc')->get();
         return view('rapha.user.reservations', compact('reservations','details','route'));
     }
 
