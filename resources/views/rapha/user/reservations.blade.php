@@ -1,11 +1,27 @@
 <x-user-layout title="Reservations">
   <x-slot name="content">
     <div class="container mt-5">
+      {{-- reservation success alert --}}
       @if(session('reservationSuccess'))
             <div class="alert alert-success text-center">
               {{ session('reservationSuccess') }}
             </div>
       @endif
+
+      {{-- reservation update alert --}}
+      @if(session('reservationEditSuccess'))
+        <div class="alert alert-success text-center">
+          {{session('reservationEditSuccess')}}
+        </div>
+      @endif
+
+        {{-- reservation delete alert --}}
+      @if(session('reservationDeleteSuccess'))
+        <div class="alert alert-success text-center">
+          {{session('reservationDeleteSuccess')}}
+        </div>
+      @endif
+
       <div class="row justify-content-center">
         <div class="col-8">
           <div class="row justify-content-center">
@@ -47,8 +63,8 @@
             <h4 class="mt-3"> <span class="name">Expiry Date :</span> {{$pending->expires_at}}</h4>
             @if($type === "pending")
               <div class="d-flex justify-content-center mt-4">
-              <a href="{{ route('edit-pending-reservation', $pending->id) }}" class="btn reg_btn text-light">Edit</a>
-              <a class="btn btn-danger ms-3">Delete</a>
+              <a href="{{ route('show-edit-reservation', $pending->id) }}" class="btn reg_btn text-light">Edit</a>
+              <a href="{{ route('show-delete-reservation', $pending->id) }}" class="btn btn-danger ms-3">Delete</a>
             </div>
             @endif
             
@@ -64,9 +80,10 @@
           <div class="modal_content">
            <h1 class="text-end mb-3"><i class="fa-solid fa-xmark" id="reservationModalClose" title="close"></i></h1>
              <input type="hidden" value="{{ $pendingDetails->room_id }}" id="hiddenRoom">
-               <input type="hidden" value="{{ $pendingDetails->check_in_date->format('Y-m-d') }}" id="hiddenCheckIn">
-               <input type="hidden" value="{{$pendingDetails->check_out_date->format('Y-m-d') }}" id="hiddenCheckOut">
-           <form action="" method="post">
+             <input type="hidden" value="{{ $pendingDetails->check_in_date->format('Y-m-d') }}" id="hiddenCheckIn">
+             <input type="hidden" value="{{$pendingDetails->check_out_date->format('Y-m-d') }}" id="hiddenCheckOut">
+        {{-- Edit reservation form starts --}}
+           <form action="{{ route('edit-reservation', $pendingDetails->id) }}" method="post">
             @csrf
             @method('put')
           <!-- Room Select starts -->
@@ -113,10 +130,29 @@
 
           <input type="submit" value="Submit" class="btn reg_btn text-white mt-5 mx-auto d-block submit_edit_reservation">
         </form>
-        {{-- Reservation form ends --}}
+        {{-- Edit reservation form ends --}}
           </div>
         </div>
        @endif
+
+       {{-- delete modal starts --}}
+    @if(session('showDeleteReservation'))
+      <div class="modal_container">
+          <div class="modal_content">
+            <h4 class="text-danger"> Are you sure you want to delete this pending reservation?</h4>
+             <div class="d-flex justify-content-center mt-4">
+              <button class="btn reg_btn text-light" id="reservationModalClose">No</button>
+              <form action="{{ route('delete-reservation', $pendingDelete->id) }}" method="post">
+                @csrf
+                @method('delete')
+                <input type="submit" class="btn btn-danger ms-3" value="Delete">
+              </form>
+              
+            </div>
+          </div>
+      </div>
+      @endif
+      {{-- delete reservation modal ends --}}
   </x-slot>
  
 </x-user-layout>

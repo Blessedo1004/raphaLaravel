@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Review;
+use Carbon\Carbon;
 
 class EditController extends Controller
 {
@@ -147,10 +148,25 @@ class EditController extends Controller
         return redirect()->route('login')->with('deleteAccountSuccess', 'Account Deleted');
     }
 
-    //show edit reservation modal 
-    // public function showEditPendingReservation (PendingReservation $pendingDetails){
-    //     $reservations = PendingReservation::get();
-    //     session(['showEditReservationModal' => 'edit']);
-    //     return view('rapha.user.reservations', compact('pendingDetails','reservations'));
-    // }
+    // edit reservation
+    public function editReservation (Request $request, PendingReservation $edit){
+       $maxCheckoutDate = now()->addMonths(3)->format('Y-m-d');
+        $validatedData = $request->validate([
+            'room_id' => 'required|exists:rooms,id',
+            'check_in_date' => 'required|date|after_or_equal:today',
+            'check_out_date' => 'required|date|after:check_in_date|before_or_equal:' . $maxCheckoutDate,
+        ]);
+
+        $expiry = Carbon::parse($validatedData['check_in_date'])->addDay();
+        $validatedData['expires_at'] = $expiry;
+        $edit->update($validatedData);
+        return redirect()->route('reservations')->with('reservationEditSuccess','Reservation Updated Successfully');
+    }
+
+    
+    // delete reservation
+    public function deleteReservation (PendingReservation $reservation){
+        $reservation->delete();
+        return redirect()->route('reservations')->with('reservationDeleteSuccess','Reservation Deleted Successfully');
+    }
 }

@@ -107,7 +107,8 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
     // Route::get('/user/reviews','showReviews')->name('reviews');
     Route::get('/profile','showProfile')->name('profile');
     //edit reservation
-    Route::get('/edit-reservation/{pendingDetails}', 'showEditPendingReservation')->name('edit-pending-reservation');
+    Route::get('/edit-reservation/{pendingDetails}', 'showEditPendingReservation')->name('show-edit-reservation');
+     Route::get('/delete-reservation/{pendingDetails}', 'showDeletePendingReservation')->name('show-delete-reservation');
     });
 
     
@@ -118,8 +119,8 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
     //delete review and account
     Route::delete('/delete-review/{review}', 'deleteReview')->name('delete-review');
     Route::delete('/delete-account/{account}', 'deleteAccount')->name('delete-account');
-    
-    
+    Route::put('/edit-reservation/{edit}','editReservation')->name('edit-reservation');
+    Route::delete('/delete-reservation/{reservation}','deleteReservation')->name('delete-reservation');
     });
     
 });
