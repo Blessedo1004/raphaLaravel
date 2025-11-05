@@ -19,7 +19,7 @@ class ActiveReservation extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected static function bootFilterByUser()
+    protected static function booted()
     {
 
         self::addGlobalScope('user', function (Builder $builder) {

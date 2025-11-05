@@ -21,7 +21,7 @@ class ClearedReservation extends Model
     }
 
 
-     protected static function bootFilterByUser()
+     protected static function booted()
     {
 
         self::addGlobalScope('user', function (Builder $builder) {

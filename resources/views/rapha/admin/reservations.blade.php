@@ -51,9 +51,13 @@
         <h4>No reservations</h4>
         @else
         @foreach ($reservations as $reservation)
-        <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2">
-            <h4 class="text-center">{{$reservation->room->name}}</h4>
-            <h6 class="mt-3 text-center">{{$reservation->created_at}}</h6>
+        <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-5 py-2">
+            <div class="row justify-content-center">
+              <h4 class="col-12 col-sm-6 col-xl-4 text-center text-md-start">{{$reservation->user->last_name . " " . $reservation->user->first_name }}</h4>
+              <h4 class="col-12 col-sm-6 col-xl-4 text-center text-md-start">{{$reservation->room->name}}</h4>
+            </div>
+            
+            <h6 class="mt-2 text-center">{{$reservation->created_at}}</h6>
         </a>
         @endforeach
       @endif
