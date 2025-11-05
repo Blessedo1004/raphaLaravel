@@ -19,24 +19,27 @@ class AdminController extends Controller
     }
 
      public function showAllPendingReservations(Request $request){
-        $reservations = PendingReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
+        $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
         $details = $request->session()->get('details');
         $route = "admin-pending";
-        return view('rapha.admin.reservations', compact('reservations','details','route'));
+        $searchWildcard = 'PendingReservation';
+        return view('rapha.admin.reservations', compact('reservations','details','route','searchWildcard'));
     }
 
     public function showAllActiveReservations(Request $request){
-        $reservations = ActiveReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
+        $reservations = $request->session()->get('reservations') ??  ActiveReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
         $details = $request->session()->get('details');
         $route = "admin-active";
-        return view('rapha.admin.reservations', compact('reservations','details','route'));
+        $searchWildcard = 'ActiveReservation';
+        return view('rapha.admin.reservations', compact('reservations','details','route','searchWildcard'));
     }
 
     public function showAllClearedReservations(Request $request){
-        $reservations = ClearedReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
+        $reservations = $request->session()->get('reservations') ?? ClearedReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
         $details = $request->session()->get('details');
         $route = "admin-cleared";
-        return view('rapha.admin.reservations', compact('reservations','details','route'));
+        $searchWildcard = 'ClearedReservation';
+        return view('rapha.admin.reservations', compact('reservations','details','route','searchWildcard'));
     }
 
     public function showAdminProfile(){
@@ -91,6 +94,18 @@ class AdminController extends Controller
         $checkout->delete();
 
         return redirect()->route('admin-cleared-reservations')->with('checkoutSuccess', 'Check Out Successful');
+    }
+
+    //search
+    public function search(Request $request, $search){
+        $searchterm = $request->search;
+        $modelClass = "App\\Models\\{$search}";
+        $reservations = $modelClass::withoutGlobalScope('user')
+            ->with('room')
+            ->where('reservation_id', 'like', "%{$searchterm}%")
+            ->orderBy('id', 'desc')->get();
+            
+       return back()->with('reservations',$reservations);
     }
 
 }

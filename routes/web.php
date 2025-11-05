@@ -140,10 +140,12 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
             Route::get('/active/{details}','showActiveDetails')->name('admin-active');
             Route::get('/cleared', 'showAllClearedReservations')->name('admin-cleared-reservations');
             Route::get('/cleared/{details}','showClearedDetails')->name('admin-cleared');
+            Route::get('/checkin/{checkin}', 'checkIn')->name('checkin');
+            Route::get('/checkout/{checkout}', 'checkOut')->name('checkout');
+            Route::get('/search/{search}', 'search')->name('search');
         });
         Route::get('/profile','showAdminProfile')->name('admin-profile');
-        Route::get('/checkin/{checkin}', 'checkIn')->name('checkin');
-         Route::get('/checkout/{checkout}', 'checkOut')->name('checkout');
+        
     });
     
 });

@@ -41,7 +41,7 @@
         @foreach ($reservations as $reservation)
         <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2" title="Click to view reservation details">
             <h4 class="text-center">{{$reservation->room->name}}</h4>
-            <h6 class="mt-3 text-center">{{$reservation->updated_at}}</h6>
+            <h6 class="mt-3 text-center">{{$reservation->created_at}}</h6>
         </a>
         @endforeach
         

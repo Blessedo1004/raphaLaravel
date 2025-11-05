@@ -28,12 +28,36 @@
             </x-reservation-nav>
           </div>
         </div>
+
+         <form action="{{ route('search', $searchWildcard) }}">
+        @csrf
+        <div class="col-11 col-sm-8 mt-4 mx-auto d-block">
+          <div class="input-group m">
+            <input 
+              type="text" 
+              id="search" 
+              name="search" 
+              value=""
+              class="bg-white form-control"
+              placeholder="Type reservation id..."
+            >
+            <input type="submit" class="btn reg_btn text-light input-group-text" value="Search">
+          </div>
+          
+        </div>
+      </form>
+
+      @if($reservations->isEmpty())
+        <h4>No reservations</h4>
+        @else
         @foreach ($reservations as $reservation)
         <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2">
             <h4 class="text-center">{{$reservation->room->name}}</h4>
-            <h6 class="mt-3 text-center">{{$reservation->updated_at}}</h6>
+            <h6 class="mt-3 text-center">{{$reservation->created_at}}</h6>
         </a>
         @endforeach
+      @endif
+        
         
       </div>
     </div> 

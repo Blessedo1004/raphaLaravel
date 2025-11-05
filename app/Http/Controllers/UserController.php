@@ -30,7 +30,7 @@ class UserController extends Controller
 
     public function showPendingReservations(Request $request){
         $details = $request->session()->get('details');
-        $pendingEdit = $request->session()->get('pendingDetails');
+        $pendingEdit = $request->session()->get('pendingEdit');
         $pendingDelete = $request->session()->get('pendingDelete');
         $route = "pending";
         $reservations = PendingReservation::orderBy('id', 'desc')->get();
