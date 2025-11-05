@@ -75,7 +75,7 @@ class AdminController extends Controller
 
         $checkin->delete();
 
-        return redirect()->route('admin-reservations')->with('checkinSuccess', 'Check In Successful');
+        return redirect()->route('admin-active-reservations')->with('checkinSuccess', 'Check In Successful');
     }
 
     public function checkout($checkout){
@@ -90,7 +90,7 @@ class AdminController extends Controller
 
         $checkout->delete();
 
-        return redirect()->route('admin-reservations')->with('checkoutSuccess', 'Check Out Successful');
+        return redirect()->route('admin-cleared-reservations')->with('checkoutSuccess', 'Check Out Successful');
     }
 
 }
