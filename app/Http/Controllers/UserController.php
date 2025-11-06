@@ -13,6 +13,7 @@ use App\Models\ClearedReservation;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\ReservationEmail;
 
 class UserController extends Controller
 {
@@ -61,7 +62,7 @@ class UserController extends Controller
             'check_out_date' => 'required|date|after:check_in_date|before_or_equal:' . $maxCheckoutDate,
         ]);
 
-        $reservationID = Str::random(10);
+        $reservationID = Str::random(6);
         $expiry = Carbon::parse($validatedData['check_in_date'])->addDay();
         $user = Auth::user();
         $userEmail = $user->email;
@@ -70,10 +71,7 @@ class UserController extends Controller
 
         $reservation = PendingReservation::create($validatedData);
         $reservation->load('room');
-        Mail::send('rapha.emails.reservation-email', compact('reservation'), function ($message) use ($userEmail){
-            $message->to($userEmail);
-            $message->subject('Reservation Details');
-        });
+        Mail::to($userEmail)->send(new ReservationEmail($reservation));
 
         return redirect()->route('reservations')->with('reservationSuccess', 'Reservation made. Please check your email for reservation details.');
     }

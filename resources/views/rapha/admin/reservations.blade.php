@@ -48,7 +48,7 @@
       </form>
 
       @if($reservations->isEmpty())
-        <h4>No reservations</h4>
+        <h4 class="text-center">No reservations found</h4>
         @else
         @foreach ($reservations as $reservation)
         <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-5 py-2">

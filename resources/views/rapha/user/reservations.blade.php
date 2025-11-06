@@ -38,6 +38,10 @@
             </x-reservation-nav>
           </div>
         </div>
+        @if($route === "pending")
+            <h6 class="text-center mt-5 text-danger col-sm-10 mx-auto d-block">Note: All pending reservations that haven't been cleared at the counter will expire 24 hours after the check-in-date. Please do well to visit the counter and check-in with your reservation details.</h6>
+        @endif
+        
         @foreach ($reservations as $reservation)
         <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2" title="Click to view reservation details">
             <h4 class="text-center">{{$reservation->room->name}}</h4>
@@ -47,9 +51,7 @@
         
       </div>
     </div> 
-
-     <h6 class="text-center mt-5 text-danger col-sm-10 mx-auto d-block">Note: All pending reservations that haven't been cleared at the counter will expire 24 hours after the check-in-date. Please do well to visit the counter and check-in with your reservation details.</h6>
-    
+     
  
     {{-- reservation details modal starts --}}
     @if(session('reservationModal'))

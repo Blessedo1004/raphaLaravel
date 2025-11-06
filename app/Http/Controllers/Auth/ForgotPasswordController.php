@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\ForgotPasswordEmail;
+use App\Mail\PreregisterEmail;
 
 class ForgotPasswordController extends Controller
 {
@@ -52,10 +54,7 @@ class ForgotPasswordController extends Controller
         Cache::put('forgot_password_for' . $code, $email, 60 * 20);
         Cache::put('forgot_password_email_code' . $email, $code, 60 * 20);
 
-        Mail::send('rapha.emails.forgot-password', ['code' => $code], function ($message) use ($email){
-          $message->to($email);
-          $message->subject('Password Reset');
-        });
+        Mail::to($email)->send(new ForgotPasswordEmail($code));
         session()->flash('from_verification_form', true);
         return redirect()->route('forgotpassword.verify')->with('email', $email);
     }
@@ -108,10 +107,7 @@ class ForgotPasswordController extends Controller
          Cache::put('forgot_password_for'. $newCode, $userEmail, 60 * 20);
         Cache::put('forgot_password_email_code'. $userEmail, $newCode, 60 * 20);
 
-         Mail::send('rapha.emails.verify-preregistration', ['code' => $newCode], function ($message) use ($userEmail) {
-            $message->to($userEmail);
-            $message->subject('Verify Your Email Address');
-        });
+         Mail::to($userEmail)->send(new PreregisterEmail($newCode));
         session()->flash('from_verification_form', true);
         return back()->with('resendSuccess2','Code resent. Check your email');
     }

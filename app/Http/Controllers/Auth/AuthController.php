@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\PreregisterEmail;
 
 class AuthController extends Controller
 {
@@ -51,11 +52,7 @@ class AuthController extends Controller
         Cache::put('preregister_user'. $code, $userData, 60 * 20);
         Cache::put('preregister_email_token'. $userData['email'], $code, 60 * 20);
 
-        // Send verification email
-        Mail::send('rapha.emails.verify-preregistration', ['code' => $code], function ($message) use ($userData) {
-            $message->to($userData['email']);
-            $message->subject('Verify Your Email Address');
-        });
+        Mail::to($userData['email'])->send(new PreregisterEmail($code));
 
         session()->flash('show_preregister_notice', true);
         
