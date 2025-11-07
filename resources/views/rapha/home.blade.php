@@ -104,7 +104,7 @@
                                                 <div class="col-lg-6 text-center">
                                                     <p class="slider-teaser mb-0">Rapha Hotel Ltd. offers a variety of well-appointed rooms and apartments, each designed for maximum comfort and relaxation, featuring modern amenities to ensure a memorable and luxurious stay for every guest.</p>
                                                         <div class="spacer-30"></div>
-                                                        <a class="btn-main mb10 mb-3" href="{{ route('make-reservation') }}">Book Now</a>
+                                                        <a class="btn-main mb10 mb-3" href="{{ route('rapha.login') }}">Book Now</a>
                                                 </div>
     
                                                 <div class="spacer-single"></div>

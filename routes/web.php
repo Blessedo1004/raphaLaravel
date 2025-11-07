@@ -96,7 +96,7 @@ Route::group(['middleware'=>['auth','cache.headers:no_store,private'] ,'prefix'=
 Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store,private'],'prefix'=>'user'],function(){
     Route::controller(UserController::class)->group(function(){
     Route::get('/dashboard','showDashboard')->name('dashboard');
-    Route::get('/make-reservation','showMakeReservation')->name('make-reservation');
+    Route::get('/make-reservation/{selectedRoom?}','showMakeReservation')->name('make-reservation');
     Route::post('/make-reservation','makeReservation')->name('make-reservation');
         Route::group(['prefix'=>'reservations'], function(){
             Route::get('/pending','showPendingReservations')->name('reservations');

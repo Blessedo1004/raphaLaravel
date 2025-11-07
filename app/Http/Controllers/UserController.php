@@ -17,9 +17,10 @@ use App\Mail\ReservationEmail;
 
 class UserController extends Controller
 {
-    public function showMakeReservation(){
+    public function showMakeReservation($selectedRoom = null){
         $rooms = Room::orderBy('name')->get();
-        return view('rapha.user.make-reservation', compact('rooms'));
+        $selectedRoom = $selectedRoom ? Room::findOrFail($selectedRoom) : null;
+        return view('rapha.user.make-reservation', compact('rooms', 'selectedRoom'));
     }
 
      public function showDashboard(){

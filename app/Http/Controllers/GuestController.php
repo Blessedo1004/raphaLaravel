@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Review;
+use App\Models\Room;
 
 class GuestController extends Controller
 {
@@ -18,43 +19,53 @@ class GuestController extends Controller
     }
 
     public function superStudio(){
-        return view('rapha.rooms.superstudio');
+        $room = Room::where('name', 'Super Studio Room')->first();
+        return view('rapha.rooms.superstudio', compact('room'));
     }
 
      public function exclusive(){
-        return view('rapha.rooms.exclusive');
+        $room = Room::where('name', 'Exclusive Room')->first();
+        return view('rapha.rooms.exclusive' , compact('room'));
     }
 
     public function classic(){
-        return view('rapha.rooms.classic');
+        $room = Room::where('name', 'Classic Room')->first();
+        return view('rapha.rooms.classic' , compact('room'));
     }
 
     public function premier(){
-        return view('rapha.rooms.premier');
+        $room = Room::where('name', 'Premier Room')->first();
+        return view('rapha.rooms.premier' , compact('room'));
     }
 
     public function luxury(){
-        return view('rapha.rooms.luxury');
+        $room = Room::where('name', 'Luxury Room')->first();
+        return view('rapha.rooms.luxury' , compact('room'));
     }
 
     public function family (){
-        return view('rapha.rooms.family');
+        $room = Room::where('name', 'Family Room')->first();
+        return view('rapha.rooms.family' , compact('room'));
     }
 
     public function ambassador(){
-        return view('rapha.rooms.ambassador');
+        $room = Room::where('name', 'Ambassador Suite')->first();
+        return view('rapha.rooms.ambassador' , compact('room'));
     }
 
     public function presidential(){
-        return view('rapha.rooms.presidential');
+        $room = Room::where('name', 'Presidential Suite')->first();
+        return view('rapha.rooms.presidential' , compact('room'));
     }
 
     public function hall(){
-        return view('rapha.rooms.hall');
+        $room = Room::where('name', 'Banquet and Conference Hall')->first();
+        return view('rapha.rooms.hall' , compact('room'));
     }
 
     public function apartment(){
-        return view('rapha.rooms.apartment');
+        $room = Room::where('name', 'Apartments')->first();
+        return view('rapha.rooms.apartment' , compact('room'));
     }
 
     public function gallery(){
