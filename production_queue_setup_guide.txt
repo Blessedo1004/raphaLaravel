@@ -1,0 +1,85 @@
+## IMPORTANT: Managed Hosting vs. Self-Managed Servers
+
+This guide is split into two sections. The first section explains how modern, managed Laravel hosting platforms handle queues. The second section provides a detailed guide for setting up queues manually on a self-managed server (like a VPS).
+
+---
+
+### Section 1: Managed Laravel Hosting (Laravel Cloud, Forge, Vapor)
+
+If you are using a modern, managed hosting platform, you **DO NOT** need to follow the manual Supervisor setup guide. These platforms are designed to make queue management simple.
+
+*   **Laravel Cloud (Launched 2025):** As a "zero-admin" platform, Laravel Cloud is expected to handle this automatically. When you deploy your app, it will detect your queue usage. You will likely just use a simple web dashboard to specify the number of workers you want, and the platform will manage, monitor, and scale them for you.
+
+*   **Laravel Forge:** Forge provides a server management dashboard. In your site's management panel, there is a "Queues" tab. Here, you can simply fill out a form to specify the queue connection, number of processes, etc. Forge then automatically installs and configures Supervisor for you in the background.
+
+*   **Laravel Vapor:** As a serverless platform, Vapor uses AWS SQS for its queueing system. You define your queues and their settings directly in your project's `vapor.yml` configuration file. Vapor handles the rest automatically.
+
+--- 
+
+### Section 2: Manual Setup for a VPS / Dedicated Server
+
+This guide explains how to set up a persistent queue worker in a production environment using Supervisor on a Linux server (like a VPS or dedicated server).
+
+#### The Goal
+
+The goal is to have a process on your server that constantly runs the `php artisan queue:work` command. If that command ever stops or crashes, Supervisor will automatically restart it, ensuring your queued jobs (like emails) are always being processed.
+
+#### 1. Install Supervisor
+
+First, you need to install Supervisor on your production server. If you are using an Ubuntu-based server, the command is:
+```bash
+sudo apt-get install supervisor
+```
+
+#### 2. Create a Supervisor Configuration File
+
+Supervisor's configuration files live in the `/etc/supervisor/conf.d` directory. You need to create a new file in that directory for your queue worker. Let's call it `laravel-worker.conf`.
+
+```bash
+sudo nano /etc/supervisor/conf.d/laravel-worker.conf
+```
+
+Now, paste the following configuration into that file. **You must change the paths and the `user`** to match your server's setup.
+
+```ini
+[program:laravel-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /path/to/your/project/artisan queue:work --sleep=3 --tries=3
+autostart=true
+autorestart=true
+user=your_server_user
+numprocs=8
+redirect_stderr=true
+stdout_logfile=/path/to/your/project/storage/logs/worker.log
+stopwaitsecs=3600
+```
+
+**Explanation of Key Settings:**
+*   `command`: The absolute path to your project's `artisan` file. We add `--sleep=3` to make the worker wait 3 seconds before checking for new jobs if the queue is empty, and `--tries=3` to make it retry a failed job 3 times.
+*   `user`: The Linux user that should run the command (e.g., `www-data`, `forge`, `deployer`).
+*   `numprocs`: The number of worker processes you want to run simultaneously. `8` is a good starting point for a general-purpose application.
+*   `autostart=true`: Ensures the worker starts when the server boots.
+*   `autorestart=true`: Automatically restarts the worker if it crashes.
+*   `stdout_logfile`: A path to a log file where you can see any output from your worker.
+
+#### 3. Start the Queue Worker
+
+After saving the configuration file, you need to tell Supervisor to read it and start the processes.
+
+```bash
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start laravel-worker:*
+```
+
+Your queue workers are now running in the background and will be automatically managed by Supervisor.
+
+#### 4. Important: Deploying Your Application
+
+Whenever you deploy new code to your server, you **must** restart the queue workers so they pick up the new code. You do this by running the following command from your project's root directory as part of your deployment script:
+
+```bash
+php artisan queue:restart
+```
+
+This command gracefully tells the workers to finish their current job and then exit. Supervisor will then automatically restart them, and they will start processing jobs using your newly deployed code.
