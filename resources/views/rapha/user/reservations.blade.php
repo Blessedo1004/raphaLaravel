@@ -55,9 +55,7 @@
  
     {{-- reservation details modal starts --}}
     @if(session('reservationModal'))
-      <div class="modal_container">
-          <div class="modal_content">
-            <h1 class="text-end mb-3"><i class="fa-solid fa-xmark" id="reservationModalClose" title="close"></i></h1>
+      <x-reservation-modal>
             <h4> <span class="name">Room Type : </span>{{$details->room->name}}</h4>
             <h4 class="mt-3"> <span class="name">Check In Date : </span>{{$details->check_in_date}}</h4>
             <h4 class="mt-3"> <span class="name">Check Out Date :</span> {{$details->check_out_date}}</h4>
@@ -73,14 +71,13 @@
             
           </div>
       </div>
+      </x-reservation-modal>
       @endif
       {{-- reservation details modal ends --}}
 
       {{-- edit reservation modal starts --}}
       @if(session('showEditReservation'))
-        <div class="modal_container">
-          <div class="modal_content">
-           <h1 class="text-end mb-3"><i class="fa-solid fa-xmark" id="reservationModalClose" title="close"></i></h1>
+        <x-reservation-modal>
              <input type="hidden" value="{{ $pendingEdit->room_id }}" id="hiddenRoom">
              <input type="hidden" value="{{ $pendingEdit->check_in_date->format('Y-m-d') }}" id="hiddenCheckIn">
              <input type="hidden" value="{{$pendingEdit->check_out_date->format('Y-m-d') }}" id="hiddenCheckOut">
@@ -135,12 +132,13 @@
         {{-- Edit reservation form ends --}}
           </div>
         </div>
+        </x-reservation-modal>
        @endif
+        {{-- edit reservation modal ends --}}
 
-       {{-- delete modal starts --}}
+       {{-- delete reservation modal starts --}}
     @if(session('showDeleteReservation'))
-      <div class="modal_container">
-          <div class="modal_content">
+    <x-reservation-modal>
             <h4 class="text-danger"> Are you sure you want to delete this pending reservation?</h4>
              <div class="d-flex justify-content-center mt-4">
               <button class="btn reg_btn text-light" id="reservationModalClose">No</button>
@@ -151,8 +149,7 @@
               </form>
               
             </div>
-          </div>
-      </div>
+      </x-reservation-modal>
       @endif
       {{-- delete reservation modal ends --}}
   </x-slot>
