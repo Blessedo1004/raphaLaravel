@@ -113,17 +113,21 @@ xmark.addEventListener('click', ()=>{
     // check review rating and content before enabling submit button
     function checkReview(){
       const reviewContent = document.getElementById('review-content');
-      const currentLength = reviewContent.value.length;
       const minLength = 20;
-       const submitButton = document.getElementById('submit-review-btn');
-      if (currentLength < minLength || ratingValue.value === '') {
+      const submitButton = document.getElementById('submit-review-btn');
+      if(reviewContent && submitButton){
+         const currentLength = reviewContent.value.length;
+        if (currentLength < minLength || ratingValue.value === '') {
            submitButton.disabled = true;
-        } else {
+          }
+           else {
             submitButton.disabled = false;
-       }
+          }
+      }
     }
 
     checkReview();
+
     // review char count
     function reviewCharCountCheck() {
         const reviewContent = document.getElementById('review-content');
@@ -197,6 +201,7 @@ xmark.addEventListener('click', ()=>{
         const hiddenInput = document.querySelector("#inputHidden")
         const editBtn = document.querySelector("#editBtn")
         const input = document.querySelector("#editInput")
+        if(hiddenInput && editBtn && input){
         if (hiddenInput.value === input.value){
               editBtn.disabled=true
               document.querySelector('.edit_error_message').innerText= "Please type a different value"
@@ -206,7 +211,7 @@ xmark.addEventListener('click', ()=>{
               document.querySelector('.edit_error_message').innerText= ""
             }
         }
-
+      }
         checkProfileDetails()
 
         //checks edit profile details input when user types

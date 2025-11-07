@@ -51,16 +51,18 @@ Route::middleware('cache.headers:no_store,private')->controller(ForgotPasswordCo
 Route::controller(GuestController::class)->group(function(){
     // Room routes start
     Route::get('/rooms','showRooms')->name('rapha.rooms');
-    Route::get('/rooms/superstudio','superStudio')->name('room.superstudio');
-    Route::get('/rooms/exclusive','exclusive')->name('room.exclusive');
-    Route::get('/rooms/classic','classic')->name('room.classic');
-    Route::get('/rooms/premier','premier')->name('room.premier');
-    Route::get('/rooms/luxury','luxury')->name('room.luxury');
-    Route::get('/rooms/family','family')->name('room.family');
-    Route::get('/rooms/ambassador','ambassador')->name('room.ambassador');
-    Route::get('/rooms/presidential','presidential')->name('room.presidential');
-    Route::get('/rooms/hall','hall')->name('room.hall');
-    Route::get('/rooms/apartment','apartment')->name('room.apartment');
+    Route::prefix('rooms')->group(function(){
+        Route::get('/superstudio','superStudio')->name('room.superstudio');
+        Route::get('/exclusive','exclusive')->name('room.exclusive');
+        Route::get('/classic','classic')->name('room.classic');
+        Route::get('/premier','premier')->name('room.premier');
+        Route::get('/luxury','luxury')->name('room.luxury');
+        Route::get('/family','family')->name('room.family');
+        Route::get('/ambassador','ambassador')->name('room.ambassador');
+        Route::get('/presidential','presidential')->name('room.presidential');
+        Route::get('/hall','hall')->name('room.hall');
+        Route::get('/apartment','apartment')->name('room.apartment');
+    });
     //Room routes end
 
     Route::get('/','home')->name('rapha.home');
@@ -72,17 +74,17 @@ Route::controller(GuestController::class)->group(function(){
 
 // Auth routes starts
 
-Route::group(['middleware'=>['auth','cache.headers:no_store,private']],function(){
+Route::group(['middleware'=>['auth','cache.headers:no_store,private'] ,'prefix'=> 'profile'],function(){
     Route::controller(EditController::class)->group(function(){
         //edit profile info starts
-    Route::get('/profile-edit-first-name','showEditFirstName')->name('show-edit-first-name')->middleware('one-time-user');
-    Route::put('/profile-edit-first-name/{edit}','editFirstName')->name('edit-first-name');
-    Route::get('/profile-edit-last-name','showEditLastName')->name('show-edit-last-name')->middleware('one-time-user');
-    Route::put('/profile-edit-last-name/{edit}','editLastName')->name('edit-last-name');
-    Route::get('/profile-edit-user-name','showEditUserName')->name('show-edit-user-name')->middleware('one-time-user');
-    Route::put('/profile-edit-user-name/{edit}','editUserName')->name('edit-user-name');
-    Route::get('/profile-edit-phone-number','showEditPhoneNumber')->name('show-edit-phone-number')->middleware('one-time-user');
-    Route::put('/profile-edit-phone-number/{edit}','editPhoneNumber')->name('edit-phone-number');
+    Route::get('/edit-first-name','showEditFirstName')->name('show-edit-first-name')->middleware('one-time-user');
+    Route::put('/edit-first-name/{edit}','editFirstName')->name('edit-first-name');
+    Route::get('/edit-last-name','showEditLastName')->name('show-edit-last-name')->middleware('one-time-user');
+    Route::put('/edit-last-name/{edit}','editLastName')->name('edit-last-name');
+    Route::get('/edit-user-name','showEditUserName')->name('show-edit-user-name')->middleware('one-time-user');
+    Route::put('/edit-user-name/{edit}','editUserName')->name('edit-user-name');
+    Route::get('/edit-phone-number','showEditPhoneNumber')->name('show-edit-phone-number')->middleware('one-time-user');
+    Route::put('/edit-phone-number/{edit}','editPhoneNumber')->name('edit-phone-number');
     Route::get('/change-password','showChangePassword')->name('show-change-password')->middleware('one-time-user');
     Route::put('/change-password/{edit}','changePassword')->name('change-password');
     //edit profile info ends

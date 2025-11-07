@@ -56,11 +56,7 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
     const submitButton = document.querySelector('.submit_edit_reservation');
 
     function checkFormChanges() {
-        // Ensure all elements exist before proceeding
-        if (!hiddenRoom || !hiddenCheckIn || !hiddenCheckOut || !roomSelect || !checkInInput || !checkOutInput || !submitButton) {
-            return;
-        }
-
+        if (hiddenRoom && hiddenCheckIn && hiddenCheckOut && roomSelect && checkInInput && checkOutInput && submitButton) {
         const roomChanged = hiddenRoom.value !== roomSelect.value;
         const checkInChanged = hiddenCheckIn.value !== checkInInput.value;
         const checkOutChanged = hiddenCheckOut.value !== checkOutInput.value;
@@ -71,12 +67,14 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
         } else {
             submitButton.disabled = true;
         }
-    }
+    
 
     // Add event listeners to the form elements
     roomSelect.addEventListener('change', checkFormChanges);
     checkInInput.addEventListener('change', checkFormChanges);
     checkOutInput.addEventListener('change', checkFormChanges);
+    }
 
+    }
     // Run the check once on page load
     checkFormChanges();
