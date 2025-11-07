@@ -2,13 +2,13 @@
   <x-slot name="content">
     <div class="container mt-5">
       @if(session('checkinSuccess'))
-        <div class="alert alert-success text-center">
+        <div class="alert alert-success text-center col-md-8 mx-auto d-block">
           {{session('checkinSuccess')}}
         </div>
       @endif
 
        @if(session('checkoutSuccess'))
-        <div class="alert alert-success text-center">
+        <div class="alert alert-success text-center col-md-8 mx-auto d-block">
           {{session('checkoutSuccess')}}
         </div>
       @endif
@@ -23,8 +23,8 @@
               Active
             </x-reservation-nav>
 
-            <x-reservation-nav :activePage="Route::currentRouteName()" page="admin-cleared-reservations">
-              Cleared
+            <x-reservation-nav :activePage="Route::currentRouteName()" page="admin-completed-reservations">
+              Completed
             </x-reservation-nav>
           </div>
         </div>

@@ -41,7 +41,7 @@
                                   <div class="col-md-6 text-center">
                                       <div class="text-light p-4 h-100 wow fadeInRight" data-bgcolor="#70533A" data-wow-delay=".2s">
                                           <div class="de_count fs-15 wow fadeInRight" data-wow-delay=".6s">
-                                              <a class="btn-main btn-line no-bg mt-lg-4" href="{{ route('rapha.login') }}">Book Now</a>
+                                              <a class="btn-main btn-line no-bg mt-lg-4" href="{{ route('make-reservation') }}">Book Now</a>
                                           </div>
                                       </div>
                                   </div>

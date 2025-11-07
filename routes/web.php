@@ -103,8 +103,8 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
             Route::get('/pending/{details}','showPendingDetails')->name('pending');
             Route::get('/active','showActiveReservations')->name('active-reservations');
             Route::get('/active/{details}','showActiveDetails')->name('active');
-            Route::get('/cleared','showClearedReservations')->name('cleared-reservations');
-            Route::get('/cleared/{details}','showClearedDetails')->name('cleared');
+            Route::get('/completed','showCompletedReservations')->name('completed-reservations');
+            Route::get('/completed/{details}','showCompletedDetails')->name('completed');
         });
     Route::get('/write-review','showWriteReview')->name('write-review');
     Route::post('/write-review','writeReview')->name('write-review');
@@ -140,8 +140,8 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
             Route::get('/pending/{pending}','showPendingDetails')->name('admin-pending');
             Route::get('/active', 'showAllActiveReservations')->name('admin-active-reservations');
             Route::get('/active/{details}','showActiveDetails')->name('admin-active');
-            Route::get('/cleared', 'showAllClearedReservations')->name('admin-cleared-reservations');
-            Route::get('/cleared/{details}','showClearedDetails')->name('admin-cleared');
+            Route::get('/completed', 'showAllCompletedReservations')->name('admin-completed-reservations');
+            Route::get('/completed/{details}','showCompletedDetails')->name('admin-completed');
             Route::get('/checkin/{checkin}', 'checkIn')->name('checkin');
             Route::get('/checkout/{checkout}', 'checkOut')->name('checkout');
             Route::get('/search/{search}', 'search')->name('search');

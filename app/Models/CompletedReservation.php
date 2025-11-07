@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
-class ClearedReservation extends Model
+class CompletedReservation extends Model
 {
   protected $fillable = [
         "user_id", "reservation_id", "check_in_date", "check_out_date", "room_id"

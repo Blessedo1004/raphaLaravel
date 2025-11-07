@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
       <div class="col-12">
         @if(session('editSuccess'))
-          <div class="alert alert-success text-center">
+          <div class="alert alert-success text-center col-md-8 mx-auto d-block">
           {{session('editSuccess')}}
         </div>
         @endif

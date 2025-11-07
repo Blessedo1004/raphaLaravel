@@ -3,7 +3,7 @@
     <div class="row mt-5">
       {{-- Review success alert starts --}}
       @if(session('reviewSuccess'))
-        <div class="alert alert-success text-center">
+        <div class="alert alert-success text-center col-md-8 mx-auto d-block">
           {{session('reviewSuccess')}}
         </div>
       @endif
@@ -11,7 +11,7 @@
       
         {{-- Edit Review success alert starts --}}
       @if(session('editReviewSuccess'))
-        <div class="alert alert-success text-center">
+        <div class="alert alert-success text-center col-md-8 mx-auto d-block">
           {{session('editReviewSuccess')}}
         </div>
       @endif
@@ -19,7 +19,7 @@
 
       {{-- Delete Review success alert starts --}}
       @if(session('deleteReviewSuccess'))
-        <div class="alert alert-success text-center">
+        <div class="alert alert-success text-center col-md-8 mx-auto d-block">
           {{session('deleteReviewSuccess')}}
         </div>
       @endif

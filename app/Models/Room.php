@@ -14,7 +14,7 @@ class Room extends Model
         $this->hasMany(ActiveReservation::class);
     }
 
-    public function clearedReservations(){
-        $this->hasMany(ClearedReservation::class);
+    public function completedReservations(){
+        $this->hasMany(CompletedReservation::class);
     }
 }

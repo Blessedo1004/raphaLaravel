@@ -76,8 +76,8 @@ class User extends Authenticatable
         $this->hasMany(ActiveReservation::class);
     }
 
-    public function clearedReservations(){
-        $this->hasMany(ClearedReservation::class);
+    public function completedReservations(){
+        $this->hasMany(CompletedReservation::class);
     }
     
 }
