@@ -32,7 +32,7 @@
          <form action="{{ route('search', $searchWildcard) }}">
         @csrf
         <div class="col-11 col-sm-8 mt-4 mx-auto d-block">
-          <div class="input-group m">
+          <div class="input-group">
             <input 
               type="text" 
               id="search" 
@@ -48,7 +48,7 @@
       </form>
 
       @if($reservations->isEmpty())
-        <h4 class="text-center">No reservations found</h4>
+        <h4 class="text-center mt-4">No reservations found</h4>
         @else
         @foreach ($reservations as $reservation)
         <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-5 py-2">
