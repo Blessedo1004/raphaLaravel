@@ -47,7 +47,7 @@
         @else
           @foreach ($groupedReservations as $date => $reservationsOnDate)
             <div class="reservation_container col-md-10 bg-light mt-4">
-              <h3 class="text-center mt-5 date_heading">
+              <h3 class="text-center mt-2 date_heading">
                 @if(Carbon\Carbon::parse($date)->isToday())
                   Today
                 @elseif(Carbon\Carbon::parse($date)->isYesterday())
@@ -57,7 +57,7 @@
                 @endif
               </h3>
               @foreach ($reservationsOnDate as $reservation)
-                <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div py-2 mt-4" title="Click to view reservation details">
+                <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div py-2 mt-4 mb-3" title="Click to view reservation details">
                   <h4 class="text-center">{{$reservation->room->name}}</h4>
                   <h6 class="mt-3 text-center">{{$reservation->created_at->format('g:i A')}}</h6>
                 </a>

@@ -51,7 +51,7 @@
         <h4 class="text-center mt-4">No reservations found</h4>
       @else
         @foreach ($groupedReservations as $date => $reservationsOnDate)
-        <div class="reservation_container col-md-10 bg-light mt-5">
+        <div class="reservation_container col-md-10 bg-light mt-2">
           <h3 class="text-center mt-5 date_heading">
             @if(Carbon\Carbon::parse($date)->isToday())
               Today
@@ -62,7 +62,7 @@
             @endif
           </h3>
           @foreach ($reservationsOnDate as $reservation)
-            <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2">
+            <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2 mb-3">
                 <div class="row justify-content-center">
                   <h4 class="col-12 col-sm-6 col-xl-4 text-center text-md-start">{{$reservation->user->last_name . " " . $reservation->user->first_name }}</h4>
                   <h4 class="col-12 col-sm-6 col-xl-4 text-center text-md-start">{{$reservation->room->name}}</h4>
