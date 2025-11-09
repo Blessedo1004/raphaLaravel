@@ -78,3 +78,5 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
     }
     // Run the check once on page load
     checkFormChanges();
+
+   

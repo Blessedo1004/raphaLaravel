@@ -2,15 +2,15 @@
   <x-slot name="body">
     <x-preloader></x-preloader>
     <div class="content animate__animated animate__fadeIn">
-      <a href="{{ route('rapha.home') }}">
-        <img class="logo-main mx-auto d-block mx-sm-0" src="{{asset('images/logo-white1.webp')}}" alt="logo" >
-      </a>
     </div>
     <div class="notice_container">
+      <a href="{{ route('rapha.home') }}">
+        <img class="logo-main mx-auto d-block mx-sm-0" src="{{asset('images/logo-white1.webp')}}" alt="logo" >
+      </a>  
       <form action="{{ route('edit-review',$review->id) }}" method="post">
         @csrf
         @method('put')
-        <h3 class="text-center">Select a Rating:</h3>
+        <h3 class="text-center mt-2">Select a Rating:</h3>
         <div class="rating text d-flex justify-content-center ">
           <span class="star" data-value="1">&#9733;</span>
           <span class="star" data-value="2">&#9733;</span>

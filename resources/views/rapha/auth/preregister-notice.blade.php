@@ -2,13 +2,13 @@
   <x-slot name="body">
     <x-preloader></x-preloader>
     <div class="content animate__animated animate__fadeIn">
-      <a href="{{ route('rapha.home') }}">
-        <img class="logo-main mx-auto d-block mx-sm-0" src="{{asset('images/logo-white1.webp')}}" alt="logo" >
-      </a>
        <div class="notice_container">
-          <h4 class="text-center text-lg-start">
+          <a href="{{ route('rapha.home') }}">
+            <img class="logo-main mx-auto d-block mx-sm-0" src="{{asset('images/logo-white1.webp')}}" alt="logo" >
+          </a>
+            <h5 class="text-center text-lg-start mt-3">
             We've sent a verification code to {{ $email }}. Please check your inbox or spam folder and type in the code below.
-          </h4>
+          </h5>
 
           {{-- verification form starts--}}
           <form action="{{ route('preregister.verify') }}" method="post">
@@ -34,7 +34,7 @@
             @endif
             
 
-            <input type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" value="Submit">
+            <input type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" value="Verify Email">
           </form>
           <h4 class="mt-4 text-center text-lg-start">
             Didn't recieve an email? Click the button below to request for another code.
@@ -44,7 +44,7 @@
           <form action="{{ route('preregister.resend') }}" method="POST">
             @csrf
             <input type="hidden" name="email" value="{{ $email }}">
-            <input type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" value="Resend Code">
+            <button type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" id="resendCodeButton" disabled>Resend Code <span class="resend_countdown">(<span class="resend_countdown_value">59</span>)</span></button>
             @if(session('resendSuccess'))
               <div class="alert alert-success mt-3">
                   {{ session('resendSuccess') }}

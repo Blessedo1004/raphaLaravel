@@ -47,7 +47,7 @@
         </div>
          
       </div>
-      <div class="col-7 col-sm-2">
+      <div class="col-7 col-sm-2 mt-3 mt-sm-0">
         <form action="{{ route('logout') }}" method="post">
           @csrf
           <input type="submit" class="btn mt-md-4 bg-danger text-light mx-auto d-block mx-sm-0" value="Log Out">

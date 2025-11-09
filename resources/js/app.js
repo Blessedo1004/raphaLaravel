@@ -40,6 +40,23 @@ window.addEventListener('load', () => {
   }, 1500)
 })
 
+ // resend code button countdown
+    const resendButton = document.querySelector('#resendCodeButton');
+
+    if(resendButton){
+      
+     function resendCountdown (){
+      let resetCountdownValue = Number(document.querySelector('.resend_countdown_value').innerText); 
+        resetCountdownValue = resetCountdownValue --
+        document.querySelector('.resend_countdown_value').innerText = resetCountdownValue
+        if (resetCountdownValue === 0){
+           document.querySelector('.resend_countdown').style.display="none"
+            resendButton.disabled = false
+        }
+     }
+        setInterval(resendCountdown,1000)
+    }
+
 //fade out alerts after 3 seconds
 setTimeout(() => {
     const alerts = document.querySelectorAll('.alert-success');

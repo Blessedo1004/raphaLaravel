@@ -20,26 +20,35 @@ class AdminController extends Controller
 
      public function showAllPendingReservations(Request $request){
         $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
+        $groupedReservations = $reservations->groupBy(function($reservation) {
+            return $reservation->created_at->format('Y-m-d');
+        });
         $details = $request->session()->get('details');
         $route = "admin-pending";
         $searchWildcard = 'PendingReservation';
-        return view('rapha.admin.reservations', compact('reservations','details','route','searchWildcard'));
+        return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard'));
     }
 
     public function showAllActiveReservations(Request $request){
         $reservations = $request->session()->get('reservations') ??  ActiveReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
+        $groupedReservations = $reservations->groupBy(function($reservation) {
+            return $reservation->created_at->format('Y-m-d');
+        });
         $details = $request->session()->get('details');
         $route = "admin-active";
         $searchWildcard = 'ActiveReservation';
-        return view('rapha.admin.reservations', compact('reservations','details','route','searchWildcard'));
+        return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard'));
     }
 
     public function showAllCompletedReservations(Request $request){
         $reservations = $request->session()->get('reservations') ?? CompletedReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
+        $groupedReservations = $reservations->groupBy(function($reservation) {
+            return $reservation->created_at->format('Y-m-d');
+        });
         $details = $request->session()->get('details');
         $route = "admin-completed";
         $searchWildcard = 'CompletedReservation';
-        return view('rapha.admin.reservations', compact('reservations','details','route','searchWildcard'));
+        return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard'));
     }
 
     public function showAdminProfile(){

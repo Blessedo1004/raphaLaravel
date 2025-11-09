@@ -36,15 +36,21 @@ class UserController extends Controller
         $pendingDelete = $request->session()->get('pendingDelete');
         $route = "pending";
         $reservations = PendingReservation::orderBy('id', 'desc')->get();
+        $groupedReservations = $reservations->groupBy(function($reservation) {
+            return $reservation->created_at->format('Y-m-d');
+        });
         $rooms = Room::all();
-        return view('rapha.user.reservations', compact('reservations','details', 'pendingEdit', 'rooms','route','pendingDelete'));
+        return view('rapha.user.reservations', compact('groupedReservations','details', 'pendingEdit', 'rooms','route','pendingDelete'));
     }
 
     public function showActiveReservations(Request $request){
         $details = $request->session()->get('details');
         $route = "active";
         $reservations = ActiveReservation::orderBy('id', 'desc')->get();
-        return view('rapha.user.reservations', compact('reservations','details','route'));
+        $groupedReservations = $reservations->groupBy(function($reservation) {
+            return $reservation->created_at->format('Y-m-d');
+        });
+        return view('rapha.user.reservations', compact('groupedReservations','details','route'));
     }
 
 
@@ -52,7 +58,10 @@ class UserController extends Controller
         $details = $request->session()->get('details');
         $route = "completed";
         $reservations = CompletedReservation::orderBy('id', 'desc')->get();
-        return view('rapha.user.reservations', compact('reservations','details','route'));
+        $groupedReservations = $reservations->groupBy(function($reservation) {
+            return $reservation->created_at->format('Y-m-d');
+        });
+        return view('rapha.user.reservations', compact('groupedReservations','details','route'));
     }
 
     public function makeReservation(Request $request){

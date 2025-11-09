@@ -39,15 +39,32 @@
           </div>
         </div>
         @if($route === "pending")
-            <h6 class="text-center mt-5 text-danger col-sm-10 mx-auto d-block">Note: All pending reservations that haven't been cleared at the counter will expire 24 hours after the check-in-date. Please do well to visit the counter and check-in with your reservation details.</h6>
+            <h6 class="text-center mt-5 text-danger col-sm-8 mx-auto d-block">Note: All pending reservations that haven't been cleared at the counter will expire 24 hours after the check-in-date (WAT). Please do well to visit the counter and check-in with your reservation details.</h6>
         @endif
 
-        @foreach ($reservations as $reservation)
-        <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2" title="Click to view reservation details">
-            <h4 class="text-center">{{$reservation->room->name}}</h4>
-            <h6 class="mt-3 text-center">{{$reservation->created_at}}</h6>
-        </a>
-        @endforeach
+        @if($groupedReservations->isEmpty())
+          <h4 class="text-center mt-5">No reservations found</h4>
+        @else
+          @foreach ($groupedReservations as $date => $reservationsOnDate)
+            <div class="reservation_container col-md-10 bg-light mt-4">
+              <h3 class="text-center mt-5 date_heading">
+                @if(Carbon\Carbon::parse($date)->isToday())
+                  Today
+                @elseif(Carbon\Carbon::parse($date)->isYesterday())
+                  Yesterday
+                @else
+                  {{ Carbon\Carbon::parse($date)->format('F j, Y') }}
+                @endif
+              </h3>
+              @foreach ($reservationsOnDate as $reservation)
+                <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div py-2 mt-4" title="Click to view reservation details">
+                  <h4 class="text-center">{{$reservation->room->name}}</h4>
+                  <h6 class="mt-3 text-center">{{$reservation->created_at->format('g:i A')}}</h6>
+                </a>
+              @endforeach
+            </div>
+          @endforeach
+        @endif
         
       </div>
     </div> 

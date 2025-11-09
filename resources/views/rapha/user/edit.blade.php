@@ -2,13 +2,13 @@
   <x-slot name="body">
     <x-preloader></x-preloader>
     <div class="content animate__animated animate__fadeIn">
-      <a href="{{ route('rapha.home') }}">
-        <img class="logo-main mx-auto d-block mx-sm-0" src="{{asset('images/logo-white1.webp')}}" alt="logo" >
-      </a>
       <div class="notice_container">
-          <h4 class="text-center text-lg-start">
+          <a href="{{ route('rapha.home') }}">
+            <img class="logo-main mx-auto d-block mx-sm-0" src="{{asset('images/logo-white1.webp')}}" alt="logo" >
+          </a>  
+          <h5 class="text-center text-lg-start mt-3">
            {{$header}}
-          </h4>
+          </h5>
 
           @if($name!="password")
           <input type="hidden" value="{{ $profile->$name }}" id="inputHidden">
@@ -48,7 +48,7 @@
                 </div>
                 @endif
                
-            <input type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" value="Submit" id="editBtn">
+            <input type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" value="Change {{ $name }}" id="editBtn">
           </form>
          
 
