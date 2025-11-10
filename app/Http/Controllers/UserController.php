@@ -65,10 +65,11 @@ class UserController extends Controller
     }
 
     public function makeReservation(Request $request){
+        $maxCheckinDate = now()->addDays(3)->format('Y-m-d');
         $maxCheckoutDate = now()->addMonths(3)->format('Y-m-d');
         $validatedData = $request->validate([
             'room_id' => 'required|exists:rooms,id',
-            'check_in_date' => 'required|date|after_or_equal:today',
+            'check_in_date' => 'required|date|after_or_equal:today|before_or_equal:' . $maxCheckinDate,
             'check_out_date' => 'required|date|after:check_in_date|before_or_equal:' . $maxCheckoutDate,
         ]);
 
