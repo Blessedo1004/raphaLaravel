@@ -88,13 +88,7 @@ class UserController extends Controller
     }
 
     public function showWriteReview(){
-        $review = Review::first();
-
-        if ($review) {
-            $review->load('rating');
-        }
-        session()->flash('edit_form', true);
-        return view('rapha.user.write-review', compact('review'));
+        return view('rapha.user.write-review');
     }
 
     public function writeReview (Request $request){
@@ -103,12 +97,14 @@ class UserController extends Controller
             "content" => "required|string|min:20|max:250"       
     ]);
         Review::create($verified);
-        return back()->with('reviewSuccess','Review Created. Thank you!');
+        return redirect()->route('reviews')->with('reviewSuccess','Review Created. Thank you!');
     }
 
-    // public function showReviews(){
-    //     return view('rapha.user.reviews');
-    // }
+    public function showReviews(){
+        $reviews = Review::get();
+        session()->flash('edit_form', true);
+        return view('rapha.user.reviews', compact('reviews'));
+    }
 
     public function showProfile(){
         $profile = Auth::user();;

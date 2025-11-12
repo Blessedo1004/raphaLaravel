@@ -79,4 +79,22 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
     // Run the check once on page load
     checkFormChanges();
 
+    const reviewActionToggle = document.querySelectorAll('#review_action_toggle').forEach(toggle=>{
+    let clicked = false;    
+        if(toggle){
+            toggle.addEventListener('click', ()=>{
+                const id = toggle.dataset.id;
+                if(!clicked){
+                    document.querySelector(`.action_${id}`).style.display = 'block';
+                    clicked = true;
+                }
+                else{
+                    document.querySelector(`.action_${id}`).style.display = 'none';
+                    clicked = false;
+                }
+                
+            })
+        }
+    });
+
    

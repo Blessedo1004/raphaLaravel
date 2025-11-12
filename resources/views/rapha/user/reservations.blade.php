@@ -46,7 +46,7 @@
           <h4 class="text-center mt-5">No reservations found</h4>
         @else
           @foreach ($groupedReservations as $date => $reservationsOnDate)
-            <div class="reservation_container col-md-10 bg-light mt-4">
+            <div class="reservation_container col-12 col-lg-10 bg-light mt-4">
               <h3 class="text-center mt-2 date_heading">
                 @if(Carbon\Carbon::parse($date)->isToday())
                   Today

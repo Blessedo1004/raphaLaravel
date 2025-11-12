@@ -2,7 +2,6 @@
   <x-slot name="body">
     <x-preloader></x-preloader>
     <div class="content animate__animated animate__fadeIn">
-    </div>
     <div class="notice_container">
       <a href="{{ route('rapha.home') }}">
         <img class="logo-main mx-auto d-block mx-sm-0" src="{{asset('images/logo-white1.webp')}}" alt="logo" >
@@ -39,5 +38,6 @@
         @endif
       </form>
     </div>
+     </div>
   </x-slot>
 </x-head-two>    

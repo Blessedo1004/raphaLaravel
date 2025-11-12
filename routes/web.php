@@ -108,7 +108,7 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
         });
     Route::get('/write-review','showWriteReview')->name('write-review');
     Route::post('/write-review','writeReview')->name('write-review');
-    // Route::get('/user/reviews','showReviews')->name('reviews');
+    Route::get('/reviews','showReviews')->name('reviews');
     Route::get('/profile','showProfile')->name('profile');
     //edit reservation
     Route::get('/edit-reservation/{pendingDetails}', 'showEditPendingReservation')->name('show-edit-reservation');

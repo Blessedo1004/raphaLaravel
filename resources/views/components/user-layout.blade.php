@@ -86,16 +86,18 @@
           </div>
 
           <div class="col-12 text-center">
+             <x-nav :activePage="Route::currentRouteName()" page="reviews">
+               <i class="fa-solid fa-comments"></i> My Reviews
+            </x-nav>
+          </div>
+
+          <div class="col-12 text-center">
              <x-nav :activePage="Route::currentRouteName()" page="profile">
                <i class="fa-solid fa-user-tie"></i> User Profile
             </x-nav>
           </div>
           @endcan
-          {{-- <div class="col-12 text-center">
-             <x-nav :activePage="Route::currentRouteName()" page="reviews">
-               <i class="fa-solid fa-comments"></i> My Review
-            </x-nav>
-          </div> --}}
+          
 
           @can('manage-admin')
             <div class="col-12 text-center">

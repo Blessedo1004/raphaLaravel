@@ -44,10 +44,10 @@
         <h4 class="text-center mt-4">Email Address:&nbsp;<span class="email"></span>{{$profile->email}}</h4>
 
           <a href="{{ route('show-change-password') }}">
-            <input type="button" class="btn mt-4 reg_btn text-light col-5 col-md-3 col-lg-2 mx-auto d-block mt-5" value="Change Password">
+            <input type="button" class="btn mt-4 reg_btn text-light col-8 col-sm-5 col-md-3 col-lg-2 mx-auto d-block mt-5" value="Change Password">
           </a>
 
-          <button type="button" class="btn btn-danger col-5 col-sm-4 col-md-3 col-lg-2 mx-auto d-block mt-4" data-bs-toggle="modal" data-bs-target="#accountDeleteModal">
+          <button type="button" class="btn btn-danger col-6 col-sm-4 col-md-3 col-lg-2 mx-auto d-block mt-4" data-bs-toggle="modal" data-bs-target="#accountDeleteModal">
         Delete Account
       </button>
 

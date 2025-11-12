@@ -1,32 +1,6 @@
 <x-user-layout title="Write a Review">
   <x-slot name="content">
     <div class="row mt-5">
-      {{-- Review success alert starts --}}
-      @if(session('reviewSuccess'))
-        <div class="alert alert-success text-center col-md-8 mx-auto d-block">
-          {{session('reviewSuccess')}}
-        </div>
-      @endif
-      {{-- Review success alert ends --}}
-      
-        {{-- Edit Review success alert starts --}}
-      @if(session('editReviewSuccess'))
-        <div class="alert alert-success text-center col-md-8 mx-auto d-block">
-          {{session('editReviewSuccess')}}
-        </div>
-      @endif
-      {{-- Edit Review success alert ends --}}
-
-      {{-- Delete Review success alert starts --}}
-      @if(session('deleteReviewSuccess'))
-        <div class="alert alert-success text-center col-md-8 mx-auto d-block">
-          {{session('deleteReviewSuccess')}}
-        </div>
-      @endif
-      {{-- Delete Review success alert ends --}}
-
-
-      @if(is_null($review))
          <form action="{{ route('write-review') }}" method="post">
         @csrf
         <h3 class="text-center">Select a Rating:</h3>
@@ -55,29 +29,6 @@
           @endforeach
         @endif
       </form>
-
-      @else
-      <h2 class="text-center"><strong>Your Review</strong></h2>
-      <img src="{{ asset('images/' . $review->rating->rating_photo ) }}" alt="rating" class="col-4 col-sm-2 mx-auto d-block mt-2 mt-md-5">
-      <h3 class="mb-4 wow fadeInUp fs-36 mt-3 col-12 col-md-11 mx-auto d-block text-center ">{{$review->content}}</h3>
-      <div class="col-12 mt-3 text-center">
-      <a href="{{ route('show-edit-review') }}" class="url"><h5>Edit Review</h5></a>
-      </div>
-
-        <button type="button" class="btn btn-danger col-5 col-sm-4 col-md-2 mx-auto d-block mt-4" data-bs-toggle="modal" data-bs-target="#reviewDeleteModal">
-        Delete Review
-      </button>
-
-      <x-slot name="deleteReviewForm">
-        <form action="{{ route('delete-review', $review->id) }}" method="post">
-                @csrf
-                @method('delete')
-                <input type="submit" value="Delete Review!" class="btn btn-danger">
-       </form>
-      </x-slot>
-      
-       @endif
-     
     </div>
   </x-slot>
 </x-user-layout>

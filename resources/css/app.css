@@ -11,9 +11,27 @@
 }
 
 /* styles*/
+.review_container{
+  position:relative;
+}
+
+.review_actions{
+  position:absolute;
+  z-index:1;
+  box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
+  background:white;
+  border-radius: 10px;
+  padding:2%;
+  top:4vh;
+  left:50vw;
+  display:none;
+}
+#review_action_toggle{
+  cursor:pointer;
+}
 .dashboard_item{
    box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
-    border-radius: 10px;
+   border-radius: 10px;
 }
 
 .dashboard_row{
@@ -439,6 +457,10 @@ border-radius:10px;
 }
 .nav-column > .fade-out{
   animation: none
+}
+.review_actions{
+  left:42vw;
+  top:8vh;
 }
 }
 /* Tablets and pc styles ends */
