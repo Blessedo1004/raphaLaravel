@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Room;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -84,5 +85,8 @@ class RoomTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
         ]);
+
+        // Update all rooms to set availability to 10
+        Room::query()->update(['availability' => 10]);
     }
 }
