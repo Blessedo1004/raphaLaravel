@@ -37,12 +37,12 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
     if (closeReservationModal){
         document.body.style.overflow="hidden"
         closeReservationModal.addEventListener('click', ()=>{
-        document.body.style.overflow="visible"
-        const modalContainer = document.querySelector('.modal_container')
-        modalContainer.classList.add('fade-out')
-        modalContainer.addEventListener('animationend', () => {
-        modalContainer.classList.add('d-none');
-    });
+           document.body.style.overflow="visible"
+           const modalContainer = document.querySelector('.modal_container')
+           modalContainer.classList.add('fade-out')
+           modalContainer.addEventListener('animationend', () => {
+              modalContainer.classList.add('d-none');
+            });
         })
 }
       
@@ -83,7 +83,7 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
     let clicked = false;    
         if(toggle){
             toggle.addEventListener('click', ()=>{
-                const id = toggle.dataset.id;
+                const {id} = toggle.dataset;
                 if(!clicked){
                     document.querySelector(`.action_${id}`).style.display = 'block';
                     clicked = true;

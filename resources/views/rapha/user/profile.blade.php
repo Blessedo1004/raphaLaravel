@@ -55,7 +55,7 @@
         <form action="{{ route('delete-account', Auth::user()->id) }}" method="post">
                 @csrf
                 @method('delete')
-                <input type="submit" value="Delete Account!" class="btn btn-danger">
+                <input type="submit" value="Delete Account!" class="btn btn-danger" title="Delete Account">
        </form>
       </x-slot>
       </div>

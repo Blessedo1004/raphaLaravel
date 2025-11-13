@@ -112,13 +112,15 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
     Route::get('/profile','showProfile')->name('profile');
     //edit reservation
     Route::get('/edit-reservation/{pendingDetails}', 'showEditPendingReservation')->name('show-edit-reservation');
-     Route::get('/delete-reservation/{pendingDetails}', 'showDeletePendingReservation')->name('show-delete-reservation');
+    Route::get('/delete-reservation/{pendingDetails}', 'showDeletePendingReservation')->name('show-delete-reservation');
+     //show delete review modal
+    Route::get('/delete-review/{review}','showDeleteReview')->name('show-delete-review');
     });
 
     
     Route::controller(EditController::class)->group(function(){
     //edit review
-    Route::get('/edit-review','showEditReview')->name('show-edit-review')->middleware('one-time-user');
+    Route::get('/edit-review/{review}','showEditReview')->name('show-edit-review')->middleware('one-time-user');
     Route::put('/edit-review/{edit}','editReview')->name('edit-review');
     //delete review and account
     Route::delete('/delete-review/{review}', 'deleteReview')->name('delete-review');

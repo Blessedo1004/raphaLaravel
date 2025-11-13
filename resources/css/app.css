@@ -11,6 +11,12 @@
 }
 
 /* styles*/
+#review_action_toggle{
+  width:50px;
+}
+.reviews-rating{
+  width:145px;
+}
 .review_container{
   position:relative;
 }

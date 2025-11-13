@@ -100,10 +100,16 @@ class UserController extends Controller
         return redirect()->route('reviews')->with('reviewSuccess','Review Created. Thank you!');
     }
 
-    public function showReviews(){
+    public function showReviews(Request $request){
         $reviews = Review::get();
         session()->flash('edit_form', true);
-        return view('rapha.user.reviews', compact('reviews'));
+        $selectedReview = $request->session()->get('review');
+        return view('rapha.user.reviews', compact('reviews' , 'selectedReview'));
+    }
+
+    //show delete review modal
+    public function showDeleteReview(Review $review){
+        return back()->with('deleteReviewModal', 'delete')->with('review', $review);
     }
 
     public function showProfile(){

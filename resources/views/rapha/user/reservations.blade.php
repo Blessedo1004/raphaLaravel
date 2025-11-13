@@ -73,21 +73,24 @@
     {{-- reservation details modal starts --}}
     @if(session('reservationModal'))
       <x-reservation-modal>
+          <x-slot name="close">
+            <i class="fa-solid fa-xmark" id="reservationModalClose" title="close"></i>
+          </x-slot> 
+          <x-slot name="modalContent">
             <h4> <span class="name">Room Type : </span>{{$details->room->name}}</h4>
             <h4 class="mt-3"> <span class="name">Check In Date : </span>{{$details->check_in_date}}</h4>
             <h4 class="mt-3"> <span class="name">Check Out Date :</span> {{$details->check_out_date}}</h4>
             <h4 class="mt-3"> <span class="name">Reservation ID :</span> {{$details->reservation_id}}</h4>
             @if($route === "pending")
-              <h4 class="mt-3"> <span class="name">Expiry Date :</span> {{$details->expires_at}}</h4>
+              <h4 class="mt-3"> 
+                  <span class="name">Expiry Date :</span> {{$details->expires_at}}
+              </h4>
               <div class="d-flex justify-content-center mt-4">
-              <a href="{{ route('show-edit-reservation', $details->id) }}" class="btn reg_btn text-light">Edit</a>
-              <a href="{{ route('show-delete-reservation', $details->id) }}" class="btn btn-danger ms-3">Delete</a>
-            </div>
+                 <a href="{{ route('show-edit-reservation', $details->id) }}" class="btn reg_btn text-light">Edit</a>
+                 <a href="{{ route('show-delete-reservation', $details->id) }}" class="btn btn-danger ms-3">Delete</a>
+              </div>
             @endif
-            
-            
-          </div>
-      </div>
+         </x-slot>   
       </x-reservation-modal>
       @endif
       {{-- reservation details modal ends --}}
@@ -95,6 +98,10 @@
       {{-- edit reservation modal starts --}}
       @if(session('showEditReservation'))
         <x-reservation-modal>
+          <x-slot name="close">
+            <i class="fa-solid fa-xmark" id="reservationModalClose" title="close"></i>
+          </x-slot> 
+          <x-slot name="modalContent">
              <input type="hidden" value="{{ $pendingEdit->room_id }}" id="hiddenRoom">
              <input type="hidden" value="{{ $pendingEdit->check_in_date->format('Y-m-d') }}" id="hiddenCheckIn">
              <input type="hidden" value="{{$pendingEdit->check_out_date->format('Y-m-d') }}" id="hiddenCheckOut">
@@ -149,6 +156,7 @@
         {{-- Edit reservation form ends --}}
           </div>
         </div>
+        </x-slot> 
         </x-reservation-modal>
        @endif
         {{-- edit reservation modal ends --}}
@@ -156,6 +164,7 @@
        {{-- delete reservation modal starts --}}
     @if(session('showDeleteReservation'))
     <x-reservation-modal>
+       <x-slot name="modalContent">
             <h4 class="text-danger"> Are you sure you want to delete this pending reservation?</h4>
              <div class="d-flex justify-content-center mt-4">
               <button class="btn reg_btn text-light" id="reservationModalClose">No</button>
@@ -166,6 +175,7 @@
               </form>
               
             </div>
+        </x-slot>     
       </x-reservation-modal>
       @endif
       {{-- delete reservation modal ends --}}

@@ -131,43 +131,24 @@
   </div>
   </div>
 
+  <!-- Delete Account modal starts -->
+  <x-modal id="accountDeleteModal">
+    <x-slot name="content">
+      <!-- Modal body -->
+      <div class="modal-body">
+        <h4 class="text-danger"> Are you sure you want to delete your account? This will be permanent and cannot be undone!!</h4>
+      </div>
 
-      <!-- Delete Review modal starts -->
-      <x-modal id="reviewDeleteModal">
-        <x-slot name="content">
-          <!-- Modal body -->
-            <div class="modal-body">
-             <h4 class="text-danger"> Are you sure you want to delete your review?</h4>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn reg_btn text-white" data-bs-dismiss="modal">No</button>
-              {{ $deleteReviewForm ?? '' }}
-            </div>
-        </x-slot>
-            
-      </x-modal>      
-      <!-- Delete Review modal ends -->
-
-       <!-- Delete Account modal starts -->
-        <x-modal id="accountDeleteModal">
-          <x-slot name="content">
-            <!-- Modal body -->
-            <div class="modal-body">
-             <h4 class="text-danger"> Are you sure you want to delete your account? This will be permanent and cannot be undone.</h4>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn reg_btn text-white" data-bs-dismiss="modal">No</button>
-              {{ $deleteAccountForm ?? '' }}
-            </div>
-          </x-slot>
-            
-        </x-modal>    
-         
-      <!-- Delete account modal ends -->
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn reg_btn text-white" data-bs-dismiss="modal">No</button>
+        {{ $deleteAccountForm ?? '' }}
+      </div>
+    </x-slot>
+      
+  </x-modal>    
+    
+<!-- Delete account modal ends -->
   <script>
         window.loginUrl = "{{ route('login') }}";
   </script>

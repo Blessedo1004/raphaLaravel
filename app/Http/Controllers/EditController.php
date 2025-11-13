@@ -119,8 +119,7 @@ class EditController extends Controller
     }
 
     //show edit review
-    public function showEditReview(){
-        $review = Review::where('user_id', Auth::user()->id)->first();
+    public function showEditReview(Review $review){
         return view('rapha.user.edit-review', compact('review'));
     }
 
@@ -131,7 +130,7 @@ class EditController extends Controller
             "content" => "required|string|min:20|max:250"       
     ]);
         $edit->update($verified);
-         return redirect()->route('write-review')->with('editReviewSuccess','Review Edited Successfully');
+         return redirect()->route('reviews')->with('editReviewSuccess','Review Edited Successfully');
     }
 
     // delete review
