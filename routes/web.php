@@ -12,7 +12,7 @@ use App\Http\Controllers\EditController;
 
 
 // guest routes starts
-Route::middleware('cache.headers:no_store,private')->controller(AuthController::class)->group(function(){
+Route::middleware('cache.headers:no_store,private','throttle:5,1')->controller(AuthController::class)->group(function(){
     Route::get('/login','showLogin')->name('login');
     Route::post('/login','login')->name('rapha.login');
     Route::get('/signup','showSignUp')->name('rapha.signup');
@@ -22,7 +22,7 @@ Route::middleware('cache.headers:no_store,private')->controller(AuthController::
 Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
 //Pre registration verification routes starts
-Route::middleware('cache.headers:no_store,private')->controller(VerificationController::class)->group(function(){
+Route::middleware('cache.headers:no_store,private','throttle:60,1')->controller(VerificationController::class)->group(function(){
     Route::get('/preregister/notice', 'showPreregisterNotice')->name('preregister.notice')->middleware('preregister.notice');
     Route::post('/preregister/verify', 'preregisterVerify')->name('preregister.verify');
     // Resend email verification route for sign up
@@ -32,7 +32,7 @@ Route::middleware('cache.headers:no_store,private')->controller(VerificationCont
 
 
 //forgot password routes starts
-Route::middleware('cache.headers:no_store,private')->controller(ForgotPasswordController::class)->group(function(){
+Route::middleware('cache.headers:no_store,private','throttle:60,1')->controller(ForgotPasswordController::class)->group(function(){
     Route::get('/forgotpassword','showForgotPassword')->name('forgotPassword')->middleware('preregister.notice');
     Route::post('/forgotpassword','forgotPassword')->name('forgotPassword');
     Route::get('/forgotpassword/verify','showCodeVerification')->name('forgotpassword.verify')->middleware('preregister.notice');
@@ -74,7 +74,7 @@ Route::controller(GuestController::class)->group(function(){
 
 // Auth routes starts
 
-Route::group(['middleware'=>['auth','cache.headers:no_store,private'] ,'prefix'=> 'profile'],function(){
+Route::group(['middleware'=>['auth','cache.headers:no_store,private','throttle:60,1'] ,'prefix'=> 'profile'],function(){
     Route::controller(EditController::class)->group(function(){
         //edit profile info starts
     Route::get('/edit-first-name','showEditFirstName')->name('show-edit-first-name')->middleware('one-time-user');
@@ -93,7 +93,7 @@ Route::group(['middleware'=>['auth','cache.headers:no_store,private'] ,'prefix'=
 
 
 // regular user routes starts
-Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store,private'],'prefix'=>'user'],function(){
+Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store,private','throttle:60,1'],'prefix'=>'user'],function(){
     Route::controller(UserController::class)->group(function(){
     Route::get('/dashboard','showDashboard')->name('dashboard');
     Route::get('/make-reservation/{selectedRoom?}','showMakeReservation')->name('make-reservation');
@@ -134,7 +134,7 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
 // normal user routes ends
 
 //admin routes starts
-Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,private'],'prefix'=>'admin'],function(){
+Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,private','throttle:60,1'],'prefix'=>'admin'],function(){
     Route::controller(AdminController::class)->group(function(){
         Route::get('/dashboard', 'showAdminDashboard')->name('admin-dashboard');
         Route::group(['prefix'=>'reservations'], function(){
