@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
+    public function getAvailabilityAttribute($value)
+    {
+        if ($value > 0) {
+            return $value;
+        }
+        return (string) 'Unavailable';
+    }
+
     public function pendingReservations(){
         $this->hasMany(PendingReservation::class);
     }

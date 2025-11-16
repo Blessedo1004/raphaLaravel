@@ -12,7 +12,7 @@ use App\Http\Controllers\EditController;
 
 
 // guest routes starts
-Route::middleware('cache.headers:no_store,private','throttle:5,1')->controller(AuthController::class)->group(function(){
+Route::middleware('cache.headers:no_store,private')->controller(AuthController::class)->group(function(){
     Route::get('/login','showLogin')->name('login');
     Route::post('/login','login')->name('rapha.login');
     Route::get('/signup','showSignUp')->name('rapha.signup');
@@ -98,6 +98,7 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
     Route::get('/dashboard','showDashboard')->name('dashboard');
     Route::get('/make-reservation/{selectedRoom?}','showMakeReservation')->name('make-reservation');
     Route::post('/make-reservation','makeReservation')->name('make-reservation');
+    Route::get('/room-availability/{room}', 'getRoomAvailability')->name('room.availability');
         Route::group(['prefix'=>'reservations'], function(){
             Route::get('/pending','showPendingReservations')->name('reservations');
             Route::get('/pending/{details}','showPendingDetails')->name('pending');

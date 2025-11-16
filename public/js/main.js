@@ -96,5 +96,44 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
             })
         }
     });
+        const roomSelectMain = document.getElementById('room_id');
+        const availabilitySpan = document.getElementById('room-availability');
 
+       if (roomSelectMain && availabilitySpan) { 
+        function fetchAvailability(roomId) {
+          if (!roomId) {
+            availabilitySpan.textContent = 'Select a room to see its availability';
+            availabilitySpan.classList.remove('text-success', 'text-danger');
+            availabilitySpan.classList.add('text-muted');
+          }
+
+          fetch(`/user/room-availability/${roomId}`)
+            .then(response => response.json())
+            .then(data => {
+              availabilitySpan.textContent = `${data.availability}`;
+              availabilitySpan.classList.remove('text-muted', 'text-success', 'text-danger');
+              if (data.availability === 'Unavailable') {
+                availabilitySpan.classList.add('text-danger');
+              } else {
+                availabilitySpan.classList.add('text-dark');
+              }
+            })
+            .catch(error => {
+              console.error('Error fetching availability:', error);
+              availabilitySpan.textContent = 'Could not fetch availability';
+              availabilitySpan.classList.remove('text-muted', 'text-success');
+              availabilitySpan.classList.add('text-danger');
+            });
+        }
+
+        // Fetch availability on page load if a room is already selected
+        if (roomSelectMain.value) {
+          fetchAvailability(roomSelectMain.value);
+        }
+
+        // Fetch availability when the user selects a different room
+        roomSelectMain.addEventListener('change', function () {
+          fetchAvailability(roomSelectMain.value);
+        });
+    }  
    

@@ -24,6 +24,19 @@
           </div>  
           <!-- Room Select ends -->
 
+          <!-- Availability -->
+          <div class="text-center mt-4">
+            <h5>Availability: 
+              <span id="room-availability" class="text-muted">
+                Select a room to see its availability
+              </span>
+            </h5>
+          </div>
+
+            <div class="text-center mt-4">
+              <h5>Number of Rooms: <span class="reservation_icon"><i class="fa-solid fa-minus" id="minus"></i></span> <span id="number_of_rooms">1</span> <span class="reservation_icon"><i class="fa-solid fa-plus" id="plus"></i></span></h5>
+            </div>
+
           <!-- Check-in Date starts -->
           <div class="form-group mt-4">
             <div class="reservation">

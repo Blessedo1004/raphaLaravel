@@ -17,6 +17,10 @@ use App\Mail\ReservationEmail;
 
 class UserController extends Controller
 {
+    public function getRoomAvailability(Room $room){
+        return response()->json(['availability' => $room->availability]);
+    }
+
     public function showMakeReservation($selectedRoom = null){
         $rooms = Room::orderBy('name')->get();
         $selectedRoom = $selectedRoom ? Room::findOrFail($selectedRoom) : null;
