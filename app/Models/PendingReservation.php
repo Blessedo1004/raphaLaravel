@@ -13,6 +13,7 @@ class PendingReservation extends Model
         'check_out_date',
         'reservation_id',
         'expires_at',
+        'number_of_rooms'
     ];
     use FilterByUser;
     protected $casts = [

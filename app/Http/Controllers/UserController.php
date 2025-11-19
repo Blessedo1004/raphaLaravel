@@ -75,7 +75,9 @@ class UserController extends Controller
             'room_id' => 'required|exists:rooms,id',
             'check_in_date' => 'required|date|after_or_equal:today|before_or_equal:' . $maxCheckinDate,
             'check_out_date' => 'required|date|after:check_in_date|before_or_equal:' . $maxCheckoutDate,
+            'number_of_rooms' => 'required|integer|min:1'
         ]);
+
 
         $reservationID = Str::random(6);
         $expiry = Carbon::parse($validatedData['check_in_date'])->addDay();
@@ -85,6 +87,8 @@ class UserController extends Controller
         $validatedData['expires_at'] = $expiry;
 
         $reservation = PendingReservation::create($validatedData);
+        $room = Room::where('id', $validatedData['room_id'])->first();
+        $room->update(['availability' => $room->availability - $validatedData['number_of_rooms']]);
         $reservation->load('room');
         Mail::to($userEmail)->send(new ReservationEmail($reservation));
 

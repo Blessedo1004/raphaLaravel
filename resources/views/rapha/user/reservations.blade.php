@@ -80,6 +80,7 @@
             <h4> <span class="name">Room Type : </span>{{$details->room->name}}</h4>
             <h4 class="mt-3"> <span class="name">Check In Date : </span>{{$details->check_in_date}}</h4>
             <h4 class="mt-3"> <span class="name">Check Out Date :</span> {{$details->check_out_date}}</h4>
+            <h4 class="mt-3"> <span class="name">Number of Rooms :</span> {{$details->number_of_rooms}}</h4>
             <h4 class="mt-3"> <span class="name">Reservation ID :</span> {{$details->reservation_id}}</h4>
             @if($route === "pending")
               <h4 class="mt-3"> 
@@ -102,9 +103,10 @@
             <i class="fa-solid fa-xmark" id="reservationModalClose" title="close"></i>
           </x-slot> 
           <x-slot name="modalContent">
-             <input type="hidden" value="{{ $pendingEdit->room_id }}" id="hiddenRoom">
+             <input type="hidden" value="{{ $pendingEdit->room_id }}" id="hiddenRoom" name="old_room_id">
              <input type="hidden" value="{{ $pendingEdit->check_in_date->format('Y-m-d') }}" id="hiddenCheckIn">
              <input type="hidden" value="{{$pendingEdit->check_out_date->format('Y-m-d') }}" id="hiddenCheckOut">
+             <input type="hidden" id="hiddenNumberOfRooms" value="{{ $pendingEdit->number_of_rooms }}">
         {{-- Edit reservation form starts --}}
            <form action="{{ route('edit-reservation', $pendingEdit->id) }}" method="post">
             @csrf
@@ -112,7 +114,7 @@
           <!-- Room Select starts -->
           <div class="form-group mt-5">
             <div class="reservation">
-              <label for="room_id"><h5>Available Rooms:</h5></label>
+              <label for="room_id"><h5>Rooms:</h5></label>
               <select id="room_id" name="room_id" required class="edit_select @error('room_id') is-invalid @enderror">
                 <option value="" selected disabled>Choose a room</option>
                 @foreach ($rooms as $room)
@@ -125,6 +127,28 @@
               @enderror
           </div>  
           <!-- Room Select ends -->
+
+           <!-- Availability starts-->
+          <div class="text-center mt-4">
+            <h5>Availability: 
+              <span id="room-availability" class="text-muted">
+                Select a room to see its availability
+              </span>
+            </h5>
+          </div>
+          <!-- Availability ends-->
+
+          <!-- Number of Rooms starts -->
+            <div class="text-center mt-4">
+              <h5>Number of Rooms: 
+                <i class="fa-solid fa-minus" id="minus"></i>
+                <span id="number_of_rooms">{{$pendingEdit->number_of_rooms}}</span> 
+                <i class="fa-solid fa-plus" id="plus"></i>
+              </h5>
+            </div>
+          <input type="hidden" name="number_of_rooms" id="number_of_rooms_input" value="{{ $pendingEdit->number_of_rooms }}">
+          
+          <!-- Number of Rooms ends -->
 
           <!-- Check-in Date starts -->
           <div class="form-group mt-4">

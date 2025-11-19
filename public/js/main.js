@@ -1,6 +1,7 @@
 let logoutTimer;
 const logoutAfter = 60 * 10000; 
 
+//Redirects user to login page after 10 minutes of inactivity
 function resetLogoutTimer() {
     clearTimeout(logoutTimer);
     logoutTimer = setTimeout(() => {
@@ -33,6 +34,7 @@ document.onkeydown = resetLogoutTimer;
 document.onclick = resetLogoutTimer;
 document.onscroll = resetLogoutTimer;
 
+// Logic for closing reservation modal
 const closeReservationModal = document.querySelector('#reservationModalClose')
     if (closeReservationModal){
         document.body.style.overflow="hidden"
@@ -54,16 +56,19 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
     const checkInInput = document.querySelector('#check_in_date');
     const checkOutInput = document.querySelector('#check_out_date');
     const submitButton = document.querySelector('.submit_edit_reservation');
+    const hiddenNumberOfRooms = document.querySelector('#hiddenNumberOfRooms');
+    const editNumberOfRoomsInput = document.querySelector('#number_of_rooms_input')
 
     function checkFormChanges() {
-        if (hiddenRoom && hiddenCheckIn && hiddenCheckOut && roomSelect && checkInInput && checkOutInput && submitButton) {
+        if (hiddenRoom && hiddenCheckIn && hiddenCheckOut && roomSelect && checkInInput && checkOutInput && submitButton && hiddenNumberOfRooms &&editNumberOfRoomsInput) {
         const roomChanged = hiddenRoom.value !== roomSelect.value;
         const checkInChanged = hiddenCheckIn.value !== checkInInput.value;
         const checkOutChanged = hiddenCheckOut.value !== checkOutInput.value;
-
-        if (roomChanged || checkInChanged || checkOutChanged) {
+        const numberOfRoomsChanged = Number(hiddenNumberOfRooms.value) !== Number(editNumberOfRoomsInput.value)
+        if (roomChanged || checkInChanged || checkOutChanged || numberOfRoomsChanged) {
             submitButton.disabled = false;
-        } else {
+        } 
+        else {
             submitButton.disabled = true;
         }
     
@@ -78,6 +83,7 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
     // Run the check once on page load
     checkFormChanges();
 
+    // Review action toggle logic
     const reviewActionToggle = document.querySelectorAll('#review_action_toggle').forEach(toggle=>{
     let clicked = false;    
         if(toggle){
@@ -99,8 +105,11 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
             
             const roomSelectMain = document.getElementById('room_id');
             const availabilitySpan = document.getElementById('room-availability');
-    
-           if (roomSelectMain && availabilitySpan) { 
+            const numberOfRoomsInput = document.querySelector('#number_of_rooms_input');
+            const makeReservationBtn = document.querySelector('#makeReservationBtn');
+            const editReservationBtn = document.querySelector('.submit_edit_reservation');
+           //checks if the elements exist 
+           if (roomSelectMain && availabilitySpan && numberOfRoomsInput && (makeReservationBtn || editReservationBtn)) { 
             const plusIcon= document.querySelector('#plus');
             const minusIcon= document.querySelector('#minus');
             const numberOfRoomsSpan = document.getElementById('number_of_rooms');
@@ -137,8 +146,10 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
                 if(currentValue < currentAvailability){
                     currentValue++;
                     numberOfRoomsSpan.innerText = currentValue;
+                    numberOfRoomsInput.value = currentValue;
                 }
                 checkValues();
+                checkFormChanges()
             });
 
 
@@ -148,15 +159,21 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
                 if(currentValue > 1){
                     currentValue--;
                     numberOfRoomsSpan.innerText = currentValue;
+                    numberOfRoomsInput.value = currentValue;
                 }
                 checkValues();
+                checkFormChanges()
             });
     
            // Sets initial state for number of rooms selection
             function selectNumberOfRooms (){
                 if (plusIcon && minusIcon){ 
                     const currentAvailability = Number(availabilitySpan.textContent);
-                    numberOfRoomsSpan.innerText = 1;
+                    if(makeReservationBtn){
+                        numberOfRoomsSpan.innerText = 1;
+                        numberOfRoomsInput.value = 1;
+                    }
+                    
                     if(!isNaN(currentAvailability) && currentAvailability > 1){
                             plusIcon.style.opacity = 1;
                             plusIcon.style.cursor = "pointer";
@@ -181,6 +198,12 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
                 availabilitySpan.textContent = 'Select a room to see its availability';
                 availabilitySpan.classList.remove('text-success', 'text-danger');
                 availabilitySpan.classList.add('text-muted');
+                if (makeReservationBtn){
+                        makeReservationBtn.disabled = true;
+                    }
+                else if (editReservationBtn){
+                        editReservationBtn.disabled = true;
+                    }
                 selectNumberOfRooms();
                 return;
               }
@@ -193,9 +216,24 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
                   if (data.availability === 'Unavailable') {
                     availabilitySpan.classList.add('text-danger');
                     availabilitySpan.classList.remove('text-dark');
+                    if (makeReservationBtn){
+                        makeReservationBtn.disabled = true;
+                    }
+
+                    else if (editReservationBtn){
+                        editReservationBtn.disabled = true;
+                    }
                   } else {
                     availabilitySpan.classList.add('text-dark');
                     availabilitySpan.classList.remove('text-danger');
+                    if (makeReservationBtn){
+                        makeReservationBtn.disabled = false;
+                    }
+
+                    else if (editReservationBtn && Number(hiddenNumberOfRooms.value) !== Number(editNumberOfRoomsInput.value)){
+                        editReservationBtn.disabled = false;
+                    }
+                    
                   }
                   selectNumberOfRooms();
                 })
@@ -216,6 +254,8 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
             // Fetch availability when the user selects a different room
             roomSelectMain.addEventListener('change', function () {
               fetchAvailability(this.value);
+              numberOfRoomsSpan.innerText = 1;
+              numberOfRoomsInput.value = 1;
             });
          
         }

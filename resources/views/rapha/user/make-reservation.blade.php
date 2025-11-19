@@ -24,7 +24,7 @@
           </div>  
           <!-- Room Select ends -->
 
-          <!-- Availability -->
+          <!-- Availability starts-->
           <div class="text-center mt-4">
             <h5>Availability: 
               <span id="room-availability" class="text-muted">
@@ -32,7 +32,9 @@
               </span>
             </h5>
           </div>
+          <!-- Availability ends-->
 
+          <!-- Number of Rooms starts -->
             <div class="text-center mt-4">
               <h5>Number of Rooms: 
                 <i class="fa-solid fa-minus" id="minus"></i>
@@ -40,6 +42,8 @@
                 <i class="fa-solid fa-plus" id="plus"></i>
               </h5>
             </div>
+          <input type="hidden" name="number_of_rooms" id="number_of_rooms_input" value="1">
+          <!-- Number of Rooms ends -->
 
           <!-- Check-in Date starts -->
           <div class="form-group mt-4">
@@ -66,7 +70,7 @@
           </div>
           <!-- Check-out Date ends -->
 
-          <input type="submit" value="Make Reservation" class="btn reg_btn text-white mt-5 mx-auto d-block">
+          <input type="submit" value="Make Reservation" class="btn reg_btn text-white mt-5 mx-auto d-block" id="makeReservationBtn">
         </form>
         {{-- Reservation form ends --}}
         </div>

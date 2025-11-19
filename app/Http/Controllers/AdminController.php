@@ -82,7 +82,8 @@ class AdminController extends Controller
             "room_id" => $checkin->room_id,
             "check_in_date" => $checkin->check_in_date,
             "check_out_date" => $checkin->check_out_date,
-            "reservation_id" => $checkin->reservation_id
+            "reservation_id" => $checkin->reservation_id,
+            "number_of_rooms" => $checkin->number_of_rooms
         ]);
 
         $checkin->delete();
@@ -97,7 +98,8 @@ class AdminController extends Controller
             "room_id" => $checkout->room_id,
             "check_in_date" => $checkout->check_in_date,
             "check_out_date" => $checkout->check_out_date,
-            "reservation_id" => $checkout->reservation_id
+            "reservation_id" => $checkout->reservation_id,
+            "number_of_rooms" => $checkout->number_of_rooms
         ]);
 
         $checkout->delete();

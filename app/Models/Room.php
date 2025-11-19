@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
+
+    protected $fillable = [
+        'availability'
+    ];
+
     public function getAvailabilityAttribute($value)
     {
         if ($value > 0) {

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 class CompletedReservation extends Model
 {
   protected $fillable = [
-        "user_id", "reservation_id", "check_in_date", "check_out_date", "room_id"
+        "user_id", "reservation_id", "check_in_date", "check_out_date", "room_id","number_of_rooms"
     ];
 
 

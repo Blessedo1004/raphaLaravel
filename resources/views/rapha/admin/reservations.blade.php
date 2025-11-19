@@ -81,10 +81,15 @@
   
     @if(session('reservationModal'))
       <x-reservation-modal>
+        <x-slot name="close">
+            <i class="fa-solid fa-xmark" id="reservationModalClose" title="close"></i>
+        </x-slot> 
+        <x-slot name="modalContent">
             <h4> <span class="name">Name : </span>{{$details->user->last_name . " " . $details->user->first_name}}</h4>
              <h4> <span class="name">Room Type : </span>{{$details->room->name}}</h4>
             <h4 class="mt-3"> <span class="name">Check In Date : </span>{{$details->check_in_date}}</h4>
             <h4 class="mt-3"> <span class="name">Check Out Date :</span> {{$details->check_out_date}}</h4>
+            <h4 class="mt-3"> <span class="name">Number of Rooms :</span> {{$details->number_of_rooms}}</h4>
             <h4 class="mt-3"> <span class="name">Reservation ID :</span> {{$details->reservation_id}}</h4>
             @if($route === "admin-pending")
               <h4 class="mt-3"> <span class="name">Expiry Date :</span> {{$details->expires_at}}</h4>
@@ -93,6 +98,7 @@
               @elseif($route === "admin-active")
               <a href="{{ route('checkout', $details->id) }}" class="reg_btn btn mx-auto d-block text-white mt-4 col-4">Check Out</a>
             @endif
+        </x-slot>     
       </x-reservation-modal>
       @endif
   </x-slot>

@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Review;
 use Carbon\Carbon;
+use App\Models\Room;
 
 class EditController extends Controller
 {
@@ -154,12 +155,29 @@ class EditController extends Controller
             'room_id' => 'required|exists:rooms,id',
             'check_in_date' => 'required|date|after_or_equal:today',
             'check_out_date' => 'required|date|after:check_in_date|before_or_equal:' . $maxCheckoutDate,
+            'number_of_rooms' => 'required|integer|min:1'
         ]);
 
         $expiry = Carbon::parse($validatedData['check_in_date'])->addDay();
         $validatedData['expires_at'] = $expiry;
+        $oldRoomID = $edit->room_id;
+        $oldNoOfRooms = $edit->number_of_rooms;
+        $newNoOfRooms = $validatedData['number_of_rooms'];
         $edit->update($validatedData);
-        return redirect()->route('reservations')->with('reservationEditSuccess','Reservation Updated Successfully');
+        $room = Room::where('id', $oldRoomID)->first();
+        if ($oldRoomID === $validatedData['room_id']){
+            $room->update(['availability' => $room->availability - ($newNoOfRooms - $oldNoOfRooms)]);
+            return redirect()->route('reservations')->with('reservationEditSuccess','Reservation Updated Successfully');
+        }
+
+        else{
+            $room->update(['availability' => $room->availability +  $oldNoOfRooms]);
+            $newRoom = $room = Room::where('id', $validatedData['room_id'])->first();
+            $newRoom->update(['availability' => $room->availability -  $newNoOfRooms]);
+            return redirect()->route('reservations')->with('reservationEditSuccess','Reservation Updated Successfully');
+        }
+        
+        
     }
 
     
