@@ -11,14 +11,17 @@
 }
 
 /* styles*/
-.reservation_icon{
+
+
+#plus, #minus{
   font-size:15px;
   border:1px solid black;
   border-radius:50%;
   padding:0 3px;
   opacity:0.5;
-  /* pointer-events:none; */
-}
+  pointer-events:none;
+  cursor:not-allowed;
+} 
 #review_action_toggle{
   width:50px;
 }

@@ -61,7 +61,6 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
         const checkInChanged = hiddenCheckIn.value !== checkInInput.value;
         const checkOutChanged = hiddenCheckOut.value !== checkOutInput.value;
 
-        // If any value has changed, enable the button. Otherwise, disable it.
         if (roomChanged || checkInChanged || checkOutChanged) {
             submitButton.disabled = false;
         } else {
@@ -96,44 +95,127 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
             })
         }
     });
-        const roomSelectMain = document.getElementById('room_id');
-        const availabilitySpan = document.getElementById('room-availability');
 
-       if (roomSelectMain && availabilitySpan) { 
-        function fetchAvailability(roomId) {
-          if (!roomId) {
-            availabilitySpan.textContent = 'Select a room to see its availability';
-            availabilitySpan.classList.remove('text-success', 'text-danger');
-            availabilitySpan.classList.add('text-muted');
-          }
+            
+            const roomSelectMain = document.getElementById('room_id');
+            const availabilitySpan = document.getElementById('room-availability');
+    
+           if (roomSelectMain && availabilitySpan) { 
+            const plusIcon= document.querySelector('#plus');
+            const minusIcon= document.querySelector('#minus');
+            const numberOfRoomsSpan = document.getElementById('number_of_rooms');
 
-          fetch(`/user/room-availability/${roomId}`)
-            .then(response => response.json())
-            .then(data => {
-              availabilitySpan.textContent = `${data.availability}`;
-              availabilitySpan.classList.remove('text-muted', 'text-success', 'text-danger');
-              if (data.availability === 'Unavailable') {
-                availabilitySpan.classList.add('text-danger');
-              } else {
-                availabilitySpan.classList.add('text-dark');
-              }
-            })
-            .catch(error => {
-              console.error('Error fetching availability:', error);
-              availabilitySpan.textContent = 'Could not fetch availability';
-              availabilitySpan.classList.remove('text-muted', 'text-success');
-              availabilitySpan.classList.add('text-danger');
+            //checks values of the number of rooms span to enable/disable plus and minus icons
+            function checkValues(){
+                const currentValue = Number(numberOfRoomsSpan.innerText);
+                const currentAvailability = Number(availabilitySpan.textContent);
+
+                if(currentValue <= 1){
+                    minusIcon.style.opacity = 0.5;
+                    minusIcon.style.cursor = "not-allowed";
+                    minusIcon.style.pointerEvents = "none";
+                } else {
+                    minusIcon.style.opacity = 1;
+                    minusIcon.style.cursor = "pointer";
+                    minusIcon.style.pointerEvents = "auto";
+                }
+
+                if(currentValue >= currentAvailability){
+                    plusIcon.style.opacity = 0.5;
+                    plusIcon.style.cursor = "not-allowed";
+                    plusIcon.style.pointerEvents = "none";
+                } else {
+                    plusIcon.style.opacity = 1;
+                    plusIcon.style.cursor = "pointer";
+                    plusIcon.style.pointerEvents = "auto";
+                }
+            }
+            // increments for number of rooms
+            plusIcon.addEventListener('click', ()=>{
+                let currentValue = Number(numberOfRoomsSpan.innerText);
+                const currentAvailability = Number(availabilitySpan.textContent);
+                if(currentValue < currentAvailability){
+                    currentValue++;
+                    numberOfRoomsSpan.innerText = currentValue;
+                }
+                checkValues();
             });
-        }
 
-        // Fetch availability on page load if a room is already selected
-        if (roomSelectMain.value) {
-          fetchAvailability(roomSelectMain.value);
-        }
 
-        // Fetch availability when the user selects a different room
-        roomSelectMain.addEventListener('change', function () {
-          fetchAvailability(roomSelectMain.value);
-        });
-    }  
-   
+             // decrements for number of rooms
+            minusIcon.addEventListener('click', ()=>{
+                let currentValue = Number(numberOfRoomsSpan.innerText);
+                if(currentValue > 1){
+                    currentValue--;
+                    numberOfRoomsSpan.innerText = currentValue;
+                }
+                checkValues();
+            });
+    
+           // Sets initial state for number of rooms selection
+            function selectNumberOfRooms (){
+                if (plusIcon && minusIcon){ 
+                    const currentAvailability = Number(availabilitySpan.textContent);
+                    numberOfRoomsSpan.innerText = 1;
+                    if(!isNaN(currentAvailability) && currentAvailability > 1){
+                            plusIcon.style.opacity = 1;
+                            plusIcon.style.cursor = "pointer";
+                            plusIcon.style.pointerEvents = "auto";
+                            minusIcon.style.opacity = 0.5;
+                            minusIcon.style.cursor = "not-allowed";
+                            minusIcon.style.pointerEvents = "none";
+                    } else {
+                            plusIcon.style.opacity = 0.5;
+                            plusIcon.style.cursor = "not-allowed";
+                            plusIcon.style.pointerEvents = "none";
+                            minusIcon.style.opacity = 0.5;
+                            minusIcon.style.cursor = "not-allowed";
+                            minusIcon.style.pointerEvents = "none";
+                    }
+                }
+            }
+    
+            //Fetches a room's availability
+            function fetchAvailability(roomId) {
+              if (!roomId) {
+                availabilitySpan.textContent = 'Select a room to see its availability';
+                availabilitySpan.classList.remove('text-success', 'text-danger');
+                availabilitySpan.classList.add('text-muted');
+                selectNumberOfRooms();
+                return;
+              }
+    
+              fetch(`/user/room-availability/${roomId}`)
+                .then(response => response.json())
+                .then(data => {
+                  availabilitySpan.textContent = `${data.availability}`;
+                  availabilitySpan.classList.remove('text-muted');
+                  if (data.availability === 'Unavailable') {
+                    availabilitySpan.classList.add('text-danger');
+                    availabilitySpan.classList.remove('text-dark');
+                  } else {
+                    availabilitySpan.classList.add('text-dark');
+                    availabilitySpan.classList.remove('text-danger');
+                  }
+                  selectNumberOfRooms();
+                })
+                .catch(error => {
+                  console.error('Error fetching availability:', error);
+                  availabilitySpan.textContent = 'Could not fetch availability';
+                  availabilitySpan.classList.remove('text-muted');
+                  availabilitySpan.classList.add('text-danger');
+                  selectNumberOfRooms();
+                });
+            }
+    
+            // Fetch availability on page load if a room is already selected
+            if (roomSelectMain.value) {
+              fetchAvailability(roomSelectMain.value);
+            }
+    
+            // Fetch availability when the user selects a different room
+            roomSelectMain.addEventListener('change', function () {
+              fetchAvailability(this.value);
+            });
+         
+        }

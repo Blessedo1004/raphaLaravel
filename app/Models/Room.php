@@ -11,7 +11,7 @@ class Room extends Model
         if ($value > 0) {
             return $value;
         }
-        return (string) 'Unavailable';
+        return 'Unavailable';
     }
 
     public function pendingReservations(){

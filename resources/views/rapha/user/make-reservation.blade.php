@@ -10,7 +10,7 @@
           <!-- Room Select starts -->
           <div class="form-group mt-5">
             <div class="reservation">
-              <label for="room_id"><h5>Available Rooms:</h5></label>
+              <label for="room_id"><h5>Rooms:</h5></label>
               <select id="room_id" name="room_id" required class="@error('room_id') is-invalid @enderror">
                 <option value="" selected disabled>Choose a room</option>
                 @foreach ($rooms as $room)
@@ -34,7 +34,11 @@
           </div>
 
             <div class="text-center mt-4">
-              <h5>Number of Rooms: <span class="reservation_icon"><i class="fa-solid fa-minus" id="minus"></i></span> <span id="number_of_rooms">1</span> <span class="reservation_icon"><i class="fa-solid fa-plus" id="plus"></i></span></h5>
+              <h5>Number of Rooms: 
+                <i class="fa-solid fa-minus" id="minus"></i>
+                <span id="number_of_rooms">1</span> 
+                <i class="fa-solid fa-plus" id="plus"></i>
+              </h5>
             </div>
 
           <!-- Check-in Date starts -->
