@@ -24,7 +24,7 @@ class UserController extends Controller
     //show make reservation page
     public function showMakeReservation($selectedRoom = null){
         $rooms = Room::orderBy('name')->get();
-        $selectedRoom = $selectedRoom ? Room::findOrFail($selectedRoom) : null;
+        $selectedRoom = $selectedRoom ? $selectedRoom : null;
         return view('rapha.user.make-reservation', compact('rooms', 'selectedRoom'));
     }
 
