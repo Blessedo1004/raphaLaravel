@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Review;
 use App\Models\Room;
@@ -17,16 +16,19 @@ use App\Mail\ReservationEmail;
 
 class UserController extends Controller
 {
+    // get room availability
     public function getRoomAvailability(Room $room){
         return response()->json(['availability' => $room->availability]);
     }
 
+    //show make reservation page
     public function showMakeReservation($selectedRoom = null){
         $rooms = Room::orderBy('name')->get();
         $selectedRoom = $selectedRoom ? Room::findOrFail($selectedRoom) : null;
         return view('rapha.user.make-reservation', compact('rooms', 'selectedRoom'));
     }
 
+    //show user dashboard
      public function showDashboard(){
         $pending = PendingReservation::get()->count();
         $active = ActiveReservation::get()->count();
@@ -34,6 +36,7 @@ class UserController extends Controller
         return view('rapha.user.dashboard', compact('pending', 'active', 'completed'));
     }
 
+    //show user's pending reservations
     public function showPendingReservations(Request $request){
         $details = $request->session()->get('details');
         $pendingEdit = $request->session()->get('pendingEdit');
@@ -47,6 +50,7 @@ class UserController extends Controller
         return view('rapha.user.reservations', compact('groupedReservations','details', 'pendingEdit', 'rooms','route','pendingDelete'));
     }
 
+    //show user's active reservations
     public function showActiveReservations(Request $request){
         $details = $request->session()->get('details');
         $route = "active";
@@ -58,6 +62,7 @@ class UserController extends Controller
     }
 
 
+    //show user's completed reservations
     public function showCompletedReservations(Request $request){
         $details = $request->session()->get('details');
         $route = "completed";
@@ -68,6 +73,7 @@ class UserController extends Controller
         return view('rapha.user.reservations', compact('groupedReservations','details','route'));
     }
 
+    // make a reservation
     public function makeReservation(Request $request){
         $maxCheckinDate = now()->addDays(3)->format('Y-m-d');
         $maxCheckoutDate = now()->addMonths(3)->format('Y-m-d');
@@ -95,10 +101,12 @@ class UserController extends Controller
         return redirect()->route('reservations')->with('reservationSuccess', 'Reservation made. Please check your email for reservation details.');
     }
 
+    //show write review page
     public function showWriteReview(){
         return view('rapha.user.write-review');
     }
 
+    //submit review
     public function writeReview (Request $request){
         $verified = $request->validate([
             "rating_id" => "required|exists:ratings,id",
@@ -108,6 +116,7 @@ class UserController extends Controller
         return redirect()->route('reviews')->with('reviewSuccess','Review Created. Thank you!');
     }
 
+    //show user's reviews
     public function showReviews(Request $request){
         $reviews = Review::get();
         session()->flash('edit_form', true);
@@ -120,32 +129,37 @@ class UserController extends Controller
         return back()->with('deleteReviewModal', 'delete')->with('review', $review);
     }
 
+    //show user profile
     public function showProfile(){
         $profile = Auth::user();;
         session()->flash('edit_form', true);
         return view('rapha.user.profile', compact('profile'));
     }
 
-
+    //show pending reservation details
     public function showPendingDetails(PendingReservation $details){
         $details->load('room');
         return back()->with('reservationModal','reservationDetails')->with('details',$details);
     }
 
+    //show active reservation details
     public function showActiveDetails(ActiveReservation $details){
         $details->load('room');
         return back()->with('reservationModal','reservationDetails')->with('details',$details);
     }
 
+    //show completed reservation details
       public function showCompletedDetails(CompletedReservation $details){
         $details->load('room');
         return back()->with('reservationModal','reservationDetails')->with('details',$details);
     }
 
+    //show edit pending reservation modal
      public function showEditPendingReservation (PendingReservation $pendingDetails){
         return back()->with('showEditReservation','reservationDetails')->with('pendingEdit',$pendingDetails);
     }
 
+    //show delete pending reservation modal
     public function showDeletePendingReservation (PendingReservation $pendingDetails){
         return back()->with('showDeleteReservation','reservationDetails')->with('pendingDelete',$pendingDetails);
     }

@@ -165,14 +165,17 @@ class EditController extends Controller
         $newNoOfRooms = $validatedData['number_of_rooms'];
         $edit->update($validatedData);
         $room = Room::where('id', $oldRoomID)->first();
+        
+        //updates room availability is the new room is same as old room
         if ($oldRoomID === $validatedData['room_id']){
             $room->update(['availability' => $room->availability - ($newNoOfRooms - $oldNoOfRooms)]);
             return redirect()->route('reservations')->with('reservationEditSuccess','Reservation Updated Successfully');
         }
 
+        //updates room availability is the new room is different from old room
         else{
             $room->update(['availability' => $room->availability +  $oldNoOfRooms]);
-            $newRoom = $room = Room::where('id', $validatedData['room_id'])->first();
+            $newRoom = Room::where('id', $validatedData['room_id'])->first();
             $newRoom->update(['availability' => $room->availability -  $newNoOfRooms]);
             return redirect()->route('reservations')->with('reservationEditSuccess','Reservation Updated Successfully');
         }

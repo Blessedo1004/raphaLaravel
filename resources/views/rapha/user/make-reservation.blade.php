@@ -14,7 +14,7 @@
               <select id="room_id" name="room_id" required class="@error('room_id') is-invalid @enderror">
                 <option value="" selected disabled>Choose a room</option>
                 @foreach ($rooms as $room)
-                  <option value="{{ $room->id }}" {{ $room->id == old('room_id') || ($selectedRoom && $room->id === $selectedRoom->id) ? 'selected' : '' }}>{{$room->name . ' ' . '|'. ' ' . $room->guest_number . ' Guests'}}</option>
+                  <option value="{{ $room->id }}" {{ $room->id == old('room_id') || ($selectedRoom && $room->id === $selectedRoom) ? 'selected' : '' }}>{{$room->name . ' ' . '|'. ' ' . $room->guest_number . ' Guests'}}</option>
                 @endforeach   
               </select>
             </div>  
@@ -49,7 +49,7 @@
           <div class="form-group mt-4">
             <div class="reservation">
               <label for="checkin_date"><h5>Check-in Date:</h5></label>
-              <input type="date" name="check_in_date" id="check_in_date" min="{{ date('Y-m-d') }}" class="form-control @error('check_in_date') is-invalid @enderror" value="{{ old('check_in_date') }}">
+              <input type="date" name="check_in_date" id="check_in_date" min="{{ date('Y-m-d') }}" class="form-control @error('check_in_date') is-invalid @enderror" value="{{ old('check_in_date') }}" required>
             </div>
               @error('check_in_date')
                 <div class="invalid-feedback d-block mt-1 text-center">{{ $message }}</div>
@@ -62,7 +62,7 @@
           <div class="form-group mt-4">
             <div class="reservation">
               <label for="checkout_date"><h5>Check-out Date:</h5></label>
-              <input type="date" name="check_out_date" id="check_out_date" min="{{ date('Y-m-d') }}" class="form-control @error('check_out_date') is-invalid @enderror" value="{{ old('check_out_date') }}">
+              <input type="date" name="check_out_date" id="check_out_date" min="{{ date('Y-m-d') }}" class="form-control @error('check_out_date') is-invalid @enderror" value="{{ old('check_out_date') }}" required>
             </div>
               @error('check_out_date')
                 <div class="invalid-feedback d-block mt-1 text-center">{{ $message }}</div>

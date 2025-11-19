@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\PendingReservation;
 use App\Models\ActiveReservation;
 use App\Models\CompletedReservation;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+    //show admin dashboard
     public function showAdminDashboard(){
         $pending = PendingReservation::withoutGlobalScope('user')->get()->count();
         $active = ActiveReservation::withoutGlobalScope('user')->get()->count();
@@ -18,6 +18,7 @@ class AdminController extends Controller
         return view('rapha.admin.dashboard', compact('pending', 'active', 'completed'));
     }
 
+    //show all pending reservations
      public function showAllPendingReservations(Request $request){
         $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
         $groupedReservations = $reservations->groupBy(function($reservation) {
@@ -29,6 +30,7 @@ class AdminController extends Controller
         return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard'));
     }
 
+    //show all active reservations
     public function showAllActiveReservations(Request $request){
         $reservations = $request->session()->get('reservations') ??  ActiveReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
         $groupedReservations = $reservations->groupBy(function($reservation) {
@@ -40,6 +42,7 @@ class AdminController extends Controller
         return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard'));
     }
 
+    //show all completed reservations
     public function showAllCompletedReservations(Request $request){
         $reservations = $request->session()->get('reservations') ?? CompletedReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
         $groupedReservations = $reservations->groupBy(function($reservation) {
@@ -51,30 +54,35 @@ class AdminController extends Controller
         return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard'));
     }
 
+    //show admin user profile
     public function showAdminProfile(){
         $profile = Auth::user();
         session()->flash('edit_form', true);
         return view('rapha.admin.profile', compact('profile'));
     }
 
+    //show pending reservation details
     public function showPendingDetails($details){
         $details = PendingReservation::withoutGlobalScope('user')->findOrFail($details);
         $details->load('room');
         return back()->with('reservationModal','reservationDetails')->with('details',$details);
     }
 
+    //show active reservation details
      public function showActiveDetails($details){
         $details = ActiveReservation::withoutGlobalScope('user')->findOrFail($details);
         $details->load('room');
         return back()->with('reservationModal','reservationDetails')->with('details',$details);
     }
 
+    //show completed reservation details
     public function showCompletedDetails($details){
         $details = CompletedReservation::withoutGlobalScope('user')->findOrFail($details);
         $details->load('room');
         return back()->with('reservationModal','reservationDetails')->with('details',$details);
     }
 
+    //checkin
     public function checkIn($checkin){
         $checkin = PendingReservation::withoutGlobalScope('user')->findOrFail($checkin);
         ActiveReservation::create([
@@ -91,6 +99,7 @@ class AdminController extends Controller
         return redirect()->route('admin-active-reservations')->with('checkinSuccess', 'Check In Successful');
     }
 
+    //checkout
     public function checkout($checkout){
         $checkout = ActiveReservation::withoutGlobalScope('user')->findOrFail($checkout);
         CompletedReservation::create([
