@@ -150,13 +150,17 @@ class EditController extends Controller
 
     // edit reservation
     public function editReservation (Request $request, PendingReservation $edit){
-       $maxCheckoutDate = now()->addMonths(3)->format('Y-m-d');
-        $validatedData = $request->validate([
-            'room_id' => 'required|exists:rooms,id',
-            'check_in_date' => 'required|date|after_or_equal:today',
-            'check_out_date' => 'required|date|after:check_in_date|before_or_equal:' . $maxCheckoutDate,
-            'number_of_rooms' => 'required|integer|min:1'
-        ]);
+        try {
+            $maxCheckoutDate = now()->addMonths(3)->format('Y-m-d');
+            $validatedData = $request->validate([
+                'room_id' => 'required|exists:rooms,id',
+                'check_in_date' => 'required|date|after_or_equal:today',
+                'check_out_date' => 'required|date|after:check_in_date|before_or_equal:' . $maxCheckoutDate,
+                'number_of_rooms' => 'required|integer|min:1'
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput()->with('showEditReservation', $edit->id)->with('pendingEdit', $edit);
+        }
 
         $expiry = Carbon::parse($validatedData['check_in_date'])->addDay();
         $validatedData['expires_at'] = $expiry;
@@ -176,7 +180,7 @@ class EditController extends Controller
         else{
             $room->update(['availability' => $room->availability +  $oldNoOfRooms]);
             $newRoom = Room::where('id', $validatedData['room_id'])->first();
-            $newRoom->update(['availability' => $room->availability -  $newNoOfRooms]);
+            $newRoom->update(['availability' => $newRoom->availability -  $newNoOfRooms]);
             return redirect()->route('reservations')->with('reservationEditSuccess','Reservation Updated Successfully');
         }
         
@@ -186,6 +190,8 @@ class EditController extends Controller
     
     // delete reservation
     public function deleteReservation (PendingReservation $reservation){
+         $room = Room::where('id', $reservation->room_id)->get();
+        $room->update(['availability' => $room->availability + $reservation->number_of_rooms]);
         $reservation->delete();
         return redirect()->route('reservations')->with('reservationDeleteSuccess','Reservation Deleted Successfully');
     }

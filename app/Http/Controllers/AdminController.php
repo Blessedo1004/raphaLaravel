@@ -7,6 +7,7 @@ use App\Models\PendingReservation;
 use App\Models\ActiveReservation;
 use App\Models\CompletedReservation;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Room;
 
 class AdminController extends Controller
 {
@@ -111,8 +112,9 @@ class AdminController extends Controller
             "number_of_rooms" => $checkout->number_of_rooms
         ]);
 
+        $room = Room::where('id', $checkout->room_id)->first();
+        $room->update(['availability' => $room->availability + $checkout->number_of_rooms]);
         $checkout->delete();
-
         return redirect()->route('admin-completed-reservations')->with('checkoutSuccess', 'Check Out Successful');
     }
 
