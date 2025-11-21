@@ -135,7 +135,7 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
 // normal user routes ends
 
 //admin routes starts
-Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,private','throttle:60,1'],'prefix'=>'admin'],function(){
+Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,private'],'prefix'=>'admin'],function(){
     Route::controller(AdminController::class)->group(function(){
         Route::get('/dashboard', 'showAdminDashboard')->name('admin-dashboard');
         Route::group(['prefix'=>'reservations'], function(){
@@ -148,8 +148,12 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
             Route::get('/checkin/{checkin}', 'checkIn')->name('checkin');
             Route::get('/checkout/{checkout}', 'checkOut')->name('checkout');
             Route::get('/search/{search}', 'search')->name('search');
+            Route::get('/notifications', 'showNotifications')->name('notifications');
         });
         Route::get('/profile','showAdminProfile')->name('admin-profile');
+        Route::get('/notifications','showNotifications')->name('admin-notifications');
+        Route::get('/notifications/mark-as-read/{id}','markAsRead')->name('admin-mark-as-read');
+        Route::get('/notifications/mark-all-as-read','markAllAsRead')->name('admin-mark-all-as-read');
         
     });
     

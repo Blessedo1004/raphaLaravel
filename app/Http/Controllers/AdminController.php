@@ -11,12 +11,18 @@ use App\Models\Room;
 
 class AdminController extends Controller
 {
+    private function getNotificationCount()
+    {
+        return Auth::user()->unreadNotifications->count();
+    }
+
     //show admin dashboard
     public function showAdminDashboard(){
         $pending = PendingReservation::withoutGlobalScope('user')->get()->count();
         $active = ActiveReservation::withoutGlobalScope('user')->get()->count();
         $completed = CompletedReservation::withoutGlobalScope('user')->get()->count();
-        return view('rapha.admin.dashboard', compact('pending', 'active', 'completed'));
+        $notificationCount = $this->getNotificationCount();
+        return view('rapha.admin.dashboard', compact('pending', 'active', 'completed', 'notificationCount'));
     }
 
     //show all pending reservations
@@ -28,7 +34,8 @@ class AdminController extends Controller
         $details = $request->session()->get('details');
         $route = "admin-pending";
         $searchWildcard = 'PendingReservation';
-        return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard'));
+        $notificationCount = $this->getNotificationCount();
+        return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard', 'notificationCount'));
     }
 
     //show all active reservations
@@ -40,7 +47,8 @@ class AdminController extends Controller
         $details = $request->session()->get('details');
         $route = "admin-active";
         $searchWildcard = 'ActiveReservation';
-        return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard'));
+        $notificationCount = $this->getNotificationCount();
+        return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard', 'notificationCount'));
     }
 
     //show all completed reservations
@@ -52,14 +60,16 @@ class AdminController extends Controller
         $details = $request->session()->get('details');
         $route = "admin-completed";
         $searchWildcard = 'CompletedReservation';
-        return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard'));
+        $notificationCount = $this->getNotificationCount();
+        return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard', 'notificationCount'));
     }
 
     //show admin user profile
     public function showAdminProfile(){
         $profile = Auth::user();
         session()->flash('edit_form', true);
-        return view('rapha.admin.profile', compact('profile'));
+        $notificationCount = $this->getNotificationCount();
+        return view('rapha.admin.profile', compact('profile', 'notificationCount'));
     }
 
     //show pending reservation details
@@ -130,4 +140,22 @@ class AdminController extends Controller
        return back()->with('reservations',$reservations);
     }
 
+    public function showNotifications(){
+        $notifications = Auth::user()->notifications;
+        $notificationCount = $this->getNotificationCount();
+        return view('rapha.admin.notifications', compact('notifications', 'notificationCount'));
+    }
+
+    public function markAsRead($id){
+        $notification = Auth::user()->unreadNotifications->where('id', $id)->first();
+        if($notification){
+            $notification->markAsRead();
+        }
+        return redirect()->route('admin-dashboard');
+    }
+
+    public function markAllAsRead(){
+        Auth::user()->unreadNotifications->markAsRead();
+        return back();
+    }
 }
