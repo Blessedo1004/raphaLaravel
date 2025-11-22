@@ -39,8 +39,9 @@ class CheckOut extends Notification implements ShouldQueue
     public function toDatabase(object $notifiable): array
     {
         return [
-            'reservation_id' => $this->reservation->id,
-            'user_name' => $this->reservation->user->first_name,
+            'reservation_id' => $this->reservation->reservation_id,
+            'first_name' => $this->reservation->user->first_name,
+            'last_name' => $this->reservation->user->last_name,
         ];
     }
 }
