@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="d-flex justify-content-center align-items-center mb-3">
                     <h2>Notifications</h2>
-                    <a href="{{ route('admin-mark-all-as-read') }}" class="btn reg_btn text-white col-4 col-xl-3">Mark all as read</a>
+                    <a href="{{ route('admin-mark-all-as-read') }}" class="btn reg_btn text-white col-4 col-xl-3 @if($notificationsCount<1) disabled @endif">Mark all as read</a>
                 </div>
 
                 @if($groupedNotifications->isEmpty())

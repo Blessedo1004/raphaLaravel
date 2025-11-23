@@ -134,10 +134,11 @@ class AdminController extends Controller
     //show notifications
     public function showNotifications(){
         $notifications = Auth::user()->notifications;
+        $notificationsCount = Auth::user()->unreadNotifications->count();
         $groupedNotifications = $notifications->groupBy(function($notification) {
             return $notification->created_at->format('Y-m-d');
         });
-        return view('rapha.admin.notifications', compact('groupedNotifications'));
+        return view('rapha.admin.notifications', compact('groupedNotifications', 'notificationsCount'));
     }
 
     //mark a notification as read
