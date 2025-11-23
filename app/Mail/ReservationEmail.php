@@ -17,7 +17,7 @@ class ReservationEmail extends Mailable implements ShouldQueue
     /**
      * The reservation instance.
      *
-     * @var \App\Models\PendingReservation
+     * @var
      */
     public $reservation;
 

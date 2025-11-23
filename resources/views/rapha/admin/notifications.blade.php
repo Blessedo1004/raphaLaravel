@@ -25,12 +25,17 @@
                     </h3>
                     <ul class="list-group">
                         @foreach ($notificationsOnDate as $notification)
-                            <li class="list-group-item d-flex justify-content-between align-items-center @if(!$notification->read_at) bg-light @endif">
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-column @if(!$notification->read_at) bg-light @endif">
                                 <div class="mx-auto d-block">
+                                  <div class="text-center mb-2">
+                                    <strong>
+                                        {{ $notification->created_at->format('g:iA') }}
+                                    </strong>
+                                  </div>
                                     User <strong> {{ $notification->data['last_name'] . ' ' . $notification->data['first_name']}}</strong>'s checkout date is today. Reservation ID is <strong>{{ $notification->data['reservation_id']}}</strong>.
                                 </div>
                                 @if(!$notification->read_at)
-                                    <a href="{{ route('admin-mark-as-read', $notification->id) }}" class="btn reg_btn text-white col-4">Mark as read</a>
+                                    <a href="{{ route('admin-mark-as-read', $notification->id) }}" class="btn reg_btn text-white col-4 mt-3 col-10 col-sm-4 col-md-4">Mark as read</a>
                                 @endif
                             </li>
                         @endforeach

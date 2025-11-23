@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class CheckOutReminderMail extends Mailable implements ShouldQueue
+class CheckOutNotificationMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
     public $reservation;
@@ -27,7 +27,7 @@ class CheckOutReminderMail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Check Out Reminder Mail',
+            subject: 'Check Out Notification Mail',
         );
     }
 
@@ -37,7 +37,7 @@ class CheckOutReminderMail extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            view: 'rapha.emails.checkout-reminder',
+            view: 'rapha.emails.checkout-notification',
         );
     }
 

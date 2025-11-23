@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Illuminate\Queue\SerializesModels;
+use App\Models\ActiveReservation;
 
 class CheckOutReminder extends Notification implements ShouldQueue
 {
@@ -15,7 +16,7 @@ class CheckOutReminder extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(\App\Models\ActiveReservation $reservation)
+    public function __construct(ActiveReservation $reservation)
     {
         $this->reservation = $reservation;
     }

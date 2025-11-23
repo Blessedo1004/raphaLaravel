@@ -1,6 +1,6 @@
 <x-head-two>
     <x-slot name="body">
-     <img src="https://raphahotel.ng/images/logo-white1.webp" alt="logo">
+     <img src="https://raphahotel.ng/images/logo-white1.webp" alt="logo" style="margin: auto; display:block;">
     <p style="text-align:center">Hello. Your email verification code is {{$code}}</p>
     {{-- <p class="text-center"><a href=""><input type="button" style="background-color: #ab8965; color:white; padding: 10px 20px; border-radius: 5px;" value="Verify Email"></a></p> --}}
     

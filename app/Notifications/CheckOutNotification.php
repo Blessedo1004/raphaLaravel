@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Queue\SerializesModels;
 use App\Models\ActiveReservation;
 
-class CheckOut extends Notification implements ShouldQueue
+class CheckOutNotification extends Notification implements ShouldQueue
 {
     use Queueable, SerializesModels;
     protected $reservation;
@@ -32,16 +32,28 @@ class CheckOut extends Notification implements ShouldQueue
     }
 
     /**
+     * Get the mail representation of the notification.
+     */
+    // public function toMail(object $notifiable): MailMessage
+    // {
+    //     return (new MailMessage)
+    //         ->line('The introduction to the notification.')
+    //         ->action('Notification Action', url('/'))
+    //         ->line('Thank you for using our application!');
+    // }
+
+    /**
      * Get the array representation of the notification.
      *
      * @return array<string, mixed>
      */
-    public function toDatabase(object $notifiable): array
+   public function toDatabase(object $notifiable): array
     {
         return [
             'reservation_id' => $this->reservation->reservation_id,
             'first_name' => $this->reservation->user->first_name,
             'last_name' => $this->reservation->user->last_name,
+            'reached' => 'Reached',
         ];
     }
 }

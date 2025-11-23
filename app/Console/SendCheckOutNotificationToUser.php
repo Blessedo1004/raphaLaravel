@@ -5,18 +5,18 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\ActiveReservation;
 use App\Models\User;
-use App\Notifications\CheckOutReminder;
+use App\Notifications\CheckOutNotification;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\CheckOutReminderMail;
+use App\Mail\CheckOutNotificationMail;
 
-class SendCheckOutReminderToUser extends Command
+class SendCheckOutNotificationToUser extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:send-check-out-reminder';
+    protected $signature = 'app:send-check-out-notification';
 
     /**
      * The console command description.
@@ -30,16 +30,15 @@ class SendCheckOutReminderToUser extends Command
      */
     public function handle()
     {
-        $targetTime = now()->addHour();
-        $reservations = ActiveReservation::whereBetween(
-            'check_out_date',
-            [$targetTime->copy()->startOfMinute(), $targetTime->copy()->endOfMinute()]
+        $reservations = ActiveReservation::where(
+            'check_out_date', '<=',
+           now()
         )->get();
         if($reservations){
             foreach($reservations as $reservation){
                 $user = User::where('id', $reservation->user_id)->first();
-                $user->notify(new CheckOutReminder($reservation)); 
-                Mail::to($user->email)->send(new CheckOutReminderMail($reservation));
+                $user->notify(new CheckOutNotification($reservation)); 
+                Mail::to($user->email)->send(new CheckOutNotificationMail($reservation));
             }
         }
     }
