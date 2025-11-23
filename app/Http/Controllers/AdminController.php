@@ -131,11 +131,16 @@ class AdminController extends Controller
        return back()->with('reservations',$reservations);
     }
 
+    //show notifications
     public function showNotifications(){
         $notifications = Auth::user()->notifications;
-        return view('rapha.admin.notifications', compact('notifications'));
+        $groupedNotifications = $notifications->groupBy(function($notification) {
+            return $notification->created_at->format('Y-m-d');
+        });
+        return view('rapha.admin.notifications', compact('groupedNotifications'));
     }
 
+    //mark a notification as read
     public function markAsRead($id){
         $notification = Auth::user()->unreadNotifications->where('id', $id)->first();
         if($notification){
@@ -144,6 +149,7 @@ class AdminController extends Controller
         return back();
     }
 
+    //mark all notifications as read
     public function markAllAsRead(){
         Auth::user()->unreadNotifications->markAsRead();
         return back();

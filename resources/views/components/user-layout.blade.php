@@ -92,6 +92,12 @@
           </div>
 
           <div class="col-12 text-center">
+            <x-nav :activePage="Route::currentRouteName()" page="user-notifications">
+             <i class="fa-solid fa-bell"></i> Notifications @if(isset($notificationCount) && $notificationCount > 0) <span class="badge bg-danger">{{ $notificationCount }}</span> @endif
+            </x-nav>
+          </div>
+
+          <div class="col-12 text-center">
              <x-nav :activePage="Route::currentRouteName()" page="profile">
                <i class="fa-solid fa-user-tie"></i> User Profile
             </x-nav>

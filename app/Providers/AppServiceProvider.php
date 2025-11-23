@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use App\Http\View\Composers\AdminLayoutComposer;
+use App\Http\View\Composers\LayoutComposer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('components.user-layout', AdminLayoutComposer::class);
+        View::composer('components.user-layout', LayoutComposer::class);
     }
 }

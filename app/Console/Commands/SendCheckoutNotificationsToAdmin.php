@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Notifications\CheckOut;
 use Carbon\Carbon;
 
-class SendCheckoutNotifications extends Command
+class SendCheckoutNotificationsToAdmin extends Command
 {
     /**
      * The name and signature of the console command.

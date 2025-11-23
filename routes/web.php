@@ -116,6 +116,9 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
     Route::get('/delete-reservation/{pendingDetails}', 'showDeletePendingReservation')->name('show-delete-reservation');
      //show delete review modal
     Route::get('/delete-review/{review}','showDeleteReview')->name('show-delete-review');
+    Route::get('/notifications','showNotifications')->name('user-notifications');
+    Route::get('/notifications/mark-as-read/{id}','markAsRead')->name('user-mark-as-read');
+    Route::get('/notifications/mark-all-as-read','markAllAsRead')->name('user-mark-all-as-read');
     });
 
     
@@ -148,7 +151,6 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
             Route::get('/checkin/{checkin}', 'checkIn')->name('checkin');
             Route::get('/checkout/{checkout}', 'checkOut')->name('checkout');
             Route::get('/search/{search}', 'search')->name('search');
-            Route::get('/notifications', 'showNotifications')->name('notifications');
         });
         Route::get('/profile','showAdminProfile')->name('admin-profile');
         Route::get('/notifications','showNotifications')->name('admin-notifications');

@@ -163,4 +163,28 @@ class UserController extends Controller
     public function showDeletePendingReservation (PendingReservation $pendingDetails){
         return back()->with('showDeleteReservation','reservationDetails')->with('pendingDelete',$pendingDetails);
     }
+
+      //show notifications
+    public function showNotifications(){
+        $notifications = Auth::user()->notifications;
+        $groupedNotifications = $notifications->groupBy(function($notification) {
+            return $notification->created_at->format('Y-m-d');
+        });
+        return view('rapha.user.notifications', compact('groupedNotifications'));
+    }
+
+    //mark a notification as read
+    public function markAsRead($id){
+        $notification = Auth::user()->unreadNotifications->where('id', $id)->first();
+        if($notification){
+            $notification->markAsRead();
+        }
+        return back();
+    }
+
+    //mark all notifications as read
+    public function markAllAsRead(){
+        Auth::user()->unreadNotifications->markAsRead();
+        return back();
+    }
 }
