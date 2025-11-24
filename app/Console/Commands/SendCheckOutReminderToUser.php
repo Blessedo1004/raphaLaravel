@@ -30,7 +30,7 @@ class SendCheckOutReminderToUser extends Command
      */
     public function handle()
     {
-        $targetTime = now()->addHour();
+        $targetTime = now()->addHours(2);
         $reservations = ActiveReservation::whereBetween(
             'check_out_date',
             [$targetTime->copy()->startOfMinute(), $targetTime->copy()->endOfMinute()]
