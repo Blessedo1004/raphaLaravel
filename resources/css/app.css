@@ -126,6 +126,7 @@
     color:#ab8965;
     box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
     border-radius: 10px;
+    background:white;
 }
 
 .header > .row{
@@ -353,6 +354,7 @@ a{
 .content-div{
 box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
 border-radius:10px;
+margin-top:26vh;
 }
 
 .email{
@@ -378,6 +380,13 @@ input[type="date"]{
 .reservation_nav{
   font-size: smaller;
 }
+.nav-column{
+  position:fixed;
+  top:22vh;
+  left:0;
+  background:white;
+  z-index:1;
+}
 }
 
 
@@ -387,16 +396,21 @@ input[type="date"]{
     height:15vh;
     align-items:center;
 }
+.nav-column{
+  top:15vh;
+}
 .text-center ~ .text-center{
     font-size:21px
 } 
    .notice_container #review-content{
     width:60vh
   }
+  .content-div{
+    margin-top:20vh;
+  }
 }
 
-/*phone screen styles ends*/
-
+/*phone screen styles end
 
 /* small tablets styles starts */
 @media only screen and (min-width:768px) and (max-width:991.9px){
@@ -430,12 +444,20 @@ input[type="date"]{
 .content-div{
 box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
 border-radius:10px;
+margin-top:20vh;
 }
     .notice_container #review-content{
     width:50vh
   }
   input[type="date"]{
   width:50% !important
+}
+.nav-column{
+  position:fixed;
+  top:17vh;
+  left:0;
+  background:white;
+  z-index:10000;
 }
 }
 /* small tablets styles ends */
@@ -445,6 +467,7 @@ border-radius:10px;
 @media only screen and (min-width: 992px) {
   .nav-column{
     position: fixed;
+    top:15vh;
   }
   .nav-row {
     display: flex !important;
@@ -457,7 +480,7 @@ border-radius:10px;
   }
 
   .content-div {
-    margin:0 0 0 24vh !important;
+    margin:13vh 0 0 15vw !important;
   }
   .notice_container #review-content{
     width:50vh

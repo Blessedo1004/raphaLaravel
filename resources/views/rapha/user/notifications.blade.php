@@ -13,8 +13,8 @@
                     <h4 class="text-center mt-4">No notifications found.</h4>
                 @else
                  @foreach ($groupedNotifications as $date => $notificationsOnDate)
-                  <div class="col-12 col-lg-10 bg-light mt-2">
-                    <h3 class="text-center mt-5 date_heading">
+                  <div class="col-12 bg-light mt-2">
+                    <h3 class="text-center mt-5">
                         @if(Carbon\Carbon::parse($date)->isToday())
                         Today
                         @elseif(Carbon\Carbon::parse($date)->isYesterday())

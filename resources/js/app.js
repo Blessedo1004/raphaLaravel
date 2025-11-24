@@ -83,7 +83,6 @@ bars.addEventListener('click', ()=>{
          navRow.addEventListener('animationend', ()=>{
           navRow.style.display = 'flex';
         })
-         document.querySelector('.content-div').style.marginTop = '10%';
          document.querySelector('.fa-xmark').style.display = 'block';
          document.querySelector('.fa-xmark').style.cursor = 'pointer';
          document.querySelector('.fa-bars').style.display = 'none';
@@ -98,7 +97,6 @@ xmark.addEventListener('click', ()=>{
         navRow.addEventListener('animationend', ()=>{
           navRow.style.display = 'none';
         })
-        document.querySelector('.content-div').style.marginTop = '0';
         document.querySelector('.fa-xmark').style.display = 'none';
         document.querySelector('.fa-bars').style.display = 'block';
 

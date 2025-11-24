@@ -13,7 +13,7 @@
 <body>
 @if(session('loginSuccess'))
 
-  <div class="alert alert-success text-center">
+  <div class="alert alert-success text-center fixed-top">
        {{session('loginSuccess')}}
   </div>
   
@@ -25,7 +25,7 @@
 
    <div class="content animate__animated animate__fadeIn" style="position: relative;">
   {{-- header starts --}}
-  <div class="container-fluid container-sm header py-2">
+  <div class="container-fluid container-sm header py-2 fixed-top">
     <div class="row justify-content-center">
       <div class="col-9 col-sm-4">
         <a href="{{ route('rapha.home') }}">
@@ -63,41 +63,41 @@
       <div class="col-12 col-lg-2 nav-column mt-4">
         <div class="row nav-row justify-content-center align-items-center">
           @can('manage-regular')
-          <div class="col-12 text-center">
+          <div class="col-5 col-md-3 col-lg-12 text-center">
             <x-nav :activePage="Route::currentRouteName()" page="dashboard">
               <i class="fa-solid fa-grip"></i> Dashboard
             </x-nav>
           </div>
-          <div class="col-12 text-center">
+          <div class="col-5 col-md-3 col-lg-12 text-center">
             <x-nav :activePage="Route::currentRouteName()" page="make-reservation">
               <i class="fa-solid fa-calendar-week"></i> Make Reservation
             </x-nav>
           </div>
-          <div class="col-12 text-center">
+          <div class="col-5 col-md-3 col-lg-12 text-center">
              <x-nav-two :activePage="Route::currentRouteName()" page="reservations" page2="active-reservations" page3="completed-reservations">
               <i class="fa-solid fa-calendar-days"></i> Reservations
             </x-nav-two>
            
           </div>
-          <div class="col-12 text-center">
+          <div class="col-5 col-md-3 col-lg-12 text-center">
              <x-nav :activePage="Route::currentRouteName()" page="write-review">
                <i class="fa-solid fa-comment"></i> Write a Review
             </x-nav>
           </div>
 
-          <div class="col-12 text-center">
+          <div class="col-5 col-md-3 col-lg-12 text-center">
              <x-nav :activePage="Route::currentRouteName()" page="reviews">
                <i class="fa-solid fa-comments"></i> My Reviews
             </x-nav>
           </div>
 
-          <div class="col-12 text-center">
+          <div class="col-5 col-md-3 col-lg-12 text-center">
             <x-nav :activePage="Route::currentRouteName()" page="user-notifications">
              <i class="fa-solid fa-bell"></i> Notifications @if(isset($notificationCount) && $notificationCount > 0) <span class="badge bg-danger">{{ $notificationCount }}</span> @endif
             </x-nav>
           </div>
 
-          <div class="col-12 text-center">
+          <div class="col-5 col-md-3 col-lg-12 text-center">
              <x-nav :activePage="Route::currentRouteName()" page="profile">
                <i class="fa-solid fa-user-tie"></i> User Profile
             </x-nav>
@@ -106,25 +106,25 @@
           
 
           @can('manage-admin')
-            <div class="col-12 text-center">
+            <div class="col-5 col-md-3 col-lg-12 text-center">
             <x-nav :activePage="Route::currentRouteName()" page="admin-dashboard">
               <i class="fa-solid fa-grip"></i> Dashboard
             </x-nav>
           </div>
 
-           <div class="col-12 text-center">
+           <div class="col-5 col-md-3 col-lg-12 text-center">
             <x-nav-two :activePage="Route::currentRouteName()" page="admin-reservations" page2="admin-active-reservations" page3="admin-completed-reservations">
              <i class="fa-solid fa-calendar-days"></i> Reservations
             </x-nav-two>
           </div>
 
-          <div class="col-12 text-center">
+          <div class="col-5 col-md-3 col-lg-12 text-center">
             <x-nav :activePage="Route::currentRouteName()" page="admin-notifications">
              <i class="fa-solid fa-bell"></i> Notifications @if($notificationCount && $notificationCount > 0) <span class="badge bg-danger">{{ $notificationCount }}</span> @endif
             </x-nav>
           </div>
 
-          <div class="col-12 text-center">
+          <div class="col-5 col-md-3 col-lg-12 text-center">
              <x-nav :activePage="Route::currentRouteName()" page="admin-profile">
                <i class="fa-solid fa-user-tie"></i> User Profile
             </x-nav>
