@@ -33,7 +33,8 @@
                                         {{ $notification->created_at->format('g:iA') }}
                                     </strong>
                                   </div>
-                                    Hello <strong>{{ $notification->data['last_name'] . ' ' . $notification->data['first_name']}}</strong>, your reservation with reservation ID <strong>{{ $notification->data['reservation_id']}}</strong>'s checkout date is @if(isset($notification->data['reached'])) today @else 2 hours from now @endif . Please do well to checkout when the time comes.
+                                    Hello <strong>{{ $notification->data['last_name'] . ' ' . $notification->data['first_name']}}</strong>, your reservation with reservation ID <strong>{{ $notification->data['reservation_id']}}</strong>'s checkout date is @if(isset($notification->data['reached'])) today. 
+                                    Please do well to checkout. @else 2 hours from now. Please do well to checkout when the time comes. @endif
                                 </div>
                                 @if(!$notification->read_at)
                                     <a href="{{ route('user-mark-as-read', $notification->id) }}" class="btn reg_btn text-white col-4 mt-3 col-10 col-sm-4 col-md-4">Mark as read</a>
