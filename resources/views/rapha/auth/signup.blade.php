@@ -4,7 +4,7 @@
 <x-slot name="body">
   <!-- page preloader begin -->
         <x-preloader></x-preloader>
-        <!-- page preloader close -->
+  <!-- page preloader close -->
     {{-- content starts --}}
     <div class="content animate__animated animate__fadeIn">
       <div class="container-fluid p-0 details">
@@ -83,7 +83,7 @@
                     </div>
 
                     {{-- Email --}}
-                  <div class="form-group">
+                    <div class="form-group">
                       <label for="email">Email:</label>
                     <input 
                       type="email"
@@ -109,7 +109,7 @@
                         placeholder="At least 8 characters"
                       >
                       @error('password')
-                        <div class="invalid-feedback mt-1 ">{{ $message }}</div>
+                        <div class="invalid-feedback mt-1"><h6>{{ $message }}</h6></div>
                       @enderror
                     </div>
 
@@ -124,7 +124,7 @@
                         class="bg-white form-control @error('password_confirmation') is-invalid @enderror"
                       >
                       @error('password_confirmation')
-                        <div class="invalid-feedback mt-1 ">{{ $message }}</div>
+                        <div class="invalid-feedback mt-1">{{ $message }}</div>
                       @enderror
                     </div>
 
@@ -137,9 +137,10 @@
                           <input type="submit" class="btn mt-4 reg_btn text-light col-7 col-md-6 col-lg-9" value="Sign Up">
                      </div>
                     
-                     <div class="col-12 col-lg-10 mt-3 text-lg-center mb-4">
+                     <div class="col-8 col-sm-7 col-md-6 col-lg-9 mt-3 text-center mb-4">
                           <a href="{{ route('rapha.login') }}" class="url">Already signed up? Log In</a>
                     </div>
+                  </form> 
                   {{-- Form ends --}}
             
             </div>
@@ -148,9 +149,8 @@
           </div>
         </div>
     </div>
+  </div>
   {{-- content ends --}}
-    </div>
-    
 
   
   </x-slot>

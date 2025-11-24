@@ -83,17 +83,17 @@
                         <div class="col-12">
                           <input type="submit" class="btn mt-4 reg_btn text-light  col-7 col-md-6 col-lg-9" value="Log In">
                         </div>
-                        <div class="col-12 col-lg-10 mt-3 text-lg-center">
+                        <div class="col-8 col-sm-7 col-md-6 col-lg-9 mt-3 text-center">
                           <a href="{{ route('rapha.signup') }}" class="url">Don't have an account? Sign up</a>
                         </div>
                         
-                        <div class="col-12 col-lg-10 mt-3 text-lg-center">
+                        <div class="col-8 col-sm-7 col-md-6 col-lg-9 mt-3 text-center">
                           <a href="{{ route('forgotPassword') }}" class="url">Forgot password?</a>
                         </div>
                         <!-- validation errors -->
                         @if($errors->any())
                           @foreach ($errors->all() as $error)
-                            <div class="alert alert-danger mt-3 col-12">
+                            <div class="alert alert-danger col-8 col-md-6 col-lg-9 mt-3 text-center mb-5">
                               {{ $error }}
                             </div>
                             
@@ -108,9 +108,8 @@
               </div>
             </div>
         </div>
-      {{-- content ends --}}
       </div>
-  
+      {{-- content ends --}}
 
  
   </x-slot>
