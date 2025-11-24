@@ -83,11 +83,11 @@
                         <div class="col-12">
                           <input type="submit" class="btn mt-4 reg_btn text-light  col-7 col-md-6 col-lg-9" value="Log In">
                         </div>
-                        <div class="col-12 mt-3">
+                        <div class="col-12 col-lg-10 mt-3 text-lg-center">
                           <a href="{{ route('rapha.signup') }}" class="url">Don't have an account? Sign up</a>
                         </div>
                         
-                        <div class="col-12 mt-3">
+                        <div class="col-12 col-lg-10 mt-3 text-lg-center">
                           <a href="{{ route('forgotPassword') }}" class="url">Forgot password?</a>
                         </div>
                         <!-- validation errors -->

@@ -120,11 +120,8 @@
 
 .url{
     color:#ab8965;
-    margin-left:23%
 }
-.content .text-center .url{
-    margin-left:0 !important;
-}
+
 .header{
     color:#ab8965;
     box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
@@ -198,7 +195,6 @@ input[type="date"] {
 
 .reg_btn{
     background-color:#ab8965 !important;
-    margin-left: 3%;
 }
 
 .active2{
@@ -327,7 +323,7 @@ a{
         width: 100%;
     }
     .form_section{
-        margin-left:0;
+        margin-left:20vw;
        margin-top:25vh;
     }
 
@@ -410,7 +406,7 @@ input[type="date"]{
     }
 
     .form_section{
-        margin-left:0;
+        margin-left:20vw;
         margin-top:25vh;
         
     }

@@ -137,7 +137,7 @@
                           <input type="submit" class="btn mt-4 reg_btn text-light col-7 col-md-6 col-lg-9" value="Sign Up">
                      </div>
                     
-                     <div class="col-12 mt-3">
+                     <div class="col-12 col-lg-10 mt-3 text-lg-center mb-4">
                           <a href="{{ route('rapha.login') }}" class="url">Already signed up? Log In</a>
                     </div>
                   {{-- Form ends --}}
