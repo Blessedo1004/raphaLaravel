@@ -20,6 +20,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'one-time-user' => \App\Http\Middleware\EnsureUserEdit::class,
         ]);
     })
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->web(append: [
+            \App\Http\Middleware\SanitizeInput::class,
+        ]);
+    })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
