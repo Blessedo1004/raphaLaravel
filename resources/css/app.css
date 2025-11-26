@@ -363,9 +363,6 @@ margin-top:26vh;
 .text-center ~ .text-center{
     font-size:17px
 } 
-.notice_container #review-content{
-    width:40vh
-  }
 
   select, option{
     width:50% !important;
@@ -402,9 +399,6 @@ input[type="date"]{
 .text-center ~ .text-center{
     font-size:21px
 } 
-   .notice_container #review-content{
-    width:60vh
-  }
   .content-div{
     margin-top:20vh;
   }
@@ -446,9 +440,6 @@ box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
 border-radius:10px;
 margin-top:20vh;
 }
-    .notice_container #review-content{
-    width:50vh
-  }
   input[type="date"]{
   width:50% !important
 }
@@ -457,7 +448,7 @@ margin-top:20vh;
   top:17vh;
   left:0;
   background:white;
-  z-index:10000;
+  z-index:1;
 }
 }
 /* small tablets styles ends */
@@ -482,9 +473,7 @@ margin-top:20vh;
   .content-div {
     margin:13vh 0 0 15vw !important;
   }
-  .notice_container #review-content{
-    width:50vh
-  }
+
   input[type="date"]{
   width:30% !important
 }

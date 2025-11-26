@@ -13,12 +13,12 @@
         </div>
         <input type="hidden" name="rating_id" id="rating-value">
         <div>
-           <textarea name="content" id="review-content" class="mx-auto d-block col-12 col-sm-6 text-center mt-4" placeholder="Talk About Your Experience" rows="8" maxlength="250"></textarea>
+           <textarea name="content" id="review-content" class="mx-auto d-block col-12 col-sm-8 col-md-7 text-center mt-4" placeholder="Talk About Your Experience" rows="8" maxlength="250"></textarea>
            <span id="char-count" class="d-block text-center">0/250</span>
            <div class="message text-danger text-center"></div>
         </div>
        
-        <input type="submit" id="submit-review-btn" class="btn mt-4 reg_btn text-light col-10 col-sm-3 mx-auto d-block" value="Submit Review">
+        <input type="submit" id="submit-review-btn" class="btn mt-4 reg_btn text-light col-5 col-sm-3 mx-auto d-block" value="Submit Review">
 
         <!-- validation errors -->
         @if($errors->any())
