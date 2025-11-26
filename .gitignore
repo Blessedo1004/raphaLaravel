@@ -26,3 +26,7 @@ explanation.md
 notification_feature_explanation.md
 where_explanation.md
 carbon_explanation.md
+admin_logout_user.md
+immediate_logout_redirect.md
+session_deletion_redirection_explanation.md
+xss_protection_explanation.md
