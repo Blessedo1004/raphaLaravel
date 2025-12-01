@@ -47,7 +47,7 @@ window.addEventListener('load', () => {
       
      function resendCountdown (){
       let resetCountdownValue = Number(document.querySelector('.resend_countdown_value').innerText); 
-        resetCountdownValue = resetCountdownValue --
+        resetCountdownValue--
         document.querySelector('.resend_countdown_value').innerText = resetCountdownValue
         if (resetCountdownValue === 0){
            document.querySelector('.resend_countdown').style.display="none"

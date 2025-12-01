@@ -33,7 +33,7 @@
                                         {{ $notification->created_at->format('g:iA') }}
                                     </strong>
                                   </div>
-                                    Hello <strong>{{ $notification->data['last_name'] . ' ' . $notification->data['first_name']}}</strong>, your reservation with reservation ID <strong>{{ $notification->data['reservation_id']}}</strong>'s checkout date is @if(isset($notification->data['reached'])) today. 
+                                    Hello <strong>{{ $notification->data['last_name'] . ' ' . $notification->data['first_name']}}</strong>, your reservation with ID <strong>{{ $notification->data['reservation_id']}}</strong>'s checkout date is @if(isset($notification->data['reached'])) today. 
                                     Please do well to checkout. @else 2 hours from now. Please do well to checkout when the time comes. @endif
                                 </div>
                                 @if(!$notification->read_at)
