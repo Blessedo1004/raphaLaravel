@@ -12,9 +12,9 @@ use App\Http\Controllers\EditController;
 
 
 // guest routes starts
-Route::middleware('cache.headers:no_store,private')->controller(AuthController::class)->group(function(){
+Route::middleware('cache.headers:no_store,private','throttle:auth')->controller(AuthController::class)->group(function(){
     Route::get('/login','showLogin')->name('login');
-    Route::post('/login','login')->name('rapha.login')->middleware('throttle:auth');
+    Route::post('/login','login')->name('rapha.login');
     Route::get('/signup','showSignUp')->name('rapha.signup');
     Route::post('/signup','signUp')->name('rapha.signup');
 });

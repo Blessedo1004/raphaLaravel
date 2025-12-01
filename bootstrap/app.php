@@ -25,6 +25,10 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\SanitizeInput::class,
         ]);
     })
+    ->withMiddleware(function (Middleware $middleware): void {
+    $middleware->throttleWithRedis();
+    // ...
+    })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
