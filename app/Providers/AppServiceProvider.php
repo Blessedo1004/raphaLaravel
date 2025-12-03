@@ -27,7 +27,11 @@ class AppServiceProvider extends ServiceProvider
         View::composer('components.user-layout', LayoutComposer::class);
 
         RateLimiter::for('auth', function (Request $request) {
-        return Limit::perMinutes(2,5)->by($request->ip());
-    });
+            return Limit::perMinutes(2,5)->by($request->ip());
+        });
+
+        RateLimiter::for('action', function (Request $request) {
+            return Limit::perMinutes(2,20)->by($request->ip());
+        });
     }
 }
