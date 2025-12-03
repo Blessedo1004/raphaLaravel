@@ -23,7 +23,7 @@
       @endif
 
       <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-12 col-md-8 reservation_col">
           <div class="row justify-content-center">
             <x-reservation-nav :activePage="Route::currentRouteName()" page="reservations">
               Pending
@@ -36,12 +36,12 @@
             <x-reservation-nav :activePage="Route::currentRouteName()" page="completed-reservations">
               Completed
             </x-reservation-nav>
-          </div>
-        </div>
+          
         @if($route === "pending")
             <h6 class="text-center mt-5 text-danger col-sm-8 mx-auto d-block">Note: All pending reservations that haven't been cleared at the counter will expire 24 hours after the check-in-date (WAT). Please do well to visit the counter and check-in with your reservation details.</h6>
         @endif
-
+        </div>
+      </div>
         @if($groupedReservations->isEmpty())
           <h4 class="text-center mt-5">No reservations found</h4>
         @else
@@ -78,8 +78,8 @@
           </x-slot> 
           <x-slot name="modalContent">
             <h4> <span class="name">Room Type : </span>{{$details->room->name}}</h4>
-            <h4 class="mt-3"> <span class="name">Check In Date : </span>{{$details->check_in_date}}</h4>
-            <h4 class="mt-3"> <span class="name">Check Out Date :</span> {{$details->check_out_date}}</h4>
+            <h4 class="mt-3"> <span class="name">Check In Date : </span>{{$details->check_in_date->format('F j, Y') }}</h4>
+            <h4 class="mt-3"> <span class="name">Check Out Date :</span> {{$details->check_out_date->format('F j, Y') }}</h4>
             <h4 class="mt-3"> <span class="name">Number of Rooms :</span> {{$details->number_of_rooms}}</h4>
             <h4 class="mt-3"> <span class="name">Reservation ID :</span> {{$details->reservation_id}}</h4>
             @if($route === "pending")

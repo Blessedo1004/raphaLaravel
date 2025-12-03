@@ -13,7 +13,7 @@
         </div>
       @endif
       <div class="row justify-content-center">
-        <div class="col-8">
+        <div class="col-12 col-md-8 reservation_col">
           <div class="row justify-content-center">
             <x-reservation-nav :activePage="Route::currentRouteName()" page="admin-reservations">
               Pending
@@ -26,8 +26,7 @@
             <x-reservation-nav :activePage="Route::currentRouteName()" page="admin-completed-reservations">
               Completed
             </x-reservation-nav>
-          </div>
-        </div>
+         
 
          <form action="{{ route('search', $searchWildcard) }}">
         @csrf
@@ -44,9 +43,10 @@
             <input type="submit" class="btn reg_btn text-light input-group-text" value="Search">
           </div>
           
-        </div>
-      </form>
-
+         </div>
+        </form>
+       </div>
+      </div>
       @if($groupedReservations->isEmpty())
         <h4 class="text-center mt-4">No reservations found</h4>
       @else
@@ -87,8 +87,8 @@
         <x-slot name="modalContent">
             <h4> <span class="name">Name : </span>{{$details->user->last_name . " " . $details->user->first_name}}</h4>
              <h4> <span class="name">Room Type : </span>{{$details->room->name}}</h4>
-            <h4 class="mt-3"> <span class="name">Check In Date : </span>{{$details->check_in_date}}</h4>
-            <h4 class="mt-3"> <span class="name">Check Out Date :</span> {{$details->check_out_date}}</h4>
+            <h4 class="mt-3"> <span class="name">Check In Date : </span>{{$details->check_in_date->format('F j, Y') }}</h4>
+            <h4 class="mt-3"> <span class="name">Check Out Date :</span> {{$details->check_out_date->format('F j, Y') }}</h4>
             <h4 class="mt-3"> <span class="name">Number of Rooms :</span> {{$details->number_of_rooms}}</h4>
             <h4 class="mt-3"> <span class="name">Reservation ID :</span> {{$details->reservation_id}}</h4>
             @if($route === "admin-pending")
