@@ -43,7 +43,16 @@ class AuthController extends Controller
             'user_name'=>'required|string|min:6|max:20|unique:users,user_name',
             'phone_number'=>'required|string|size:11',
             'email'=>'required|email|unique:users,email',
-            'password'=>'required|string|min:8|confirmed',
+            'password' => [
+                            'required',
+                            'string',
+                            'min:8',
+                            'regex:/[a-z]/',
+                            'regex:/[A-Z]/',
+                            'regex:/[0-9]/',
+                            'regex:/[@$!%*#?&]/',
+                            'confirmed',
+                        ],
         ]);
 
          $existingCode =   Cache::get('preregister_email_token'. $userData['email']);

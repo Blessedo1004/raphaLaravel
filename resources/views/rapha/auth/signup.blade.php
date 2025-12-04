@@ -100,16 +100,17 @@
                     {{-- Password --}}
                     <div class="form-group">
                       <label for="password">Password:</label>
+                      <h6 class="col-10"> Use a minimum of 8 characters, with at least one uppercase and lowercase letter, number and special character.</h6>
                       <input 
                         type="password"
                         name="password"
                         id="password"
                         required
-                        class="bg-white form-control @error('password') is-invalid @enderror"
-                        placeholder="At least 8 characters"
+                        class="bg-white form-control @error('password') is-invalid @enderror mt-4"
+                        placeholder="Enter Password"
                       >
                       @error('password')
-                        <div class="invalid-feedback mt-1"><h6>{{ $message }}</h6></div>
+                        <div class="invalid-feedback mt-1"><h6 class="col-9">{{ $message }}</h6></div>
                       @enderror
                     </div>
 
@@ -122,6 +123,7 @@
                         id="password_confirmation"
                         required
                         class="bg-white form-control @error('password_confirmation') is-invalid @enderror"
+                        placeholder="Confirm Password"
                       >
                       @error('password_confirmation')
                         <div class="invalid-feedback mt-1">{{ $message }}</div>

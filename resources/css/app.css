@@ -187,7 +187,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-label + input{
+label ~ input{
     width:70% !important;
 }
 
