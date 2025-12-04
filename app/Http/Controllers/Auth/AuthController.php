@@ -15,6 +15,9 @@ class AuthController extends Controller
     // show login view
     public function showLogin (){
         if(Auth::check()){
+            if (Auth::user()->role === 'admin') {
+                return redirect()->route('admin-dashboard');
+            }
             return redirect()->route('dashboard');
         }
         session()->flash('from_verification_form', true);
@@ -24,6 +27,9 @@ class AuthController extends Controller
     //show sign up view
      public function showSignUp (){
             if(Auth::check()){
+                if (Auth::user()->role === 'admin') {
+                    return redirect()->route('admin-dashboard');
+                }
             return redirect()->route('dashboard');
         }
         return view ('rapha.auth.signup');
