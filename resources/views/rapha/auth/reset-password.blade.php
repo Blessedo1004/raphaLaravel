@@ -1,4 +1,4 @@
-<x-head-two title="Reset Password" description="Reset password">
+<x-head-two title="Reset Password">
   <x-slot name="body">
     <x-preloader></x-preloader>
     <div class="content animate__animated animate__fadeIn">

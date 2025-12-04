@@ -1,4 +1,4 @@
-<x-head-two title="Verify Email" description="zzzzzz">
+<x-head-two title="Forgot Password">
   <x-slot name="body">
     <x-preloader></x-preloader>
     <div class="content animate__animated animate__fadeIn">
