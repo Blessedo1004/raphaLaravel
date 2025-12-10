@@ -22,7 +22,12 @@
 
 .reservation_container{
  margin-top:30vh;
-} */
+} 
+ */
+
+textarea{
+  resize: none;
+}
 
 #plus, #minus{
   font-size:15px;
