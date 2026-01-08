@@ -153,6 +153,7 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
             Route::get('/checkout/{checkout}', 'checkOut')->name('checkout');
             Route::get('/search/{search}', 'search')->name('search');
         });
+        Route::get('/monthly-analytics','showAdminMonthlyAnalytics')->name('admin-analytics');
         Route::get('/profile','showAdminProfile')->name('admin-profile');
         Route::get('/notifications','showNotifications')->name('admin-notifications');
         Route::get('/notifications/mark-as-read/{id}','markAsRead')->name('admin-mark-as-read');

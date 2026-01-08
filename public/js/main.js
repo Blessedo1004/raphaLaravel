@@ -294,14 +294,14 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
                     .then(response => response.json())
                     .then(data => {
                         if (data && data.length > 0) {
-                            let tableHtml = '<table class="table fade-in"><thead><tr><th>Room Name</th><th>Number of Reservations</th></tr></thead><tbody>';
+                            let tableHtml = '<table class="table fade-in"><thead><tr><th>Room Name</th><th>Completed Reservations</th></tr></thead><tbody>';
                             let totalBookings = 0;
                             data.forEach(room => {
                                 tableHtml += `<tr><td>${room.room_name}</td><td>${room.bookings_count}</td></tr>`;
                                 totalBookings += room.bookings_count;
                             });
 
-                            tableHtml += `</tbody><tfoot><tr><th>Total Reservations</th><th> ${totalBookings}</th></tr></tfoot></table>`;
+                            tableHtml += `</tbody><tfoot><tr><th>Total Completed Reservations</th><th> ${totalBookings}</th></tr></tfoot></table>`;
                             adminTable.innerHTML = tableHtml;
                         } else {
                             adminTable.innerHTML = '<h5>No booking data found for this year.</h5>';
@@ -323,14 +323,14 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
                     .then(response => response.json())
                     .then(data => {
                         if (data && data.length > 0) {
-                            let tableHtml = '<table class="table fade-in"><thead><tr><th>Room Name</th><th>Number of Reservations</th></tr></thead><tbody>';
+                            let tableHtml = '<table class="table fade-in"><thead><tr><th>Room Name</th><th>Completed Reservations</th></tr></thead><tbody>';
                             let totalBookings = 0;
                             data.forEach(room => {
                                 tableHtml += `<tr><td>${room.room_name}</td><td>${room.bookings_count}</td></tr>`;
                                 totalBookings += room.bookings_count;
                             });
 
-                             tableHtml += `</tbody><tfoot><tr><th>Total Reservations</th><th> ${totalBookings}</th></tr></tfoot></table>`;
+                             tableHtml += `</tbody><tfoot><tr><th>Total Completed Reservations</th><th> ${totalBookings}</th></tr></tfoot></table>`;
                             userTable.innerHTML = tableHtml;
                         } else {
                             userTable.innerHTML = '<h5>No booking data found for this year.</h5>';

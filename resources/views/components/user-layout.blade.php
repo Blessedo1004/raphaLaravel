@@ -112,6 +112,12 @@
             </x-nav>
           </div>
 
+          <div class="col-5 col-md-3 col-lg-12 text-center">
+            <x-nav :activePage="Route::currentRouteName()" page="admin-analytics">
+              <i class="fa-solid fa-magnifying-glass-chart"></i>Monthly Analytics
+            </x-nav>
+          </div>
+
            <div class="col-5 col-md-3 col-lg-12 text-center">
             <x-nav-two :activePage="Route::currentRouteName()" page="admin-reservations" page2="admin-active-reservations" page3="admin-completed-reservations">
              <i class="fa-solid fa-calendar-days"></i> Reservations

@@ -50,7 +50,7 @@ class AdminController extends Controller
             return response()->json([]); // Return an empty array if no data
         }
         
-        // Now, let's get the room details for each room_id and combine the data.
+        
         $roomIds = $allBookedRooms->pluck('room_id');
         $rooms = Room::find($roomIds)->keyBy('id'); // Key by ID for easy lookup
 
@@ -66,6 +66,10 @@ class AdminController extends Controller
         return response()->json($result);
     }
 
+    //show admin monthly analytics page
+    public function showAdminMonthlyAnalytics(){
+        return view('rapha.admin.monthly-analytics');
+    }
 
     //show all pending reservations
      public function showAllPendingReservations(Request $request){

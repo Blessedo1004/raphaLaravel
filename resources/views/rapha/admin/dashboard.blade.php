@@ -31,7 +31,7 @@
 
     <div class="container">
       <div class="row">
-        <h2 class="text-center mt-5"><strong>Analytics</strong></h2>
+        <h2 class="text-center mt-5"><strong>Yearly Analytics</strong></h2>
 
         <div class="form-group">
           <div class="year_selection">
