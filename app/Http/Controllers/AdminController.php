@@ -34,27 +34,34 @@ class AdminController extends Controller
     }
 
     //show selected year analytics
-    public function currentYear($year){
-        $mostBookedRoomInfo = CompletedReservation::withoutGlobalScope('user')
-            ->select('room_id', DB::raw('count(*) as bookings_count'))
+    public function currentYear($year)
+    {
+        $totalBookings = CompletedReservation::withoutGlobalScope('user')
             ->whereYear('created_at', $year)
+            ->count();
+        $allBookedRooms = CompletedReservation::withoutGlobalScope('user')
+            ->whereYear('created_at', $year)
+            ->select('room_id', DB::raw('count(*) as bookings_count'))
             ->groupBy('room_id')
             ->orderByDesc('bookings_count')
-            ->first();
+            ->get();
 
-        if ($mostBookedRoomInfo) {
-            $room = Room::find($mostBookedRoomInfo->room_id);
-            $result = [
-                'most_booked_room' => $room,
-                'bookings_count' => $mostBookedRoomInfo->bookings_count,
-            ];
-        } else {
-            $result = [
-                'most_booked_room' => null,
-                'bookings_count' => 0,
-                'message' => 'No completed reservations found for the year ' . $year,
-            ];
+        if ($allBookedRooms->isEmpty()) {
+            return response()->json([]); // Return an empty array if no data
         }
+        
+        // Now, let's get the room details for each room_id and combine the data.
+        $roomIds = $allBookedRooms->pluck('room_id');
+        $rooms = Room::find($roomIds)->keyBy('id'); // Key by ID for easy lookup
+
+        $result = $allBookedRooms->map(function ($bookedRoom) use ($rooms) {
+            $room = $rooms->get($bookedRoom->room_id);
+            return [
+                'room_name' => $room ? $room->name : 'Unknown Room',
+                'bookings_count' => $bookedRoom->bookings_count,
+                'room_id' => $bookedRoom->room_id,
+            ];
+        });
 
         return response()->json($result);
     }

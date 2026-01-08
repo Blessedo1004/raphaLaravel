@@ -37,7 +37,7 @@
         <div class="row justify-content-center justify-content-md-start align-items-center">
           <div class="col-7 col-md-12">
            @can('manage-regular')
-            <h5> Welcome ,</h5> <h2> {{Auth::user()->last_name}}</h2> 
+            <h5> Welcome ,</h5> <h2> {{Auth::user()->first_name}}</h2> 
            @endcan
            @can('manage-admin')
             <h5> Welcome ,</h5> <h2> Admin</h2> 
