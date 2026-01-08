@@ -36,7 +36,7 @@
         <div class="form-group">
           <div class="year_selection">
               <label for="years"><h5>Year:</h5></label>
-              <select id="years" name="year" class="mt-2">
+              <select id="yearsAdmin" name="year" class="mt-2">
                   <option value="" selected disabled>Choose a year</option>
                     @foreach ($years as $year)
                       <option value="{{ $year }}" {{ $year == old('year') || ($currentYear && $year == $currentYear) ? 'selected' : '' }}>{{$year}}</option>
@@ -46,8 +46,24 @@
 
         </div>
 
-        <div class="col-12 text-center mt-3" id="mostBooked"></div>
-         <div class="col-12 text-center mt-2" id="bookings"></div>
+        <div class="col-12 text-center mt-3" id="mostBookedAdmin"></div>
+         <div class="col-12 text-center mt-2" id="bookingsAdmin"></div>
+
+        <div class="form-group mt-4">
+          <div class="month_selection">
+              <label for="months"><h5>Month:</h5></label>
+              {{-- <select id="years" name="year" class="mt-2">
+                  <option value="" selected disabled>Choose a month</option>
+                    @foreach ($months as $month)
+                      <option value="{{ $month }}" {{ $month == old('month') || ($currentMonth && $month == $currentMonth) ? 'selected' : '' }}>{{$month}}</option>
+                    @endforeach
+                </select> --}}
+          </div>
+
+        </div>
+
+        <div class="col-12 text-center mt-3" id="mostBookedMonthAdmin"></div>
+         <div class="col-12 text-center mt-2" id="bookingsMonthAdmin"></div>
       </div>
     </div>
   </x-slot>

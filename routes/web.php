@@ -119,6 +119,7 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
     Route::get('/notifications','showNotifications')->name('user-notifications');
     Route::get('/notifications/mark-as-read/{id}','markAsRead')->name('user-mark-as-read');
     Route::get('/notifications/mark-all-as-read','markAllAsRead')->name('user-mark-all-as-read');
+    Route::get('/year/{year}', 'currentYear')->name('current-year');
     });
 
     

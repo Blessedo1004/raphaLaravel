@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationEmail;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -33,7 +34,43 @@ class UserController extends Controller
         $pending = PendingReservation::get()->count();
         $active = ActiveReservation::get()->count();
         $completed = CompletedReservation::get()->count();
-        return view('rapha.user.dashboard', compact('pending', 'active', 'completed'));
+        $currentYear = date('Y');
+        $driver = DB::connection()->getDriverName();
+        $yearExpression = ($driver === 'sqlite')
+            ? "strftime('%Y', created_at)"
+            : "YEAR(created_at)";
+
+        $years = CompletedReservation::select(DB::raw("{$yearExpression} as year"))
+            ->distinct()
+            ->orderBy('year', 'DESC')
+            ->pluck('year')
+            ->toArray();
+        return view('rapha.user.dashboard', compact('pending', 'active', 'completed', 'years', 'currentYear'));
+    }
+
+        //show selected year analytics
+    public function currentYear($year){
+        $mostBookedRoomInfo = CompletedReservation::select('room_id', DB::raw('count(*) as bookings_count'))
+            ->whereYear('created_at', $year)
+            ->groupBy('room_id')
+            ->orderByDesc('bookings_count')
+            ->first();
+
+        if ($mostBookedRoomInfo) {
+            $room = Room::find($mostBookedRoomInfo->room_id);
+            $result = [
+                'most_booked_room' => $room,
+                'bookings_count' => $mostBookedRoomInfo->bookings_count,
+            ];
+        } else {
+            $result = [
+                'most_booked_room' => null,
+                'bookings_count' => 0,
+                'message' => 'No completed reservations found for the year ' . $year,
+            ];
+        }
+
+        return response()->json($result);
     }
 
     //show user's pending reservations

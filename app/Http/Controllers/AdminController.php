@@ -19,7 +19,13 @@ class AdminController extends Controller
         $active = ActiveReservation::withoutGlobalScope('user')->get()->count();
         $completed = CompletedReservation::withoutGlobalScope('user')->get()->count();
         $currentYear = date('Y');
-        $years = CompletedReservation::withoutGlobalScope('user')->select(DB::raw("strftime('%Y', created_at) as year"))
+        $driver = DB::connection()->getDriverName();
+        $yearExpression = ($driver === 'sqlite')
+            ? "strftime('%Y', created_at)"
+            : "YEAR(created_at)";
+
+        $years = CompletedReservation::withoutGlobalScope('user')
+            ->select(DB::raw("{$yearExpression} as year"))
             ->distinct()
             ->orderBy('year', 'DESC')
             ->pluck('year')
@@ -27,7 +33,7 @@ class AdminController extends Controller
         return view('rapha.admin.dashboard', compact('pending', 'active', 'completed', 'years', 'currentYear'));
     }
 
-    //show cuurent year analytics
+    //show selected year analytics
     public function currentYear($year){
         $mostBookedRoomInfo = CompletedReservation::withoutGlobalScope('user')
             ->select('room_id', DB::raw('count(*) as bookings_count'))
