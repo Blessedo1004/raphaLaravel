@@ -25,7 +25,7 @@
           <!-- Room Select ends -->
 
           <!-- Availability starts-->
-          <div class="text-center mt-4">
+          <div class="text-center mt-4 availability_div">
             <h5>Availability: 
               <span id="room-availability" class="text-muted">
                 Select a room to see its availability

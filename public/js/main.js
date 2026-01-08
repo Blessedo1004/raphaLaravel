@@ -207,10 +207,12 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
                 selectNumberOfRooms();
                 return;
               }
-    
+                availabilitySpan.textContent = '';
+                document.querySelector('.availability_div').innerHTML = '<div class="spinner-grow"></div>';
               fetch(`/user/room-availability/${roomId}`)
                 .then(response => response.json())
                 .then(data => {
+                  document.querySelector('.availability_div').innerHTML = '';
                   availabilitySpan.textContent = `${data.availability}`;
                   availabilitySpan.classList.remove('text-muted');
                   if (data.availability === 'Unavailable') {
