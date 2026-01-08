@@ -156,7 +156,7 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
         Route::get('/notifications','showNotifications')->name('admin-notifications');
         Route::get('/notifications/mark-as-read/{id}','markAsRead')->name('admin-mark-as-read');
         Route::get('/notifications/mark-all-as-read','markAllAsRead')->name('admin-mark-all-as-read');
-        
+        Route::get('/year/{year}', 'currentYear')->name('current-year');
     });
     
 });

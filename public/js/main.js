@@ -259,3 +259,31 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
             });
          
         }
+
+        //get year analytics
+        const yearSelect = document.querySelector('#years');
+        const mostBooked = document.querySelector('#mostBooked');
+        const bookingsCount = document.querySelector('#bookings');
+         if (yearSelect.value) {
+              fetchYearAnalytics(yearSelect.value);
+            }
+
+        yearSelect.addEventListener('change', ()=>{
+            fetchYearAnalytics(yearSelect.value)
+        })
+
+        function fetchYearAnalytics(year){
+            if (year){
+                fetch(`/admin/year/${year}`)
+                .then(response => response.json())
+                .then(data =>{
+                    mostBooked.innerHTML = `<h5>Most Booked Room: ${data.most_booked_room.name}</h5>`
+                    bookingsCount.innerHTML = `<h5>Number of Bookings: ${data.bookings_count}</h5>`
+                })
+                .catch(error =>{
+                    console.error('Error fetching availability:', error);
+                    mostBooked.innerText = `Couldn't fetch most booked room`
+                    bookingsCount.innerText = `Couldn't fetch booking count`
+                })
+            }
+        }

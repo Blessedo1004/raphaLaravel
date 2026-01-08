@@ -9,6 +9,7 @@ use App\Models\CompletedReservation;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Room;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -17,8 +18,41 @@ class AdminController extends Controller
         $pending = PendingReservation::withoutGlobalScope('user')->get()->count();
         $active = ActiveReservation::withoutGlobalScope('user')->get()->count();
         $completed = CompletedReservation::withoutGlobalScope('user')->get()->count();
-        return view('rapha.admin.dashboard', compact('pending', 'active', 'completed'));
+        $currentYear = date('Y');
+        $years = CompletedReservation::withoutGlobalScope('user')->select(DB::raw("strftime('%Y', created_at) as year"))
+            ->distinct()
+            ->orderBy('year', 'DESC')
+            ->pluck('year')
+            ->toArray();
+        return view('rapha.admin.dashboard', compact('pending', 'active', 'completed', 'years', 'currentYear'));
     }
+
+    //show cuurent year analytics
+    public function currentYear($year){
+        $mostBookedRoomInfo = CompletedReservation::withoutGlobalScope('user')
+            ->select('room_id', DB::raw('count(*) as bookings_count'))
+            ->whereYear('created_at', $year)
+            ->groupBy('room_id')
+            ->orderByDesc('bookings_count')
+            ->first();
+
+        if ($mostBookedRoomInfo) {
+            $room = Room::find($mostBookedRoomInfo->room_id);
+            $result = [
+                'most_booked_room' => $room,
+                'bookings_count' => $mostBookedRoomInfo->bookings_count,
+            ];
+        } else {
+            $result = [
+                'most_booked_room' => null,
+                'bookings_count' => 0,
+                'message' => 'No completed reservations found for the year ' . $year,
+            ];
+        }
+
+        return response()->json($result);
+    }
+
 
     //show all pending reservations
      public function showAllPendingReservations(Request $request){
@@ -155,4 +189,5 @@ class AdminController extends Controller
         Auth::user()->unreadNotifications->markAsRead();
         return back();
     }
+
 }

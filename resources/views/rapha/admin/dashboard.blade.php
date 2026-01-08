@@ -28,6 +28,28 @@
       </div>
     </div>
     </div>
+
+    <div class="container">
+      <div class="row">
+        <h2 class="text-center mt-5"><strong>Analytics</strong></h2>
+
+        <div class="form-group">
+          <div class="year_selection">
+              <label for="years"><h5>Year:</h5></label>
+              <select id="years" name="year" class="mt-2">
+                  <option value="" selected disabled>Choose a year</option>
+                    @foreach ($years as $year)
+                      <option value="{{ $year }}" {{ $year == old('year') || ($currentYear && $year == $currentYear) ? 'selected' : '' }}>{{$year}}</option>
+                    @endforeach
+                </select>
+          </div>
+
+        </div>
+
+        <div class="col-12 text-center mt-3" id="mostBooked"></div>
+         <div class="col-12 text-center mt-2" id="bookings"></div>
+      </div>
+    </div>
   </x-slot>
   
 </x-user-layout>
