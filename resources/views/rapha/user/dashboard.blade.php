@@ -46,24 +46,8 @@
 
         </div>
 
-        <div class="col-12 text-center mt-3" id="mostBookedUser"></div>
-         <div class="col-12 text-center mt-2" id="bookingsUser"></div>
+        <div class="col-12 text-center mt-3" id="userTable"></div>
 
-        <div class="form-group mt-4">
-          <div class="month_selection">
-              <label for="months"><h5>Month:</h5></label>
-              {{-- <select id="years" name="year" class="mt-2">
-                  <option value="" selected disabled>Choose a month</option>
-                    @foreach ($months as $month)
-                      <option value="{{ $month }}" {{ $month == old('month') || ($currentMonth && $month == $currentMonth) ? 'selected' : '' }}>{{$month}}</option>
-                    @endforeach
-                </select> --}}
-          </div>
-
-        </div>
-
-        <div class="col-12 text-center mt-3" id="mostBookedMonthUser"></div>
-         <div class="col-12 text-center mt-2" id="bookingsMonthUser"></div>
       </div>
     </div>
   </x-slot>

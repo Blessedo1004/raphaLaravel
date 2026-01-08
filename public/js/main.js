@@ -262,11 +262,9 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
 
         //get year analytics
         const adminYearSelect = document.querySelector('#yearsAdmin');
-        const mostBookedAdmin = document.querySelector('#mostBookedAdmin');
-        const bookingsCountAdmin = document.querySelector('#bookingsAdmin');
+        const adminTable = document.querySelector('#adminTable');
         const userYearSelect = document.querySelector('#yearsUser');
-        const mostBookedUser = document.querySelector('#mostBookedUser');
-        const bookingsCountUser = document.querySelector('#bookingsUser');
+        const userTable = document.querySelector('#userTable')
          if (adminYearSelect && adminYearSelect.value) {
               fetchYearAnalytics(adminYearSelect.value);
             }
@@ -290,29 +288,28 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
         function fetchYearAnalytics(year) {
             if (year) {
                 // Clear previous results and show loading state
-                mostBookedAdmin.innerHTML = '<div class="spinner-grow"></div>';
-                bookingsCountAdmin.innerHTML = '';
+                adminTable.innerHTML = '<div class="spinner-grow"></div>';
 
                 fetch(`/admin/year/${year}`)
                     .then(response => response.json())
                     .then(data => {
                         if (data && data.length > 0) {
-                            let tableHtml = '<table class="table"><thead><tr><th>Room Name</th><th>Number of Reservations</th></tr></thead><tbody>';
+                            let tableHtml = '<table class="table fade-in"><thead><tr><th>Room Name</th><th>Number of Reservations</th></tr></thead><tbody>';
                             let totalBookings = 0;
                             data.forEach(room => {
                                 tableHtml += `<tr><td>${room.room_name}</td><td>${room.bookings_count}</td></tr>`;
                                 totalBookings += room.bookings_count;
                             });
 
-                            tableHtml += '</tbody><tfoot><tr><th>Total Bookings</th><td>' + totalBookings + '</td></tr></tfoot></table>';
-                            mostBookedAdmin.innerHTML = tableHtml;
+                            tableHtml += `</tbody><tfoot><tr><th>Total Reservations</th><th> ${totalBookings}</th></tr></tfoot></table>`;
+                            adminTable.innerHTML = tableHtml;
                         } else {
-                            mostBookedAdmin.innerHTML = '<h5>No booking data found for this year.</h5>';
+                            adminTable.innerHTML = '<h5>No booking data found for this year.</h5>';
                         }
                     })
                     .catch(error => {
                         console.error('Error fetching admin analytics:', error);
-                        mostBookedAdmin.innerText = `Couldn't fetch analytics data.`;
+                        adminTable.innerText = `Couldn't fetch analytics data.`;
                     });
             }
         }
@@ -320,29 +317,28 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
         function fetchUserYearAnalytics(year) {
             if (year) {
                 // Clear previous results and show loading state
-                mostBookedUser.innerHTML = '<div class="spinner-grow"></div>';
-                bookingsCountUser.innerHTML = '';
+                userTable.innerHTML = '<div class="spinner-grow"></div>';
                 
                 fetch(`/user/year/${year}`)
                     .then(response => response.json())
                     .then(data => {
                         if (data && data.length > 0) {
-                            let tableHtml = '<table class="table"><thead><tr><th>Room Name</th><th>Number of Reservations</th></tr></thead><tbody>';
+                            let tableHtml = '<table class="table fade-in"><thead><tr><th>Room Name</th><th>Number of Reservations</th></tr></thead><tbody>';
                             let totalBookings = 0;
                             data.forEach(room => {
                                 tableHtml += `<tr><td>${room.room_name}</td><td>${room.bookings_count}</td></tr>`;
                                 totalBookings += room.bookings_count;
                             });
 
-                             tableHtml += '</tbody><tfoot><tr><th>Total Bookings</th><td>' + totalBookings + '</td></tr></tfoot></table>';
-                            mostBookedUser.innerHTML = tableHtml;
+                             tableHtml += `</tbody><tfoot><tr><th>Total Reservations</th><th> ${totalBookings}</th></tr></tfoot></table>`;
+                            userTable.innerHTML = tableHtml;
                         } else {
-                            mostBookedUser.innerHTML = '<h5>No booking data found for this year.</h5>';
+                            userTable.innerHTML = '<h5>No booking data found for this year.</h5>';
                         }
                     })
                     .catch(error => {
                         console.error('Error fetching user analytics:', error);
-                        mostBookedUser.innerText = `Couldn't fetch analytics data.`;
+                        userTable.innerText = `Couldn't fetch analytics data.`;
                     });
             }
         }
