@@ -208,7 +208,7 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
                 return;
               }
                 availabilitySpan.textContent = '';
-                document.querySelector('.availability_div').innerHTML = '<div class="spinner-grow"></div>';
+                document.querySelector('.availability_div').innerHTML = '<div class="spinner-grow col-3"></div>';
               fetch(`/user/room-availability/${roomId}`)
                 .then(response => response.json())
                 .then(data => {
@@ -290,20 +290,20 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
         function fetchYearAnalytics(year) {
             if (year) {
                 // Clear previous results and show loading state
-                adminTable.innerHTML = '<div class="spinner-grow"></div>';
+                adminTable.innerHTML = '<div class="spinner-grow col-3"></div>';
 
                 fetch(`/admin/year/${year}`)
                     .then(response => response.json())
                     .then(data => {
                         if (data && data.length > 0) {
-                            let tableHtml = '<table class="table fade-in"><thead><tr><th>Room Name</th><th>Completed Reservations</th></tr></thead><tbody>';
+                            let tableHtml = '<div class="col-9 mx-auto d-block mt-4"><table class="table table-bordered fade-in"><thead><tr><th>Room Name</th><th>Completed Reservations</th></tr></thead><tbody>';
                             let totalBookings = 0;
                             data.forEach(room => {
                                 tableHtml += `<tr><td>${room.room_name}</td><td>${room.bookings_count}</td></tr>`;
                                 totalBookings += room.bookings_count;
                             });
 
-                            tableHtml += `</tbody><tfoot><tr><th>Total Completed Reservations</th><th> ${totalBookings}</th></tr></tfoot></table>`;
+                            tableHtml += `</tbody><tfoot><tr><th>Total Completed Reservations</th><th> ${totalBookings}</th></tr></tfoot></table></div>`;
                             adminTable.innerHTML = tableHtml;
                         } else {
                             adminTable.innerHTML = '<h5>No booking data found for this year.</h5>';
@@ -319,20 +319,20 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
         function fetchUserYearAnalytics(year) {
             if (year) {
                 // Clear previous results and show loading state
-                userTable.innerHTML = '<div class="spinner-grow"></div>';
+                userTable.innerHTML = '<div class="spinner-grow col-3"></div>';
                 
                 fetch(`/user/year/${year}`)
                     .then(response => response.json())
                     .then(data => {
                         if (data && data.length > 0) {
-                            let tableHtml = '<table class="table fade-in"><thead><tr><th>Room Name</th><th>Completed Reservations</th></tr></thead><tbody>';
+                            let tableHtml = '<div class="col-9 mx-auto d-block mt-4"><table class="table table-bordered fade-in"><thead><tr><th>Room Name</th><th>Completed Reservations</th></tr></thead><tbody>';
                             let totalBookings = 0;
                             data.forEach(room => {
                                 tableHtml += `<tr><td>${room.room_name}</td><td>${room.bookings_count}</td></tr>`;
                                 totalBookings += room.bookings_count;
                             });
 
-                             tableHtml += `</tbody><tfoot><tr><th>Total Completed Reservations</th><th> ${totalBookings}</th></tr></tfoot></table>`;
+                             tableHtml += `</tbody><tfoot><tr><th>Total Completed Reservations</th><th> ${totalBookings}</th></tr></tfoot></table></div>`;
                             userTable.innerHTML = tableHtml;
                         } else {
                             userTable.innerHTML = '<h5>No booking data found for this year.</h5>';
