@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EditController;
+use App\Http\Controllers\AnalyticsController;
 
 
 
@@ -119,7 +120,6 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
     Route::get('/notifications','showNotifications')->name('user-notifications');
     Route::get('/notifications/mark-as-read/{id}','markAsRead')->name('user-mark-as-read');
     Route::get('/notifications/mark-all-as-read','markAllAsRead')->name('user-mark-all-as-read');
-    Route::get('/year/{year}', 'currentYear')->name('current-year');
     });
 
     
@@ -158,9 +158,17 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
         Route::get('/notifications','showNotifications')->name('admin-notifications');
         Route::get('/notifications/mark-as-read/{id}','markAsRead')->name('admin-mark-as-read');
         Route::get('/notifications/mark-all-as-read','markAllAsRead')->name('admin-mark-all-as-read');
-        Route::get('/year/{year}', 'currentYear')->name('current-year');
     });
     
 });
 //admin routes ends
+
+//Analytics route
+Route::group(['middleware'=>['auth','cache.headers:no_store,private']],function(){
+    Route::controller(AnalyticsController::class)->group(function(){
+        Route::get('/year/{year}', 'currentYear')->name('current-year');
+    });
+});
+    
 // Auth routes ends
+

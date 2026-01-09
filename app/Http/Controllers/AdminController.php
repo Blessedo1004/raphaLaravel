@@ -33,38 +33,6 @@ class AdminController extends Controller
         return view('rapha.admin.dashboard', compact('pending', 'active', 'completed', 'years', 'currentYear'));
     }
 
-    //show selected year analytics
-    public function currentYear($year)
-    {
-        $totalBookings = CompletedReservation::withoutGlobalScope('user')
-            ->whereYear('created_at', $year)
-            ->count();
-        $allBookedRooms = CompletedReservation::withoutGlobalScope('user')
-            ->whereYear('created_at', $year)
-            ->select('room_id', DB::raw('count(*) as bookings_count'))
-            ->groupBy('room_id')
-            ->orderByDesc('bookings_count')
-            ->get();
-
-        if ($allBookedRooms->isEmpty()) {
-            return response()->json([]); // Return an empty array if no data
-        }
-        
-        
-        $roomIds = $allBookedRooms->pluck('room_id');
-        $rooms = Room::find($roomIds)->keyBy('id'); // Key by ID for easy lookup
-
-        $result = $allBookedRooms->map(function ($bookedRoom) use ($rooms) {
-            $room = $rooms->get($bookedRoom->room_id);
-            return [
-                'room_name' => $room ? $room->name : 'Unknown Room',
-                'bookings_count' => $bookedRoom->bookings_count,
-                'room_id' => $bookedRoom->room_id,
-            ];
-        });
-
-        return response()->json($result);
-    }
 
     //show admin monthly analytics page
     public function showAdminMonthlyAnalytics(){

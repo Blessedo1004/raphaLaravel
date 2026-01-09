@@ -36,7 +36,7 @@
         <div class="form-group">
           <div class="year_selection">
               <label for="years"><h5>Year:</h5></label>
-              <select id="yearsAdmin" name="year" class="mt-2">
+              <select id="years" name="year" class="mt-2">
                   <option value="" selected disabled>Choose a year</option>
                     @foreach ($years as $year)
                       <option value="{{ $year }}" {{ $year == old('year') || ($currentYear && $year == $currentYear) ? 'selected' : '' }}>{{$year}}</option>
@@ -46,7 +46,7 @@
 
         </div>
 
-        <div class="col-12 text-center mt-3" id="adminTable"></div>
+        <div class="col-12 text-center mt-3" id="analyticsTable"></div>
       </div>
     </div>
   </x-slot>
