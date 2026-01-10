@@ -31,3 +31,6 @@ immediate_logout_redirect.md
 session_deletion_redirection_explanation.md
 xss_protection_explanation.md
 redis_setup_guide.md
+explanation_years_variable.md
+explanation_js_analytics_display.md
+explanation_currentYear_function.md
