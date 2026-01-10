@@ -34,7 +34,6 @@ class AnalyticsController extends Controller
             ->get();
         }
 
-
         if ($allBookedRooms->isEmpty()) {
             return response()->json([]); // Return an empty array if no data
         }
