@@ -9,10 +9,12 @@
                     <a href="{{ route('user-mark-all-as-read') }}" class="btn reg_btn text-white col-4 col-xl-3 ms-3 @if($notificationsCount<1) disabled @endif">Mark all as read</a>
                 </div>
 
-                @if($groupedNotifications->isEmpty())
+                @if($notifications->isEmpty())
                     <h4 class="text-center mt-4">No notifications found.</h4>
                 @else
-                 @foreach ($groupedNotifications as $date => $notificationsOnDate)
+                 @foreach ($notifications->groupBy(function($notification) {
+                 return $notification->created_at->format('Y-m-d');
+                }) as $date => $notificationsOnDate)
                   <div class="col-12 bg-light mt-2">
                     <h3 class="text-center mt-5">
                         @if(Carbon\Carbon::parse($date)->isToday())
@@ -44,6 +46,9 @@
                     </ul>
                   </div>
                  @endforeach 
+                 <div class="d-flex justify-content-center mt-4">
+                    {{ $notifications->links() }}
+                </div>
                 @endif
             </div>
         </div>
