@@ -24,7 +24,7 @@ class ReservationEmail extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct(PendingReservation $reservation)
+    public function __construct($reservation)
     {
         $this->reservation = $reservation;
     }

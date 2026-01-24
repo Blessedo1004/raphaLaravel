@@ -16,7 +16,7 @@ class CheckOutNotification extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(ActiveReservation $reservation)
+    public function __construct($reservation)
     {
         $this->reservation = $reservation;
     }
