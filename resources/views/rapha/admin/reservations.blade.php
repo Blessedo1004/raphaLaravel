@@ -47,10 +47,12 @@
         </form>
        </div>
       </div>
-      @if($groupedReservations->isEmpty())
+      @if($reservations->isEmpty())
         <h4 class="text-center mt-4">No reservations found</h4>
       @else
-        @foreach ($groupedReservations as $date => $reservationsOnDate)
+        @foreach ($reservations->groupBy(function($reservation) {
+            return $reservation->created_at->format('Y-m-d');
+        }) as $date => $reservationsOnDate)
         <div class="col-12 col-lg-10 bg-light mt-2">
           <h3 class="text-center mt-5 date_heading">
             @if(Carbon\Carbon::parse($date)->isToday())
@@ -73,6 +75,9 @@
           @endforeach
           </div>
         @endforeach
+        <div class="d-flex justify-content-center mt-4">
+            {{ $reservations->links() }}
+        </div>
       @endif
         
         

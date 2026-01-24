@@ -55,23 +55,17 @@ class UserController extends Controller
         $pendingEdit = $request->session()->get('pendingEdit');
         $pendingDelete = $request->session()->get('pendingDelete');
         $route = "pending";
-        $reservations = PendingReservation::orderBy('id', 'desc')->get();
-        $groupedReservations = $reservations->groupBy(function($reservation) {
-            return $reservation->created_at->format('Y-m-d');
-        });
+        $reservations = PendingReservation::orderBy('id', 'desc')->paginate(10);
         $rooms = Room::all();
-        return view('rapha.user.reservations', compact('groupedReservations','details', 'pendingEdit', 'rooms','route','pendingDelete'));
+        return view('rapha.user.reservations', compact('reservations','details', 'pendingEdit', 'rooms','route','pendingDelete'));
     }
 
     //show user's active reservations
     public function showActiveReservations(Request $request){
         $details = $request->session()->get('details');
         $route = "active";
-        $reservations = ActiveReservation::orderBy('id', 'desc')->get();
-        $groupedReservations = $reservations->groupBy(function($reservation) {
-            return $reservation->created_at->format('Y-m-d');
-        });
-        return view('rapha.user.reservations', compact('groupedReservations','details','route'));
+        $reservations = ActiveReservation::orderBy('id', 'desc')->paginate(10);
+        return view('rapha.user.reservations', compact('reservations','details','route'));
     }
 
 
@@ -79,11 +73,8 @@ class UserController extends Controller
     public function showCompletedReservations(Request $request){
         $details = $request->session()->get('details');
         $route = "completed";
-        $reservations = CompletedReservation::orderBy('id', 'desc')->get();
-        $groupedReservations = $reservations->groupBy(function($reservation) {
-            return $reservation->created_at->format('Y-m-d');
-        });
-        return view('rapha.user.reservations', compact('groupedReservations','details','route'));
+        $reservations = CompletedReservation::orderBy('id', 'desc')->paginate(10);
+        return view('rapha.user.reservations', compact('reservations','details','route'));
     }
 
     // make a reservation

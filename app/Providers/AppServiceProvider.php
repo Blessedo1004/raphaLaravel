@@ -8,6 +8,7 @@ use App\Http\View\Composers\LayoutComposer;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Paginator::useBootstrap();
+        
         View::composer('components.user-layout', LayoutComposer::class);
 
         RateLimiter::for('auth', function (Request $request) {

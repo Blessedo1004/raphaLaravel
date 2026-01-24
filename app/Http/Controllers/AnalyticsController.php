@@ -12,11 +12,7 @@ class AnalyticsController extends Controller
 {
         //show selected year analytics
     public function currentYear($year)
-    {
-        $totalBookings = CompletedReservation::withoutGlobalScope('user')
-            ->whereYear('created_at', $year)
-            ->count();
-        
+    { 
         if(Auth::user()->role ==="admin"){
               $allBookedRooms = CompletedReservation::withoutGlobalScope('user')
             ->whereYear('created_at', $year)

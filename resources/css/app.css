@@ -505,3 +505,21 @@ margin-top:20vh;
 }
 }
 /* Tablets and pc styles ends */
+
+.pagination .page-item.active .page-link {
+    background-color: #896d50 !important;
+    border-color: #896d50 !important;
+    color: white !important;
+}
+
+.pagination .page-link {
+    color: #896d50 !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.pagination .page-link:focus,
+.pagination .page-link:active {
+    box-shadow: none !important;
+    outline: none !important;
+}

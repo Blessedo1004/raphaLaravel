@@ -41,38 +41,29 @@ class AdminController extends Controller
 
     //show all pending reservations
      public function showAllPendingReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
-        $groupedReservations = $reservations->groupBy(function($reservation) {
-            return $reservation->created_at->format('Y-m-d');
-        });
+        $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->paginate(10);
         $details = $request->session()->get('details');
         $route = "admin-pending";
         $searchWildcard = 'PendingReservation';
-        return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard'));
+        return view('rapha.admin.reservations', compact('reservations','details','route','searchWildcard'));
     }
 
     //show all active reservations
     public function showAllActiveReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ??  ActiveReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
-        $groupedReservations = $reservations->groupBy(function($reservation) {
-            return $reservation->created_at->format('Y-m-d');
-        });
+        $reservations = $request->session()->get('reservations') ??  ActiveReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->paginate(10);
         $details = $request->session()->get('details');
         $route = "admin-active";
         $searchWildcard = 'ActiveReservation';
-        return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard'));
+        return view('rapha.admin.reservations', compact('reservations','details','route','searchWildcard'));
     }
 
     //show all completed reservations
     public function showAllCompletedReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ?? CompletedReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->get();
-        $groupedReservations = $reservations->groupBy(function($reservation) {
-            return $reservation->created_at->format('Y-m-d');
-        });
+        $reservations = $request->session()->get('reservations') ?? CompletedReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->paginate(10);
         $details = $request->session()->get('details');
         $route = "admin-completed";
         $searchWildcard = 'CompletedReservation';
-        return view('rapha.admin.reservations', compact('groupedReservations','details','route','searchWildcard'));
+        return view('rapha.admin.reservations', compact('reservations','details','route','searchWildcard'));
     }
 
     //show admin user profile
