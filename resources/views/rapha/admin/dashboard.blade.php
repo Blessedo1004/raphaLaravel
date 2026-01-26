@@ -63,7 +63,7 @@
              </div>
             </div> 
         </form>
-
+        <div class="search_error text-danger text-center"></div>
 
         <div class="col-12 text-center mt-3" id="analyticsTable"></div>
       </div>

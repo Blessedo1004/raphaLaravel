@@ -46,6 +46,26 @@
 
         </div>
 
+         <form id="roomAnalytics" method="post">
+          @csrf
+          <input type="hidden" name="year" id="year">
+            <div class="col-11 col-sm-8 mt-4 mx-auto d-block">
+              <div class="input-group my-4" id="roomSearch">
+                <input 
+                type="text" 
+                id="roomAnalyticsSearch" 
+                name="search" 
+                value=""
+                class="bg-white form-control"
+                placeholder="Type room name..."
+              >
+              <input type="submit" class="btn reg_btn text-light input-group-text" value="Search">
+             </div>
+            </div> 
+        </form>
+
+        <div class="search_error text-danger text-center"></div>
+
         <div class="col-12 text-center mt-3" id="analyticsTable"></div>
 
       </div>

@@ -43,7 +43,6 @@ class AnalyticsController extends Controller
             return [
                 'room_name' => $room ? $room->name : 'Unknown Room',
                 'bookings_count' => $bookedRoom->bookings_count,
-                'room_id' => $bookedRoom->room_id,
             ];
         });
 
@@ -65,11 +64,18 @@ class AnalyticsController extends Controller
             return response()->json(["room" => $search, "count" => 0]);
         }
 
-        $count = CompletedReservation::withoutGlobalScope('user')
-                                     ->whereYear('created_at', $year)
-                                     ->where("room_id", $room->id)
-                                     ->count();
+        if(Auth::user()->role ==="admin"){
+            $count = CompletedReservation::withoutGlobalScope('user')
+                                        ->whereYear('created_at', $year)
+                                        ->where("room_id", $room->id)
+                                        ->count();
+        }
 
+        else{
+            $count = CompletedReservation::whereYear('created_at', $year)
+                                ->where("room_id", $room->id)
+                                ->count();
+        }
         return response()->json(["room" => $search, "count" => $count]);
 
     }
