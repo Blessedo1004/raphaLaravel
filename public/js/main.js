@@ -263,13 +263,17 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
         //get year analytics
         const yearSelect = document.querySelector('#years');
         const analyticsTable = document.querySelector('#analyticsTable');
+        const hiddenYear = document.querySelector('#year');
+        const roomAnalyticsSearch = document.querySelector('#roomAnalyticsSearch');
          if (yearSelect && yearSelect.value) {
               fetchYearAnalytics(yearSelect.value);
+              hiddenYear.value = yearSelect.value;
             }
             
         if(yearSelect){
         yearSelect.addEventListener('change', ()=>{
             fetchYearAnalytics(yearSelect.value)
+            hiddenYear.value = yearSelect.value;
         })
     }
         function fetchYearAnalytics(year) {
@@ -300,3 +304,28 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
                     });
             }
         }
+
+
+         document.getElementById('roomAnalytics').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            if (hiddenYear.value.length > 0 && (roomAnalyticsSearch.value.trim()).length>0){
+            analyticsTable.innerHTML = '<div class="spinner-grow col-3"></div>';
+            fetch('/admin/roomAnalytics', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                analyticsTable.innerHTML = `<div class="col-9 mx-auto d-block mt-4"><table class="table table-bordered fade-in"><thead><tr><th>Room Name</th><th>Completed Reservations</th></tr></thead><tbody><tr><td>${data.room}</td><td>${data.count}</td></tr></tbody>`
+            })
+            .catch(error => {
+                console.error('Error fetching admin analytics:', error);
+                analyticsTable.innerText = `Couldn't fetch analytics data.`;
+            });
+          }
+        })     

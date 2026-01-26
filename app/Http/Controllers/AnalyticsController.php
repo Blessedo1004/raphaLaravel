@@ -50,4 +50,27 @@ class AnalyticsController extends Controller
         return response()->json($result);
     }
 
+    public function getRoomAnalytics(Request $request){
+        $validatedData = $request->validate([
+            'year' => 'required|integer',
+            'search' => 'required|string'
+        ]);
+
+        $year = $validatedData['year'];
+        $search = $validatedData['search'];
+
+        $room = Room::where('name', $search)->first();
+
+        if (!$room) {
+            return response()->json(["room" => $search, "count" => 0]);
+        }
+
+        $count = CompletedReservation::withoutGlobalScope('user')
+                                     ->whereYear('created_at', $year)
+                                     ->where("room_id", $room->id)
+                                     ->count();
+
+        return response()->json(["room" => $search, "count" => $count]);
+
+    }
 }

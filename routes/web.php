@@ -159,7 +159,9 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
         Route::get('/notifications/mark-as-read/{id}','markAsRead')->name('admin-mark-as-read');
         Route::get('/notifications/mark-all-as-read','markAllAsRead')->name('admin-mark-all-as-read');
     });
-    
+    Route::controller(AnalyticsController::class)->group(function(){
+        Route::post('/roomAnalytics', 'getRoomAnalytics')->name('room-analytics');
+    });
 });
 //admin routes ends
 
