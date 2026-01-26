@@ -10,7 +10,7 @@ use App\Models\Room;
 
 class AnalyticsController extends Controller
 {
-        //show selected year analytics
+    //show selected year analytics
     public function currentYear($year)
     { 
         if(Auth::user()->role ==="admin"){
@@ -49,6 +49,7 @@ class AnalyticsController extends Controller
         return response()->json($result);
     }
 
+    //show analytics of searched room
     public function getRoomAnalytics(Request $request){
         $validatedData = $request->validate([
             'year' => 'required|integer',
@@ -66,15 +67,15 @@ class AnalyticsController extends Controller
 
         if(Auth::user()->role ==="admin"){
             $count = CompletedReservation::withoutGlobalScope('user')
-                                        ->whereYear('created_at', $year)
-                                        ->where("room_id", $room->id)
-                                        ->count();
+                ->whereYear('created_at', $year)
+                ->where("room_id", $room->id)
+                ->count();
         }
 
         else{
             $count = CompletedReservation::whereYear('created_at', $year)
-                                ->where("room_id", $room->id)
-                                ->count();
+                ->where("room_id", $room->id)
+                ->count();
         }
         return response()->json(["room" => $search, "count" => $count]);
 
