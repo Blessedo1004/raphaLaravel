@@ -167,6 +167,8 @@ Route::group(['middleware'=>['auth','cache.headers:no_store,private']],function(
     Route::controller(AnalyticsController::class)->group(function(){
         Route::get('/year/{year}', 'currentYear')->name('current-year');
         Route::post('/roomAnalytics', 'getRoomAnalytics')->name('room-analytics');
+        Route::post('/roomMonthlyAnalytics', 'getRoomMonthlyAnalytics')->name('monthly-room-analytics');
+        Route::post('/roomMonthlyAnalyticsSearch', 'getRoomMonthlyAnalyticsSearch')->name('monthly-room-analytics-search');
     });
 });
     

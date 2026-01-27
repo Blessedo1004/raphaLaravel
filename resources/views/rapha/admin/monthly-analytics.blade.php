@@ -24,14 +24,14 @@
               <select id="monthSelect" name="month" class="mt-2">
                   <option value="" selected disabled>Choose a month</option>
                   @php
-                      $months = [
-                         'January', 'February', 'March', 'April',
-                         'May', 'June', 'July', 'August',
-                         'September', 'October', 'November', 'December'
-                      ];
+                    $months = [
+                      1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April',
+                      5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August',
+                      9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December'
+                  ]; 
                   @endphp
-                  @foreach ($months as $month)
-                      <option value="{{ $month }}">{{ $month }}</option>
+                  @foreach ($months as $num =>$month)
+                      <option value="{{ $num }}">{{ $month }}</option>
                   @endforeach
               </select>
           </div>
@@ -42,7 +42,7 @@
           @csrf
           <input type="hidden" name="year" id="year">
           <input type="hidden" name="month" id="month">
-          <input type="submit" class="btn reg_btn text-light mx-auto d-block mt-4" value="Fetch Analytics"> 
+          <input type="submit" class="btn reg_btn text-light mx-auto d-block mt-4" value="Fetch Analytics" id="fetchMonthyAnalyticsBtn"> 
         </form>
 
         <form id="roomMonthlyAnalyticsSearch" method="post">
@@ -59,7 +59,7 @@
                 class="bg-white form-control"
                 placeholder="Type room name..."
               >
-              <input type="submit" class="btn reg_btn text-light input-group-text" value="Search">
+              <input type="submit" class="btn reg_btn text-light input-group-text" value="Search" name="search" id="searchRoomAnalyticsBtn">
              </div>
             </div> 
         </form>

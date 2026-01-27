@@ -44,7 +44,7 @@
                         }
                     })
                     .catch(error => {
-                        console.error('Error fetching admin analytics:', error);
+                        console.error('Error fetching  analytics:', error);
                         analyticsTable.innerText = `Couldn't fetch analytics data.`;
                     });
             }
@@ -73,7 +73,7 @@
                 analyticsTable.innerHTML = `<div class="col-9 mx-auto d-block mt-4"><table class="table table-bordered fade-in"><thead><tr><th>Room Name</th><th>Completed Reservations</th></tr></thead><tbody><tr><td>${data.room}</td><td>${data.count}</td></tr></tbody>`
             })
             .catch(error => {
-                console.error('Error fetching admin analytics:', error);
+                console.error('Error fetching analytics:', error);
                 analyticsTable.innerText = `Couldn't fetch analytics data.`;
             });
           }
@@ -86,20 +86,126 @@
     }
 
         //get year and month analytics
-            if(yearSelect2 && yearSelect2.value){
+        const fetchMonthyAnalyticsBtn = document.querySelector("#fetchMonthyAnalyticsBtn")
+        const searchRoomAnalyticsBtn = document.querySelector("#searchRoomAnalyticsBtn")
+        fetchMonthyAnalyticsBtn.disabled = true
+        searchRoomAnalyticsBtn.disabled = true
+        if(yearSelect2 && yearSelect2.value){
             hiddenYear.value = yearSelect2.value;
             hiddenYear2.value = yearSelect2.value;
+            checkFirstHiddenValues()
+            checkSecondHiddenValues()
     }
 
         if(yearSelect2){
-        yearSelect2.addEventListener('change', ()=>{
+            yearSelect2.addEventListener('change', ()=>{
             hiddenYear.value = yearSelect2.value;
             hiddenYear2.value = yearSelect2.value;
+            checkFirstHiddenValues()
+            checkSecondHiddenValues()
         })
     }
         if(monthSelect){
-        monthSelect.addEventListener('change', ()=>{
+            monthSelect.addEventListener('change', ()=>{
             hiddenMonth.value = monthSelect.value;
             hiddenMonth2.value = monthSelect.value;
+            checkFirstHiddenValues()
+            checkSecondHiddenValues()
         })
+    }
+
+    //checks if both hidden inputs have values in the forms
+    function checkFirstHiddenValues (){
+         if (hiddenYear.value.length > 0 && hiddenMonth.value.length > 0){
+        fetchMonthyAnalyticsBtn.disabled = false
+    }
+    else{
+        fetchMonthyAnalyticsBtn.disabled = true
+    }
+    }
+    
+    function checkSecondHiddenValues (){
+         if (hiddenYear2.value.length > 0 && hiddenMonth2.value.length > 0 && roomAnalyticsSearch.value.trim().length>0){
+        searchRoomAnalyticsBtn.disabled = false
+    }
+
+    else{
+        searchRoomAnalyticsBtn.disabled = true
+    }
+    }
+
+    //check if search input has a value
+    roomAnalyticsSearch.addEventListener('keyup' , ()=>{
+        checkSecondHiddenValues()
+    })
+
+        const roomMonthlyAnalytics = document.getElementById('roomMonthlyAnalytics')
+        if (roomMonthlyAnalytics) {
+         roomMonthlyAnalytics.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            
+            analyticsTable.innerHTML = '<div class="spinner-grow col-3"></div>';
+            //Submit form
+            fetch('/roomMonthlyAnalytics', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                        if (data && data.length > 0) {
+                            let tableHtml = '<div class="col-9 mx-auto d-block mt-4"><table class="table table-bordered fade-in"><thead><tr><th>Room Name</th><th>Completed Reservations</th></tr></thead><tbody>';
+                            let totalBookings = 0;
+                            data.forEach(room => {
+                                tableHtml += `<tr><td>${room.room_name}</td><td>${room.bookings_count}</td></tr>`;
+                                totalBookings += room.bookings_count;
+                            });
+
+                            tableHtml += `</tbody><tfoot><tr><th>Total Completed Reservations</th><th> ${totalBookings}</th></tr></tfoot></table></div>`;
+                            analyticsTable.innerHTML = tableHtml;
+                        } else {
+                            analyticsTable.innerHTML = '<h5>No booking data found for this year.</h5>';
+                        }
+            })
+            .catch(error => {
+                console.error('Error fetching analytics:', error);
+                analyticsTable.innerText = `Couldn't fetch analytics data.`;
+            });
+    
+        })     
+    }
+
+    //search
+
+        const roomMonthlyAnalyticsSearch = document.getElementById('roomMonthlyAnalyticsSearch')
+        if (roomMonthlyAnalyticsSearch) {
+         roomMonthlyAnalyticsSearch.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            
+            analyticsTable.innerHTML = '<div class="spinner-grow col-3"></div>';
+            //Submit form
+            fetch('/roomMonthlyAnalyticsSearch', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                analyticsTable.innerHTML = `<div class="col-9 mx-auto d-block mt-4"><table class="table table-bordered fade-in"><thead><tr><th>Room Name</th><th>Completed Reservations</th></tr></thead><tbody><tr><td>${data.room}</td><td>${data.count}</td></tr></tbody>`
+
+            })
+            .catch(error => {
+                console.error('Error fetching analytics:', error);
+                analyticsTable.innerText = `Couldn't fetch analytics data.`;
+            });
+    
+        })     
     }
