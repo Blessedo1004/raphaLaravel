@@ -36,7 +36,19 @@ class AdminController extends Controller
 
     //show admin monthly analytics page
     public function showAdminMonthlyAnalytics(){
-        return view('rapha.admin.monthly-analytics');
+        $currentYear = date('Y');
+        $driver = DB::connection()->getDriverName();
+        $yearExpression = ($driver === 'sqlite')
+            ? "strftime('%Y', created_at)"
+            : "YEAR(created_at)";
+
+        $years = CompletedReservation::withoutGlobalScope('user')
+            ->select(DB::raw("{$yearExpression} as year"))
+            ->distinct()
+            ->orderBy('year', 'DESC')
+            ->pluck('year')
+            ->toArray();
+        return view('rapha.admin.monthly-analytics', compact('years', 'currentYear'));
     }
 
     //show all pending reservations

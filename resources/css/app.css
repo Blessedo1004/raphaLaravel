@@ -301,7 +301,7 @@ a{
     box-shadow: 0 0 0 0.25rem rgba(171, 137, 101, 0.25);
 }
 
-.reservation, .year_selection{
+.reservation, .year_selection, .month_selection{
   display:flex;
   justify-content:center;
   gap:20px;

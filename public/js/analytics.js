@@ -1,7 +1,12 @@
         //get year analytics
         const yearSelect = document.querySelector('#years');
+        const yearSelect2 = document.querySelector('#yearSelect');
+        const monthSelect = document.querySelector('#monthSelect');
         const analyticsTable = document.querySelector('#analyticsTable');
         const hiddenYear = document.querySelector('#year');
+        const hiddenYear2 = document.querySelector('#year2');
+        const hiddenMonth = document.querySelector('#month');
+        const hiddenMonth2 = document.querySelector('#month2');
         const roomAnalyticsSearch = document.querySelector('#roomAnalyticsSearch');
         const searchError = document.querySelector('.search_error');
          if (yearSelect && yearSelect.value) {
@@ -15,6 +20,7 @@
             hiddenYear.value = yearSelect.value;
         })
     }
+
         function fetchYearAnalytics(year) {
             if (year) {
                 // Clear previous results and show loading state
@@ -45,10 +51,12 @@
         }
 
 
+        if (document.getElementById('roomAnalytics')) {
          document.getElementById('roomAnalytics').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const formData = new FormData(this);
+
             if (hiddenYear.value.length > 0 && (roomAnalyticsSearch.value.trim()).length>0){
             analyticsTable.innerHTML = '<div class="spinner-grow col-3"></div>';
             searchError.innerText=''
@@ -75,3 +83,23 @@
             searchError.innerText = "Please ensure year is selected and search bar is not empty"
           }
         })     
+    }
+
+        //get year and month analytics
+            if(yearSelect2 && yearSelect2.value){
+            hiddenYear.value = yearSelect2.value;
+            hiddenYear2.value = yearSelect2.value;
+    }
+
+        if(yearSelect2){
+        yearSelect2.addEventListener('change', ()=>{
+            hiddenYear.value = yearSelect2.value;
+            hiddenYear2.value = yearSelect2.value;
+        })
+    }
+        if(monthSelect){
+        monthSelect.addEventListener('change', ()=>{
+            hiddenMonth.value = monthSelect.value;
+            hiddenMonth2.value = monthSelect.value;
+        })
+    }
