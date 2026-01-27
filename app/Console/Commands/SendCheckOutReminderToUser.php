@@ -31,16 +31,16 @@ class SendCheckOutReminderToUser extends Command
     public function handle()
     {
         $targetTime = now()->addHours(2);
-        $reservations = ActiveReservation::whereBetween(
-            'check_out_date',
-            [$targetTime->copy()->startOfMinute(), $targetTime->copy()->endOfMinute()]
-        )->get();
-        if($reservations){
-            foreach($reservations as $reservation){
-                $user = User::where('id', $reservation->user_id)->first();
-                $user->notify(new CheckOutReminder($reservation)); 
-                Mail::to($user->email)->send(new CheckOutReminderMail($reservation));
-            }
-        }
+        
+        ActiveReservation::with('user')
+            ->whereBetween('check_out_date', [$targetTime->copy()->startOfMinute(), $targetTime->copy()->endOfMinute()])
+            ->chunkById(100, function ($reservations) {
+                foreach ($reservations as $reservation) {
+                    if ($reservation->user) {
+                        $reservation->user->notify(new CheckOutReminder($reservation));
+                        Mail::to($reservation->user->email)->send(new CheckOutReminderMail($reservation));
+                    }
+                }
+            });
     }
 }

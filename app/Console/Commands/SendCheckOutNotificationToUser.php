@@ -30,16 +30,14 @@ class SendCheckOutNotificationToUser extends Command
      */
     public function handle()
     {
-        $reservations = ActiveReservation::where(
-            'check_out_date', '<=',
-           now()
-        )->get();
-        if($reservations){
-            foreach($reservations as $reservation){
-                $user = User::where('id', $reservation->user_id)->first();
-                $user->notify(new CheckOutNotification($reservation)); 
-                Mail::to($user->email)->send(new CheckOutNotificationMail($reservation));
-            }
-        }
+        ActiveReservation::with('user')->where('check_out_date', '<=', now())
+            ->chunkById(100, function ($reservations) {
+                foreach ($reservations as $reservation) {
+                    if ($reservation->user) {
+                        $reservation->user->notify(new CheckOutNotification($reservation));
+                        Mail::to($reservation->user->email)->send(new CheckOutNotificationMail($reservation));
+                    }
+                }
+            });
     }
 }
