@@ -8,7 +8,7 @@
     <p style="text-align:center">Check  Out Date : {{$reservation->check_out_date->format('F j, Y') }}</p>
     <p style="text-align:center">Number Of Rooms : {{$reservation->number_of_rooms}}</p>
     <p style="text-align:center">Reservation ID : {{$reservation->reservation_id}}</p>
-    <p style="text-align:center">Expiry Date : {{$reservation->expires_at}}</p>
+    <p style="text-align:center">Expiry Date : {{$reservation->expires_at->format('F j, Y')}}</p>
     <p style="text-align:center">Please go to the rapha hotel counter before the expiry date and submit your reservation ID to check in.</p>
     </x-slot>
     
