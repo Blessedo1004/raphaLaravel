@@ -61,7 +61,7 @@
             analyticsTable.innerHTML = '<div class="spinner-grow col-3"></div>';
             searchError.innerText=''
             //Submit search form and get the analytics
-            fetch('/roomAnalytics', {
+            fetch('/roomYearlyAnalyticsSearch', {
                 method: 'POST',
                 body: formData,
                 headers: {

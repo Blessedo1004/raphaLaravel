@@ -11,7 +11,7 @@ use App\Models\Room;
 class AnalyticsController extends Controller
 {
     //show selected year analytics
-    public function currentYear($year)
+    public function roomYearlyAnalytics($year)
     { 
         if(Auth::user()->role ==="admin"){
               $allBookedRooms = CompletedReservation::withoutGlobalScope('user')
@@ -36,7 +36,7 @@ class AnalyticsController extends Controller
         
         
         $roomIds = $allBookedRooms->pluck('room_id');
-        $rooms = Room::find($roomIds)->keyBy('id'); // Key by ID for easy lookup
+        $rooms = Room::find($roomIds)->keyBy('id');
 
         $result = $allBookedRooms->map(function ($bookedRoom) use ($rooms) {
             $room = $rooms->get($bookedRoom->room_id);
@@ -50,7 +50,7 @@ class AnalyticsController extends Controller
     }
 
     //show analytics of searched room
-    public function getRoomAnalytics(Request $request){
+    public function getRoomYearlyAnalyticsSearch(Request $request){
         $validatedData = $request->validate([
             'year' => 'required|integer',
             'search' => 'required|string'
@@ -81,6 +81,7 @@ class AnalyticsController extends Controller
 
     }
 
+    //show monthly analytics of all rooms
     public function getRoomMonthlyAnalytics (Request $request){
         $validatedData = $request->validate([
             "year" => "required|integer",
@@ -128,7 +129,8 @@ class AnalyticsController extends Controller
         return response()->json($result);
     }
 
-        public function getRoomMonthlyAnalyticsSearch(Request $request){
+    //show monthly analytics of searched room
+    public function getRoomMonthlyAnalyticsSearch(Request $request){
         $validatedData = $request->validate([
             'year2' => 'required|integer',
             'month2' => 'required|integer',
