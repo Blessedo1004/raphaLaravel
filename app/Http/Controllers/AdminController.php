@@ -41,7 +41,7 @@ class AdminController extends Controller
 
     //show all pending reservations
      public function showAllPendingReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->paginate(10);
+        $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->with(['user','room'])->orderBy('id', 'desc')->paginate(10);
         $details = $request->session()->get('details');
         $route = "admin-pending";
         $searchWildcard = 'PendingReservation';
@@ -50,7 +50,7 @@ class AdminController extends Controller
 
     //show all active reservations
     public function showAllActiveReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ??  ActiveReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->paginate(10);
+        $reservations = $request->session()->get('reservations') ??  ActiveReservation::withoutGlobalScope('user')->with(['user','room'])->orderBy('id', 'desc')->paginate(10);
         $details = $request->session()->get('details');
         $route = "admin-active";
         $searchWildcard = 'ActiveReservation';
@@ -59,7 +59,7 @@ class AdminController extends Controller
 
     //show all completed reservations
     public function showAllCompletedReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ?? CompletedReservation::withoutGlobalScope('user')->orderBy('id', 'desc')->paginate(10);
+        $reservations = $request->session()->get('reservations') ?? CompletedReservation::withoutGlobalScope('user')->with(['user','room'])->orderBy('id', 'desc')->paginate(10);
         $details = $request->session()->get('details');
         $route = "admin-completed";
         $searchWildcard = 'CompletedReservation';
