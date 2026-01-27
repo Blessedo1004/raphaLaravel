@@ -40,7 +40,7 @@
                             tableHtml += `</tbody><tfoot><tr><th>Total Completed Reservations</th><th> ${totalBookings}</th></tr></tfoot></table></div>`;
                             analyticsTable.innerHTML = tableHtml;
                         } else {
-                            analyticsTable.innerHTML = '<h5>No booking data found for this year.</h5>';
+                            analyticsTable.innerHTML = '<h5>No reservation data found for this year.</h5>';
                         }
                     })
                     .catch(error => {
@@ -168,7 +168,7 @@
                             tableHtml += `</tbody><tfoot><tr><th>Total Completed Reservations</th><th> ${totalBookings}</th></tr></tfoot></table></div>`;
                             analyticsTable.innerHTML = tableHtml;
                         } else {
-                            analyticsTable.innerHTML = '<h5>No booking data found for this year.</h5>';
+                            analyticsTable.innerHTML = '<h5>No reservation data found for this year and month.</h5>';
                         }
             })
             .catch(error => {

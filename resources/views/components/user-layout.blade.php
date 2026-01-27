@@ -69,6 +69,11 @@
             </x-nav>
           </div>
           <div class="col-5 col-md-3 col-lg-12 text-center">
+            <x-nav :activePage="Route::currentRouteName()" page="user-analytics">
+              <i class="fa-solid fa-magnifying-glass-chart"></i>Monthly Analytics
+            </x-nav>
+          </div>
+          <div class="col-5 col-md-3 col-lg-12 text-center">
             <x-nav :activePage="Route::currentRouteName()" page="make-reservation">
               <i class="fa-solid fa-calendar-week"></i> Make Reservation
             </x-nav>

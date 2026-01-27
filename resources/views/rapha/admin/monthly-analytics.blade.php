@@ -1,4 +1,4 @@
-<x-user-layout title="Dashboard">
+<x-user-layout title="Monthly Analytics">
 
   <x-slot name="content">
     <div class="container mt-5">

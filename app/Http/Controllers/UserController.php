@@ -48,6 +48,23 @@ class UserController extends Controller
         return view('rapha.user.dashboard', compact('pending', 'active', 'completed', 'years', 'currentYear'));
     }
 
+    //show user monthly analytics page
+        public function showUserMonthlyAnalytics(){
+        $currentYear = date('Y');
+        $driver = DB::connection()->getDriverName();
+        $yearExpression = ($driver === 'sqlite')
+            ? "strftime('%Y', created_at)"
+            : "YEAR(created_at)";
+
+        $years = CompletedReservation::withoutGlobalScope('user')
+            ->select(DB::raw("{$yearExpression} as year"))
+            ->distinct()
+            ->orderBy('year', 'DESC')
+            ->pluck('year')
+            ->toArray();
+        return view('rapha.user.monthly-analytics', compact('years', 'currentYear'));
+    }
+
 
     //show user's pending reservations
     public function showPendingReservations(Request $request){

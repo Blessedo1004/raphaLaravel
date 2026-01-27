@@ -1,4 +1,4 @@
-<x-user-layout title="Dashboard">
+<x-user-layout title="Monthly Analytics">
 
   <x-slot name="content">
     <div class="container mt-5">
@@ -59,7 +59,7 @@
                 class="bg-white form-control"
                 placeholder="Type room name..."
               >
-              <input type="submit" class="btn reg_btn text-light input-group-text" value="Search">
+              <input type="submit" class="btn reg_btn text-light input-group-text" value="Search" name="search" id="searchRoomAnalyticsBtn">
              </div>
             </div> 
         </form>
