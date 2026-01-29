@@ -8,8 +8,9 @@
               {{session('changeSuccessfull')}}
            </div>
           @endif
-        </div>   
-        <div class="col-9 mx-auto d-block mt-5 table-responsive">
+        </div>
+        <h4 class="text-center mt-5">Total Rooms: {{ $rooms->count() }}</h4>  
+        <div class="col-9 mx-auto d-block mt-3 table-responsive">
           <table class="table table-bordered">
             <thead>
               <tr>
