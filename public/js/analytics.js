@@ -88,8 +88,11 @@
         //get year and month analytics
         const fetchMonthyAnalyticsBtn = document.querySelector("#fetchMonthyAnalyticsBtn")
         const searchRoomAnalyticsBtn = document.querySelector("#searchRoomAnalyticsBtn")
-        fetchMonthyAnalyticsBtn.disabled = true
-        searchRoomAnalyticsBtn.disabled = true
+        if(fetchMonthyAnalyticsBtn && searchRoomAnalyticsBtn){
+            fetchMonthyAnalyticsBtn.disabled = true
+            searchRoomAnalyticsBtn.disabled = true
+        }
+
         if(yearSelect2 && yearSelect2.value){
             hiddenYear.value = yearSelect2.value;
             hiddenYear2.value = yearSelect2.value;
@@ -135,10 +138,11 @@
     }
 
     //check if search input has a value
-    roomAnalyticsSearch.addEventListener('keyup' , ()=>{
-        checkSecondHiddenValues()
+    if(roomAnalyticsSearch){
+        roomAnalyticsSearch.addEventListener('keyup' , ()=>{
+            checkSecondHiddenValues()
     })
-
+    }
         const roomMonthlyAnalytics = document.getElementById('roomMonthlyAnalytics')
         if (roomMonthlyAnalytics) {
          roomMonthlyAnalytics.addEventListener('submit', function(e) {

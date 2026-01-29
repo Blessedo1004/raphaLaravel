@@ -33,7 +33,6 @@ class AdminController extends Controller
         return view('rapha.admin.dashboard', compact('pending', 'active', 'completed', 'years', 'currentYear'));
     }
 
-
     //show admin monthly analytics page
     public function showAdminMonthlyAnalytics(){
         $currentYear = date('Y');
@@ -49,6 +48,26 @@ class AdminController extends Controller
             ->pluck('year')
             ->toArray();
         return view('rapha.admin.monthly-analytics', compact('years', 'currentYear'));
+    }
+
+    //show all rooms
+    public function showAllRooms(){
+        $rooms = Room::all();
+        session()->flash('change_availability', true);
+        return view('rapha.admin.rooms', compact('rooms'));
+    }
+
+    //show edit room availability
+    public function showEditRoomAvailability(Room $room){
+        $title = "Edit " . $room->name ." availability";
+        return view('rapha.admin.edit-room-availability', compact('room','title'));
+    }
+
+     //edit room availability
+    public function editRoomAvailability(Request $request, Room $room){
+        $validatedData = $request->validate(["availability" => "required|integer"]);
+        $room->update(["availability" => $validatedData['availability']]);
+        return redirect()->route('rooms')->with('changeSuccessfull', $room->name . " availability updated successfully");
     }
 
     //show all pending reservations

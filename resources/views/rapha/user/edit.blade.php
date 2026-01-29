@@ -1,4 +1,4 @@
-<x-head-two title="{{$header}}" description="{{$header}}">
+<x-head-two title="{{$header}}">
   <x-slot name="body">
     <x-preloader></x-preloader>
     <div class="content animate__animated animate__fadeIn">

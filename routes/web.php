@@ -159,6 +159,9 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
         Route::get('/notifications','showNotifications')->name('admin-notifications');
         Route::get('/notifications/mark-as-read/{id}','markAsRead')->name('admin-mark-as-read');
         Route::get('/notifications/mark-all-as-read','markAllAsRead')->name('admin-mark-all-as-read');
+        Route::get('/rooms', 'showAllRooms')->name('rooms');
+        Route::get('/edit-room-availability/{room}', 'showEditRoomAvailability')->name('edit-room-availability')->middleware('availability-change');
+        Route::put('/edit-room-availability/{room}', 'editRoomAvailability')->name('edit-room-availability');
     });
 });
 //admin routes ends

@@ -70,7 +70,7 @@
           </div>
           <div class="col-5 col-md-3 col-lg-12 text-center">
             <x-nav :activePage="Route::currentRouteName()" page="user-analytics">
-              <i class="fa-solid fa-magnifying-glass-chart"></i>Monthly Analytics
+              <i class="fa-solid fa-magnifying-glass-chart"></i>  Monthly Analytics
             </x-nav>
           </div>
           <div class="col-5 col-md-3 col-lg-12 text-center">
@@ -119,7 +119,13 @@
 
           <div class="col-5 col-md-3 col-lg-12 text-center">
             <x-nav :activePage="Route::currentRouteName()" page="admin-analytics">
-              <i class="fa-solid fa-magnifying-glass-chart"></i>Monthly Analytics
+              <i class="fa-solid fa-magnifying-glass-chart"></i>  Monthly Analytics
+            </x-nav>
+          </div>
+
+           <div class="col-5 col-md-3 col-lg-12 text-center">
+            <x-nav :activePage="Route::currentRouteName()" page="rooms">
+              <i class="fa-solid fa-bed"></i>  Rooms
             </x-nav>
           </div>
 
