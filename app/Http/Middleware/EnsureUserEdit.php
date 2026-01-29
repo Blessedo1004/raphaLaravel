@@ -25,10 +25,10 @@ class EnsureUserEdit
         }
         $user = Auth::user();
         if($user->role==="regular"){
-          return redirect()->route('dashboard');
+          return redirect()->route('profile');
         }
         
-        return redirect()->route('admin-dashboard');
+        return redirect()->route('admin-profile');
         
     }
 
