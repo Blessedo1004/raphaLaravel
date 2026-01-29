@@ -32,10 +32,13 @@
                       </a>
                     </td>
                 </tr>
-                @endforeach
+                @endforeach 
               </tbody>
             </thead>
           </table>
+          <div class="d-flex justify-content-center mt-4">
+              {{ $rooms->links() }}
+          </div>
         </div>
       </div>
     </div>
