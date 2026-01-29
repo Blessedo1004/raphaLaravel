@@ -52,7 +52,7 @@ class AdminController extends Controller
 
     //show all rooms
     public function showAllRooms(){
-        $rooms = Room::all();
+        $rooms = Room::paginate(10);
         session()->flash('change_availability', true);
         return view('rapha.admin.rooms', compact('rooms'));
     }
