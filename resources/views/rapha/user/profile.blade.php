@@ -3,11 +3,13 @@
   <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-12">
-        @if(session('editSuccess'))
-          <div class="alert alert-success text-center col-md-8 mx-auto d-block">
-          {{session('editSuccess')}}
+        <div class="col-9 mx-auto d-block">
+          @if(session('editSuccess'))
+            <div class="alert alert-success text-center col-md-8 mx-auto d-block">
+              {{session('editSuccess')}}
+           </div>
+          @endif
         </div>
-        @endif
         <h2 class="text-center mb-5"><strong>User Profile</strong></h2>
 
         {{-- first name --}}

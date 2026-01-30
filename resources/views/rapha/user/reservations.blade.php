@@ -2,25 +2,31 @@
   <x-slot name="content">
     <div class="container mt-5">
       {{-- reservation success alert --}}
-      @if(session('reservationSuccess'))
+        <div class="col-9 mx-auto d-block">
+          @if(session('reservationSuccess'))
             <div class="alert alert-success text-center col-md-8 mx-auto d-block">
-              {{ session('reservationSuccess') }}
-            </div>
-      @endif
+              {{session('reservationSuccess')}}
+           </div>
+          @endif
+        </div>
 
       {{-- reservation update alert --}}
-      @if(session('reservationEditSuccess'))
-        <div class="alert alert-success text-center col-md-8 mx-auto d-block">
-          {{session('reservationEditSuccess')}}
+        <div class="col-9 mx-auto d-block">
+          @if(session('reservationEditSuccess'))
+            <div class="alert alert-success text-center col-md-8 mx-auto d-block">
+              {{session('reservationEditSuccess')}}
+           </div>
+          @endif
         </div>
-      @endif
 
         {{-- reservation delete alert --}}
-      @if(session('reservationDeleteSuccess'))
-        <div class="alert alert-success text-center col-md-8 mx-auto d-block">
-          {{session('reservationDeleteSuccess')}}
+        <div class="col-9 mx-auto d-block">
+          @if(session('reservationDeleteSuccess'))
+            <div class="alert alert-success text-center col-md-8 mx-auto d-block">
+              {{session('reservationDeleteSuccess')}}
+           </div>
+          @endif
         </div>
-      @endif
 
       <div class="row justify-content-center">
         <div class="col-12 col-md-8 reservation_col">

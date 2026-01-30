@@ -1,11 +1,13 @@
 <x-user-layout title="Reservations">
   <x-slot name="content">
     <div class="container mt-5">
-      @if(session('checkinSuccess'))
-        <div class="alert alert-success text-center col-md-8 mx-auto d-block">
-          {{session('checkinSuccess')}}
+        <div class="col-9 mx-auto d-block">
+          @if(session('checkinSuccess'))
+            <div class="alert alert-success text-center col-md-8 mx-auto d-block">
+              {{session('checkinSuccess')}}
+           </div>
+          @endif
         </div>
-      @endif
 
        @if(session('checkoutSuccess'))
         <div class="alert alert-success text-center col-md-8 mx-auto d-block">

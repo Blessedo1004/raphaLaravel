@@ -2,27 +2,33 @@
   <x-slot name="content">
 
          {{-- Review success alert starts --}}
-      @if(session('reviewSuccess'))
-        <div class="alert alert-success text-center col-md-8 mx-auto d-block mt-4">
-          {{session('reviewSuccess')}}
+        <div class="col-9 mx-auto d-block">
+          @if(session('reviewSuccess'))
+            <div class="alert alert-success text-center col-md-8 mx-auto d-block">
+              {{session('reviewSuccess')}}
+           </div>
+          @endif
         </div>
-      @endif
       {{-- Review success alert ends --}}
       
         {{-- Edit Review success alert starts --}}
-      @if(session('editReviewSuccess'))
-        <div class="alert alert-success text-center col-md-8 mx-auto d-block mt-4">
-          {{session('editReviewSuccess')}}
+        <div class="col-9 mx-auto d-block">
+          @if(session('editReviewSuccess'))
+            <div class="alert alert-success text-center col-md-8 mx-auto d-block">
+              {{session('editReviewSuccess')}}
+           </div>
+          @endif
         </div>
-      @endif
       {{-- Edit Review success alert ends --}}
 
       {{-- Delete Review success alert starts --}}
-      @if(session('deleteReviewSuccess'))
-        <div class="alert alert-success text-center col-md-8 mx-auto d-block mt-4">
-          {{session('deleteReviewSuccess')}}
+        <div class="col-9 mx-auto d-block">
+          @if(session('deleteReviewSuccess'))
+            <div class="alert alert-success text-center col-md-8 mx-auto d-block">
+              {{session('deleteReviewSuccess')}}
+           </div>
+          @endif
         </div>
-      @endif
       {{-- Delete Review success alert ends --}}
 
 
