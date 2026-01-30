@@ -45,27 +45,39 @@
           
           <div class="row d-flex justify-content-center">
           <div class="form-group col-12 col-md-2 d-flex justify-content-center">
-            <h6><input type="radio" name="rating" value="all" id="all">All</h6>
+            <h6>
+              <input type="radio" name="rating" value="all" id="all">All
+            </h6>
           </div>
 
            <div class="form-group col-12 col-md-2 d-flex justify-content-center">
-          <h6>  <input type="radio" name="rating" value="1">1 Star Rating</h6>
+            <h6>
+              <input type="radio" name="rating" value="1">1 Star Rating
+            </h6>
           </div>
           
           <div class="form-group col-12 col-md-2 d-flex justify-content-center">
-          <h6>  <input type="radio" name="rating" value="2">2 Star Rating</h6>
+            <h6>
+              <input type="radio" name="rating" value="2">2 Star Rating
+            </h6>
           </div>
           
           <div class="form-group col-12 col-md-2 d-flex justify-content-center">
-          <h6>  <input type="radio" name="rating" value="3">3 Star Rating</h6>
+            <h6>
+              <input type="radio" name="rating" value="3">3 Star Rating
+            </h6>
           </div>
          
           <div class="form-group col-12 col-md-2 d-flex justify-content-center">
-          <h6>  <input type="radio" name="rating" value="4">4 Star Rating</h6>
+            <h6>
+              <input type="radio" name="rating" value="4">4 Star Rating
+            </h6>
           </div>
 
           <div class="form-group col-12 col-md-2 d-flex justify-content-center">
-          <h6>  <input type="radio" name="rating" value="5">5 Star Rating</h6>
+            <h6>
+              <input type="radio" name="rating" value="5">5 Star Rating
+            </h6>
           </div>
           </div>
 
