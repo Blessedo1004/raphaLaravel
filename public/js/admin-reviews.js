@@ -39,9 +39,9 @@ function checkFilterData (){
 }
 
 if(clientReviewsForm){
-  clientReviewsForm.addEventListener('submit', (e)=>{
+  clientReviewsForm.addEventListener('submit', function(e){
     e.preventDefault();
-    const formData = new FormData(e.target)
+    const formData = new FormData(this)
     fetch('/admin/client-reviews',{
       method:'POST',
       body:formData,
