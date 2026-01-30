@@ -53,7 +53,7 @@
         @foreach ($reservations->groupBy(function($reservation) {
             return $reservation->created_at->format('Y-m-d');
         }) as $date => $reservationsOnDate)
-        <div class="col-12 col-lg-10 bg-light mt-2">
+        <div class="col-12 col-lg-10 bg-light mt-3">
           <h3 class="text-center mt-5 date_heading">
             @if(Carbon\Carbon::parse($date)->isToday())
               Today

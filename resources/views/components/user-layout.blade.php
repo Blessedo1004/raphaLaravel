@@ -183,5 +183,6 @@
   </script>
   <script src="{{ asset('js/main.js') }}?v={{ filemtime(public_path('js/main.js')) }}"></script>
   <script src="{{ asset('js/analytics.js') }}?v={{ filemtime(public_path('js/analytics.js')) }}"></script>
+  <script src="{{ asset('js/admin-reviews.js') }}?v={{ filemtime(public_path('js/admin-reviews.js')) }}"></script>
 </body>
 </html>

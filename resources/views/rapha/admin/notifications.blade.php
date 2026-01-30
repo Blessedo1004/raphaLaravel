@@ -15,7 +15,7 @@
                  @foreach ($notifications->groupBy(function($notification) {
                  return $notification->created_at->format('Y-m-d');
                  }) as $date => $notificationsOnDate)
-                  <div class="col-12 bg-light mt-2">
+                  <div class="col-12 bg-light mt-3">
                     <h3 class="text-center mt-5">
                         @if(Carbon\Carbon::parse($date)->isToday())
                         Today
