@@ -3,7 +3,7 @@
   <x-slot name="content">
     <div class="container mt-2">
       <div class="row">
-        <h2 class="text-center mt-5"><strong>All Reviews</strong></h2>
+        <h2 class="text-center mt-5 mb-5"><strong>Client Reviews</strong></h2>
          <div class="form-group">
           <div class="year_selection">
               <label for="years"><h5>Year:</h5></label>
