@@ -41,7 +41,7 @@
 
       <h2 class="text-center mt-5"><strong>Your Reviews</strong></h2>
       @foreach ($reviews as $review )
-      <div class="review_container mt-4">
+      <div class="review_container mt-4 bg-light col-12 col-xl-9 mx-auto d-block">
         <div class="review_actions action_{{ $review->id }}">
           <div class="text-center">
            <a href="{{ route('show-edit-review', $review->id) }}" class="url"><h6>Edit Review</h6></a>
@@ -64,7 +64,7 @@
           </div>
       
       
-        <h3 class="mb-4 fadeInUp col-11 col-md-9 mx-auto d-block text-center mt-3 mt-md-0">{{$review->content}}</h3>
+        <h4 class="mb-4 fadeInUp col-11 col-md-9 mx-auto d-block text-center mt-3 mt-md-0">{{$review->content}}</h4>
 
         
         
