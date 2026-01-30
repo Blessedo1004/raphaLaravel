@@ -85,6 +85,7 @@
         </form>
       </div>
 
+        <h4 class="text-center mt-5 reviews-total"></h4>
       <div id="reviews">
         @foreach ($reviews as $review )
           <div class="review_container mt-5 bg-light col-12 col-xl-9 mx-auto d-block">

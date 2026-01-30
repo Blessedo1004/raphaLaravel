@@ -2,6 +2,7 @@ const filterClientReviews = document.querySelector('#filterClientReviews')
 const all = document.querySelector('#all')
 const clientReviewsForm = document.querySelector('#client-reviews')
 const reviewDiv = document.querySelector('#reviews')
+const reviewsTotal = document.querySelector('.reviews-total')
 if(all){
   all.checked = true
 }
@@ -39,10 +40,13 @@ function checkFilterData (){
     }
 }
 
-if(clientReviewsForm){
+if(clientReviewsForm && reviewDiv){
   clientReviewsForm.addEventListener('submit', function(e){
     e.preventDefault();
     const formData = new FormData(this)
+    reviewDiv.innerHTML = '<div class="spinner-grow col-3 mx-auto d-block"></div>'
+    reviewsTotal.innerHTML = ''
+    
     fetch('/admin/client-reviews',{
       method:'POST',
       body:formData,
@@ -52,7 +56,6 @@ if(clientReviewsForm){
     })
     .then(response => response.json())
     .then(data => {
-    if (reviewDiv) {
     if (data && data.length > 0) {
         let reviewHtml = '';
         data.forEach(review => {
@@ -69,12 +72,12 @@ if(clientReviewsForm){
                 </div>
             `;
         });
-        reviewDiv.innerHTML = reviewHtml;
+        reviewDiv.innerHTML = reviewHtml
+        reviewsTotal.innerHTML = `Total Reviews : ${data.length}`
     } else {
         // Display a message if no reviews are found
         reviewDiv.innerHTML = '<h5 class="text-center mt-5">No reviews found for the selected criteria.</h5>';
     }
-}
     })
     .catch(error =>{
        console.error('Error fetching filtered data:', error);
