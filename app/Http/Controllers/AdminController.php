@@ -52,7 +52,7 @@ class AdminController extends Controller
 
     //show all rooms
     public function showAllRooms(){
-        $rooms = Room::paginate(10);
+        $rooms = Room::paginate(10)->onEachSide(0);
         session()->flash('change_availability', true);
         return view('rapha.admin.rooms', compact('rooms'));
     }
@@ -84,7 +84,7 @@ class AdminController extends Controller
             ->orderBy('year', 'DESC')
             ->pluck('year')
             ->toArray();
-        $reviews = Review::withoutGlobalScope('user')->with('rating')->paginate(10);
+        $reviews = Review::withoutGlobalScope('user')->with('rating')->paginate(10)->onEachSide(0);
         return view('rapha.admin.client-reviews', compact('reviews', 'years', 'currentYear'));
     }
 
@@ -110,7 +110,7 @@ class AdminController extends Controller
     }
     //show all pending reservations
      public function showAllPendingReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->with(['user','room'])->orderBy('id', 'desc')->paginate(10);
+        $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->with(['user','room'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
         $details = $request->session()->get('details');
         $route = "admin-pending";
         $searchWildcard = 'PendingReservation';
@@ -119,7 +119,7 @@ class AdminController extends Controller
 
     //show all active reservations
     public function showAllActiveReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ??  ActiveReservation::withoutGlobalScope('user')->with(['user','room'])->orderBy('id', 'desc')->paginate(10);
+        $reservations = $request->session()->get('reservations') ??  ActiveReservation::withoutGlobalScope('user')->with(['user','room'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
         $details = $request->session()->get('details');
         $route = "admin-active";
         $searchWildcard = 'ActiveReservation';
@@ -128,7 +128,7 @@ class AdminController extends Controller
 
     //show all completed reservations
     public function showAllCompletedReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ?? CompletedReservation::withoutGlobalScope('user')->with(['user','room'])->orderBy('id', 'desc')->paginate(10);
+        $reservations = $request->session()->get('reservations') ?? CompletedReservation::withoutGlobalScope('user')->with(['user','room'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
         $details = $request->session()->get('details');
         $route = "admin-completed";
         $searchWildcard = 'CompletedReservation';
@@ -212,7 +212,7 @@ class AdminController extends Controller
 
     //show notifications
     public function showNotifications(){
-        $notifications = Auth::user()->notifications()->paginate(10);
+        $notifications = Auth::user()->notifications()->paginate(10)->onEachSide(0);
         $notificationsCount = Auth::user()->unreadNotifications->count();
         return view('rapha.admin.notifications', compact('notifications', 'notificationsCount'));
     }

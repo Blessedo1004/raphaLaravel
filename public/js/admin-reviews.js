@@ -2,8 +2,9 @@ const filterClientReviews = document.querySelector('#filterClientReviews')
 const all = document.querySelector('#all')
 const clientReviewsForm = document.querySelector('#client-reviews')
 const reviewDiv = document.querySelector('#reviews')
-
-all.checked = true
+if(all){
+  all.checked = true
+}
   if (yearSelect2 && yearSelect2.value) {
       hiddenYear.value = yearSelect2.value;
       checkFilterData()

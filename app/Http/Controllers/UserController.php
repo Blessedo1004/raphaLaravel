@@ -72,7 +72,7 @@ class UserController extends Controller
         $pendingEdit = $request->session()->get('pendingEdit');
         $pendingDelete = $request->session()->get('pendingDelete');
         $route = "pending";
-        $reservations = PendingReservation::orderBy('id', 'desc')->paginate(10);
+        $reservations = PendingReservation::orderBy('id', 'desc')->paginate(10)->onEachSide(0);
         $rooms = Room::all();
         return view('rapha.user.reservations', compact('reservations','details', 'pendingEdit', 'rooms','route','pendingDelete'));
     }
@@ -81,7 +81,7 @@ class UserController extends Controller
     public function showActiveReservations(Request $request){
         $details = $request->session()->get('details');
         $route = "active";
-        $reservations = ActiveReservation::orderBy('id', 'desc')->paginate(10);
+        $reservations = ActiveReservation::orderBy('id', 'desc')->paginate(10)->onEachSide(0);
         return view('rapha.user.reservations', compact('reservations','details','route'));
     }
 
@@ -90,7 +90,7 @@ class UserController extends Controller
     public function showCompletedReservations(Request $request){
         $details = $request->session()->get('details');
         $route = "completed";
-        $reservations = CompletedReservation::orderBy('id', 'desc')->paginate(10);
+        $reservations = CompletedReservation::orderBy('id', 'desc')->paginate(10)->onEachSide(0);
         return view('rapha.user.reservations', compact('reservations','details','route'));
     }
 
@@ -187,7 +187,7 @@ class UserController extends Controller
 
       //show notifications
     public function showNotifications(){
-        $notifications = Auth::user()->notifications()->paginate(10);
+        $notifications = Auth::user()->notifications()->paginate(10)->onEachSide(0);
         $notificationsCount = Auth::user()->unreadNotifications->count();
         return view('rapha.user.notifications', compact('notifications', 'notificationsCount'));
     }
