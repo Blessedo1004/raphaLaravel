@@ -54,7 +54,6 @@ if(clientReviewsForm){
     if (reviewDiv) {
     if (data && data.length > 0) {
         let reviewHtml = '';
-        // Loop through each review and create a separate container for it
         data.forEach(review => {
             const ratingPhoto = review.rating?.rating_photo || 'default.webp';
             const imagePath = `/images/${ratingPhoto}`;            
