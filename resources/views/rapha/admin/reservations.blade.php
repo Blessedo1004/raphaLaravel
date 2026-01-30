@@ -68,8 +68,8 @@
           @foreach ($reservationsOnDate as $reservation)
             <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2 mb-3">
                 <div class="row justify-content-center">
-                  <h4 class="col-12 col-sm-6 col-xl-4 text-center text-md-start">{{$reservation->user->last_name . " " . $reservation->user->first_name }}</h4>
-                  <h4 class="col-12 col-sm-6 col-xl-4 text-center text-md-start">{{$reservation->room->name}}</h4>
+                  <h5 class="col-12 col-sm-6 col-xl-4 text-center text-md-start">{{$reservation->user->last_name . " " . $reservation->user->first_name }}</h5>
+                  <h5 class="col-12 col-sm-6 col-xl-4 text-center text-md-start">{{$reservation->room->name}}</h5>
                 </div>
                 
                 <h6 class="mt-2 text-center">{{$reservation->created_at->format('g:i A')}}</h6>

@@ -66,7 +66,7 @@
               </h3>
               @foreach ($reservationsOnDate as $reservation)
                 <a href="{{ route($route, $reservation->id)}}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div py-2 mt-4 mb-3" title="Click to view reservation details">
-                  <h4 class="text-center">{{$reservation->room->name}}</h4>
+                  <h5 class="text-center">{{$reservation->room->name}}</h5>
                   <h6 class="mt-3 text-center">{{$reservation->created_at->format('g:i A')}}</h6>
                 </a>
               @endforeach
