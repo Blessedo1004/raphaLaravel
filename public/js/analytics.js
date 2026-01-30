@@ -93,14 +93,14 @@
             searchRoomAnalyticsBtn.disabled = true
         }
 
-        if(yearSelect2 && yearSelect2.value){
+        if(yearSelect2 && yearSelect2.value && hiddenYear && hiddenYear2){
             hiddenYear.value = yearSelect2.value;
             hiddenYear2.value = yearSelect2.value;
             checkFirstHiddenValues()
             checkSecondHiddenValues()
     }
 
-        if(yearSelect2){
+        if(yearSelect2 && hiddenYear && hiddenYear2){
             yearSelect2.addEventListener('change', ()=>{
             hiddenYear.value = yearSelect2.value;
             hiddenYear2.value = yearSelect2.value;
@@ -108,7 +108,7 @@
             checkSecondHiddenValues()
         })
     }
-        if(monthSelect){
+        if(monthSelect && hiddenMonth && hiddenMonth2){
             monthSelect.addEventListener('change', ()=>{
             hiddenMonth.value = monthSelect.value;
             hiddenMonth2.value = monthSelect.value;

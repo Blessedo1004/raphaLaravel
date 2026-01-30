@@ -162,6 +162,8 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
         Route::get('/rooms', 'showAllRooms')->name('rooms');
         Route::get('/edit-room-availability/{room}', 'showEditRoomAvailability')->name('edit-room-availability')->middleware('availability-change');
         Route::put('/edit-room-availability/{room}', 'editRoomAvailability')->name('edit-room-availability');
+        Route::get('/client-reviews','showClientReviews')->name('client-reviews'); 
+        Route::post('/client-reviews','showFilteredClientReviews')->name('client-reviews'); 
     });
 });
 //admin routes ends

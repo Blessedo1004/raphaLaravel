@@ -8,7 +8,7 @@ use App\Models\ActiveReservation;
 use App\Models\CompletedReservation;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Room;
-use App\Models\User;
+use App\Models\Review;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -70,6 +70,44 @@ class AdminController extends Controller
         return redirect()->route('rooms')->with('changeSuccessfull', $room->name . " availability updated successfully");
     }
 
+    //show clients reviews
+    public function showClientReviews(){
+        $currentYear = date('Y');
+        $driver = DB::connection()->getDriverName();
+        $yearExpression = ($driver === 'sqlite')
+            ? "strftime('%Y', created_at)"
+            : "YEAR(created_at)";
+
+        $years = CompletedReservation::withoutGlobalScope('user')
+            ->select(DB::raw("{$yearExpression} as year"))
+            ->distinct()
+            ->orderBy('year', 'DESC')
+            ->pluck('year')
+            ->toArray();
+        $reviews = Review::withoutGlobalScope('user')->with('rating')->paginate(10);
+        return view('rapha.admin.client-reviews', compact('reviews', 'years', 'currentYear'));
+    }
+
+    //show filtered clients reviews
+    public function showFilteredClientReviews(Request $request){
+        $validatedData = $request->validate([
+            "year" => "required|integer",
+            "month" => "required|integer",
+            "rating" => "required|string"
+        ]);
+
+        $year = $validatedData["year"];
+        $month = $validatedData["month"];
+        $rating = $validatedData["rating"];
+
+        if ($rating === "all"){
+            $reviews = Review::withoutGlobalScope('user')->whereYear("created_at", $year)->whereMonth("created_at", $month)->with('rating')->get();
+            return response()->json($reviews);
+        }
+
+        $reviews = Review::withoutGlobalScope('user')->whereYear("created_at", $year)->whereMonth("created_at", $month)->where("rating_id", $rating)->with('rating')->get();
+        return response()->json($reviews);
+    }
     //show all pending reservations
      public function showAllPendingReservations(Request $request){
         $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->with(['user','room'])->orderBy('id', 'desc')->paginate(10);
