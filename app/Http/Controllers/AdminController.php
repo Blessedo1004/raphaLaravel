@@ -101,11 +101,11 @@ class AdminController extends Controller
         $rating = $validatedData["rating"];
 
         if ($rating === "all"){
-            $reviews = Review::withoutGlobalScope('user')->whereYear("created_at", $year)->whereMonth("created_at", $month)->with('rating')->get();
+            $reviews = Review::withoutGlobalScope('user')->whereYear("created_at", $year)->whereMonth("created_at", $month)->with('rating')->paginate(10)->onEachSide(0);
             return response()->json($reviews);
         }
 
-        $reviews = Review::withoutGlobalScope('user')->whereYear("created_at", $year)->whereMonth("created_at", $month)->where("rating_id", $rating)->with('rating')->get();
+        $reviews = Review::withoutGlobalScope('user')->whereYear("created_at", $year)->whereMonth("created_at", $month)->where("rating_id", $rating)->with('rating')->paginate(10)->onEachSide(0);
         return response()->json($reviews);
     }
     //show all pending reservations

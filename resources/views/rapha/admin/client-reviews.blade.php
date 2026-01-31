@@ -100,6 +100,10 @@
         @endforeach
       </div>
 
+      <div id="pagination-container" class="d-flex justify-content-center mt-4">
+          {{ $reviews->links() }}
+      </div>
+
     </div>
   </x-slot>
   
