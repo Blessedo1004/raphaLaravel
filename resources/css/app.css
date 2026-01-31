@@ -16,6 +16,7 @@ textarea{
 }
 .alert-success{
   position: fixed;
+  z-index: 1000;
 }
 #plus, #minus{
   font-size:15px;

@@ -21,7 +21,7 @@ class VerificationController extends Controller
 
     //Verify the user email and code
      public function preregisterVerify (Request $request){
-        $validatedData = $request->validate(['code'=>'required|string']);
+        $validatedData = $request->validate(['code'=>'required|integer']);
         $code = $validatedData['code'];
         $userData =  Cache::get('preregister_user'. $code);
         if(!$userData){
@@ -53,7 +53,7 @@ class VerificationController extends Controller
         }
        
 
-        $newCode = Str::random(10);
+        $newCode = str_pad(random_int(1, 999999), 6, '0', STR_PAD_LEFT);
         Cache::forget('preregister_user' . $oldCode);
         Cache::forget('preregister_email_token' . $email['email']);
 

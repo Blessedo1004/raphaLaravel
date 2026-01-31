@@ -8,34 +8,42 @@
 
       <div class="content animate__animated animate__fadeIn">
         {{-- content starts --}}
-      @if(session('verifiedSuccess'))
-        <div class="alert alert-success text-center">
-          {{session('verifiedSuccess')}}
-        </div>
-      @endif
-
-      @if(session('logoutSuccess'))
-
-      <div class="alert alert-success text-center">
-          {{session('logoutSuccess')}}
-      </div>
-      
-      @endif
-
-      @if(session('resetSuccess'))
-        <div class="alert alert-success text-center">
-          {{session('resetSuccess')}}
-        </div>
-      @endif
-      
-      
-      @if(session('deleteAccountSuccess'))
-        <div class="alert alert-success text-center">
-          {{session('deleteAccountSuccess')}}
-        </div>
-      @endif
         <div class="container-fluid p-0 details">
             <div class="row g-0">
+              <div class="col-9 mx-auto d-block">
+                @if(session('verifiedSuccess'))
+                  <div class="alert alert-success text-center">
+                    {{session('verifiedSuccess')}}
+                  </div>
+                @endif
+              </div>
+              
+              <div class="col-9 mx-auto d-block">
+                @if(session('logoutSuccess'))
+
+                <div class="alert alert-success text-center">
+                    {{session('logoutSuccess')}}
+                </div>
+                
+                @endif
+              </div>
+
+              <div class="col-9 mx-auto d-block">
+                @if(session('resetSuccess'))
+                  <div class="alert alert-success text-center">
+                    {{session('resetSuccess')}}
+                  </div>
+                @endif
+              </div>
+
+              <div class="col-9 mx-auto d-block">
+                @if(session('deleteAccountSuccess'))
+                  <div class="alert alert-success text-center">
+                    {{session('deleteAccountSuccess')}}
+                  </div>
+                @endif
+              </div>
+
               <div class="col-12 col-lg-6 img_col">
                 <img src="{{ asset('images/gallery/F3.webp') }}" alt="img" class="img-fluid display_img">
               </div>

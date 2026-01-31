@@ -49,7 +49,7 @@ class ForgotPasswordController extends Controller
             return back()->withErrors(['email' => 'Email doesn\'t exist']);
         }
 
-        $code = Str::random(10);
+       $code = str_pad(random_int(1, 999999), 6, '0', STR_PAD_LEFT);
         $email = $lowerCaseEmail;
         Cache::put('forgot_password_for' . $code, $email, 60 * 20);
         Cache::put('forgot_password_email_code' . $email, $code, 60 * 20);
@@ -70,7 +70,7 @@ class ForgotPasswordController extends Controller
 
      //verify code
     public function codeVerification(Request $request){
-      $code = $request->validate(['code'=>'required|string']);
+      $code = $request->validate(['code'=>'required|integer']);
 
       $userEmail = Cache::get('forgot_password_for' . $code['code']);
 
@@ -101,7 +101,7 @@ class ForgotPasswordController extends Controller
         }
        
 
-        $newCode = Str::random(10);
+        $newCode = str_pad(random_int(1, 999999), 6, '0', STR_PAD_LEFT);
         $userEmail = $email['email'];
 
          Cache::put('forgot_password_for'. $newCode, $userEmail, 60 * 20);
@@ -115,9 +115,18 @@ class ForgotPasswordController extends Controller
      //reset password
     public function resetPassword(Request $request){
         $details = $request->validate([
-            'code' => 'required|string',
+            'code' => 'required|integer',
             'email' => 'required|email',
-            'password' => 'required|string|confirmed|min:8'
+             'password' => [
+                            'required',
+                            'string',
+                            'min:8',
+                            'regex:/[a-z]/',
+                            'regex:/[A-Z]/',
+                            'regex:/[0-9]/',
+                            'regex:/[@$!%*#?&]/',
+                            'confirmed',
+                        ],
         ]);
         
         $cachedEmail = Cache::get('forgot_password_for' . $details['code']);

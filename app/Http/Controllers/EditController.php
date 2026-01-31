@@ -110,7 +110,16 @@ class EditController extends Controller
 
     // change password
      public function changePassword(Request $request, User  $edit){
-        $verified = $request->validate(['password'=>'required|string|min:8|confirmed']);
+        $verified = $request->validate(['password' => [
+                            'required',
+                            'string',
+                            'min:8',
+                            'regex:/[a-z]/',
+                            'regex:/[A-Z]/',
+                            'regex:/[0-9]/',
+                            'regex:/[@$!%*#?&]/',
+                            'confirmed',
+                        ]]);
         $edit->update($verified);
         $name = 'Password';
         if(Auth::user()->role==="regular"){
