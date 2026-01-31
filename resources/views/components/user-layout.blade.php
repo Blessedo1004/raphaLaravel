@@ -190,10 +190,10 @@
   <script src="{{ asset('js/main.js') }}?v={{ filemtime(public_path('js/main.js')) }}"></script>
   @if (Route::currentRouteName() === 'admin-dashboard' || Route::currentRouteName() === 'dashboard' || Route::currentRouteName() === 'admin-analytics' || Route::currentRouteName() === 'user-analytics')
       <script src="{{ asset('js/analytics.js') }}?v={{ filemtime(public_path('js/analytics.js')) }}"></script>
-    
-    
   @endif
 
-  <script src="{{ asset('js/admin-reviews.js') }}?v={{ filemtime(public_path('js/admin-reviews.js')) }}"></script>
+    @if (Route::currentRouteName() === 'client-reviews')
+      <script src="{{ asset('js/client-reviews.js') }}?v={{ filemtime(public_path('js/client-reviews.js')) }}"></script>
+  @endif
 </body>
 </html>
