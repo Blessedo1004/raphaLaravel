@@ -22,9 +22,10 @@ RUN apk update && apk add --no-cache \
     freetype-dev \
     libexif-dev \
     oniguruma-dev \
+    libpq-dev \
     # Extra dependencies for specific extensions
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl gd
+    && docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl gd
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
