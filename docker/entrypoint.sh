@@ -23,5 +23,9 @@ php artisan view:cache
 # Start PHP-FPM in the background
 php-fpm -D
 
+# Process Nginx configuration template
+echo "Processing Nginx configuration template..."
+envsubst '$PORT' < /etc/nginx/http.d/default.conf.template > /etc/nginx/http.d/default.conf
+
 # Start Nginx in the foreground
 nginx -g "daemon off;"

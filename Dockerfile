@@ -23,6 +23,7 @@ RUN apk update && apk add --no-cache \
     libexif-dev \
     oniguruma-dev \
     libpq-dev \
+    gettext \
     # Extra dependencies for specific extensions
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl gd
@@ -40,7 +41,7 @@ COPY . .
 COPY --from=frontend /app/public/build ./public/build
 
 # Copy Nginx configuration and the entrypoint script
-COPY docker/nginx/nginx.conf /etc/nginx/http.d/default.conf
+COPY docker/nginx/nginx.conf.template /etc/nginx/http.d/default.conf.template
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
