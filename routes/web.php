@@ -27,7 +27,7 @@ Route::middleware('cache.headers:no_store,private')->controller(VerificationCont
     Route::get('/preregister/notice', 'showPreregisterNotice')->name('preregister.notice')->middleware('preregister.notice');
     Route::post('/preregister/verify', 'preregisterVerify')->name('preregister.verify')->middleware('throttle:auth');
     // Resend email verification route for sign up
-    Route::post('/preregister/resend', 'preregisterResend')->name('preregister.resend')->middleware('throttle:auth');
+    Route::post('/preregister/resend', 'preregisterResend')->name('preregister.resend.submit')->middleware('throttle:auth');
 });
 // Pre registration verification routes ends
 
@@ -132,7 +132,7 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
     Route::delete('/delete-review/{review}', 'deleteReview')->name('delete-review')->middleware('throttle:action');
     Route::delete('/delete-account/{account}', 'deleteAccount')->name('delete-account')->middleware('throttle:action');
     Route::put('/edit-reservation/{edit}','editReservation')->name('edit-reservation')->middleware('throttle:action');
-    Route::delete('/delete-reservation/{reservation}','deleteReservation')->name('delete-reservation')->middleware('throttle:action');
+    Route::delete('/delete-reservation/{reservation}','delete-reservation')->name('delete-reservation')->middleware('throttle:action');
     });
     
 });
@@ -160,8 +160,8 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
         Route::get('/notifications/mark-as-read/{id}','markAsRead')->name('admin-mark-as-read');
         Route::get('/notifications/mark-all-as-read','markAllAsRead')->name('admin-mark-all-as-read');
         Route::get('/rooms', 'showAllRooms')->name('rooms');
-        Route::get('/edit-room-availability/{room}', 'showEditRoomAvailability')->name('edit-room-availability')->middleware('availability-change');
-        Route::put('/edit-room-availability/{room}', 'editRoomAvailability')->name('edit-room-availability');
+        Route::get('/edit-room-availability/{room}', 'showEditRoomAvailability')->name('edit-room-availability');
+        Route::put('/edit-room-availability/{room}', 'editRoomAvailability')->name('edit-room-availability.update');
         Route::get('/client-reviews','showClientReviews')->name('client-reviews'); 
         Route::post('/client-reviews','showFilteredClientReviews')->name('client-reviews.filter'); 
     });
