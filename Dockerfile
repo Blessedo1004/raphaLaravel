@@ -18,8 +18,10 @@ RUN apk update && apk add --no-cache \
     zip \
     libzip-dev \
     libpng-dev \
-    jpeg-dev \
+    libjpeg-turbo-dev \
     freetype-dev \
+    libexif-dev \
+    oniguruma-dev \
     # Extra dependencies for specific extensions
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl gd
