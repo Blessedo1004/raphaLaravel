@@ -25,6 +25,8 @@ php-fpm -D
 
 # Process Nginx configuration template
 echo "Processing Nginx configuration template..."
+# Set PORT to 80 if it's not already defined
+PORT=${PORT:-80}
 envsubst '$PORT' < /etc/nginx/http.d/default.conf.template > /etc/nginx/http.d/default.conf
 
 # Start Nginx in the foreground
