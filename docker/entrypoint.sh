@@ -7,7 +7,6 @@ set -e
 echo "Running database migrations..."
 php artisan migrate --force
 
-# Seed the database if not in production
 if [ "$APP_ENV" != "production" ]; then
     echo "Seeding database..."
     php artisan db:seed

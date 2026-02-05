@@ -51,9 +51,11 @@ RUN composer install --no-interaction --no-dev --prefer-dist --optimize-autoload
 RUN chown -R nginx:nginx storage bootstrap/cache \
  && mkdir -p /run/nginx /var/log/nginx
 
-# Fix PHP-FPM user to match Nginx
-RUN sed -i 's/^user = .*/user = nginx/' /usr/local/etc/php-fpm.d/www.conf \
- && sed -i 's/^group = .*/group = nginx/' /usr/local/etc/php-fpm.d/www.conf
+# Ensure PHP-FPM listens on TCP 127.0.0.1:9000
+RUN sed -i 's|^listen = .*|listen = 127.0.0.1:9000|' /usr/local/etc/php-fpm.d/www.conf
+
+# Expose port 80 (Render will map $PORT)
+EXPOSE 80
 
 # ENTRYPOINT
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
