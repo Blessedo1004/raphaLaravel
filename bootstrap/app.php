@@ -4,6 +4,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
+$app->middleware([
+    \App\Http\Middleware\TrustProxies::class,
+]);
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
@@ -30,11 +34,6 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\SanitizeInput::class,
         ]);
     })
-    ->withMiddleware(function (Middleware $middleware): void {
-    $middleware->web(append: [
-        \App\Http\Middleware\TrustProxies::class,
-    ]);
-})
     ->withMiddleware(function (Middleware $middleware): void {
     $middleware->throttleWithRedis();
     // ...
