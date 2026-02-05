@@ -2,42 +2,58 @@
 set -e
 
 # -------------------------------
+# Step 0: Ensure PORT is set
+# -------------------------------
+export PORT=${PORT:-80}  # Default to 80 if Render didn't set it
+echo "Render PORT is $PORT"
+
+# -------------------------------
 # Step 1: Run Laravel migrations
 # -------------------------------
-echo "Running database migrations..."
+echo "--- Running Laravel migrations ---"
 php artisan migrate --force
 
 if [ "$APP_ENV" != "production" ]; then
-    echo "Seeding database..."
+    echo "--- Seeding database ---"
     php artisan db:seed
 fi
 
 # -------------------------------
-# Step 2: Optimize Laravel
+# Step 2: Cache Laravel config/routes/views
 # -------------------------------
-echo "Caching configuration..."
+echo "--- Caching configuration, routes, views ---"
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
 # -------------------------------
-# Step 3: Start Nginx + PHP-FPM
+# Step 3: Generate Nginx config
 # -------------------------------
-echo "--- NGINX CONFIG DEBUG ---"
-echo "Render PORT: ${PORT}"
+echo "--- Generating Nginx config ---"
+if [ ! -f /etc/nginx/http.d/default.conf.template ]; then
+    echo "ERROR: Nginx template not found!"
+    exit 1
+fi
 
-# Generate Nginx config with Render PORT
 envsubst < /etc/nginx/http.d/default.conf.template > /etc/nginx/http.d/default.conf
 
 echo "Generated Nginx config:"
 cat /etc/nginx/http.d/default.conf
-echo "--- END NGINX CONFIG DEBUG ---"
+echo "--- End of Nginx config ---"
 
-# Fix Laravel permissions
+# -------------------------------
+# Step 4: Fix Laravel permissions
+# -------------------------------
 chmod -R 775 storage bootstrap/cache || true
 
-# Start PHP-FPM in background
+# -------------------------------
+# Step 5: Start PHP-FPM
+# -------------------------------
+echo "--- Starting PHP-FPM ---"
 php-fpm &
 
-# Start Nginx in foreground
+# -------------------------------
+# Step 6: Start Nginx (foreground!)
+# -------------------------------
+echo "--- Starting Nginx ---"
 nginx -g "daemon off;"
