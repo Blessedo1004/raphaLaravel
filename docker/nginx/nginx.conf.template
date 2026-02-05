@@ -1,8 +1,8 @@
 server {
-    listen ${PORT};
+    listen 0.0.0.0:${PORT};
     server_name localhost;
 
-    root /var/www/html/public;
+    root /var/www/public;
     index index.php;
 
     charset utf-8;

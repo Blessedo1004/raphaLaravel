@@ -42,9 +42,8 @@ RUN composer install --no-interaction --no-dev --prefer-dist --optimize-autoload
 RUN chown -R nginx:nginx storage bootstrap/cache
 RUN mkdir -p /run/nginx /var/log/nginx
 
-RUN sed -i 's/^user = .*/user = nginx/' /usr/local/etc/php-fpm.d/www.conf \
- && sed -i 's/^group = .*/group = nginx/' /usr/local/etc/php-fpm.d/www.conf
-
-EXPOSE 10000
+# Fix Nginx binding
+RUN sed -i 's/listen       80;/listen       0.0.0.0:80;/' /etc/nginx/nginx.conf || true
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
