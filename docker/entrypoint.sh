@@ -11,15 +11,18 @@ echo "--- Generated nginx config ---"
 cat /etc/nginx/http.d/default.conf
 echo "-----------------------------"
 
-# Laravel setup (safe on every boot)
+# Laravel setup
 php artisan key:generate --force || true
 php artisan migrate --force || true
 php artisan config:clear
 php artisan route:clear
 php artisan view:clear
 
-# Start PHP-FPM
+# Laravel permissions
+chmod -R 775 storage bootstrap/cache || true
+
+# Start PHP-FPM (socket mode)
 php-fpm &
 
-# Start nginx (FOREGROUND, LAST)
+# Start Nginx (foreground)
 nginx -g "daemon off;"
