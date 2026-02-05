@@ -2,9 +2,9 @@
 set -e
 
 # -------------------------------
-# Step 0: Ensure PORT is set
+# Step 0: Ensure PORT is exported
 # -------------------------------
-export PORT=${PORT:-80}  # Default to 80 if Render didn't set it
+export PORT=${PORT:-80}
 echo "Render PORT is $PORT"
 
 # -------------------------------
@@ -30,12 +30,7 @@ php artisan view:cache
 # Step 3: Generate Nginx config
 # -------------------------------
 echo "--- Generating Nginx config ---"
-if [ ! -f /etc/nginx/http.d/default.conf.template ]; then
-    echo "ERROR: Nginx template not found!"
-    exit 1
-fi
-
-envsubst < /etc/nginx/http.d/default.conf.template > /etc/nginx/http.d/default.conf
+envsubst '$PORT' < /etc/nginx/http.d/default.conf.template > /etc/nginx/http.d/default.conf
 
 echo "Generated Nginx config:"
 cat /etc/nginx/http.d/default.conf
