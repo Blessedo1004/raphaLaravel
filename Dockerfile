@@ -1,3 +1,4 @@
+# Base PHP-FPM Alpine image
 FROM php:8.2-fpm-alpine
 
 # Install system dependencies
@@ -34,15 +35,15 @@ RUN composer install --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
  && mkdir -p /run/nginx /var/log/nginx
 
-# Copy Nginx config
-COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+# Copy Nginx template
+COPY docker/nginx/default.conf.template /etc/nginx/conf.d/default.conf.template
 
-# Copy entrypoint script
+# Copy entrypoint
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Expose Render port
 EXPOSE 10000
 
-# Entrypoint
+# Use entrypoint
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
