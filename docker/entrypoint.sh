@@ -22,9 +22,10 @@ fi
 # Step 2: Cache Laravel config/routes/views
 # -------------------------------
 echo "--- Caching configuration, routes, views ---"
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
 php artisan config:cache
-php artisan route:cache
-php artisan view:cache
 
 # -------------------------------
 # Step 3: Generate Nginx config

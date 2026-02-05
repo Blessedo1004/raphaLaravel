@@ -31,6 +31,11 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withMiddleware(function (Middleware $middleware): void {
+    $middleware->web(append: [
+        \App\Http\Middleware\TrustProxies::class,
+    ]);
+})
+    ->withMiddleware(function (Middleware $middleware): void {
     $middleware->throttleWithRedis();
     // ...
     })
