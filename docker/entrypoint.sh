@@ -1,55 +1,25 @@
 #!/bin/sh
 set -e
 
-# -------------------------------
-# Step 0: Ensure PORT is exported
-# -------------------------------
-export PORT=${PORT:-80}
-echo "Render PORT is $PORT"
+echo "--- Render PORT: ${PORT} ---"
 
-# -------------------------------
-# Step 1: Run Laravel migrations
-# -------------------------------
-echo "--- Running Laravel migrations ---"
-php artisan migrate --force
+# Generate nginx config with Render's PORT
+envsubst < /etc/nginx/http.d/default.conf.template \
+         > /etc/nginx/http.d/default.conf
 
-if [ "$APP_ENV" != "production" ]; then
-    echo "--- Seeding database ---"
-    php artisan db:seed
-fi
+echo "--- Generated nginx config ---"
+cat /etc/nginx/http.d/default.conf
+echo "-----------------------------"
 
-# -------------------------------
-# Step 2: Cache Laravel config/routes/views
-# -------------------------------
-echo "--- Caching configuration, routes, views ---"
+# Laravel setup (safe on every boot)
+php artisan key:generate --force || true
+php artisan migrate --force || true
 php artisan config:clear
 php artisan route:clear
 php artisan view:clear
-php artisan config:cache
 
-# -------------------------------
-# Step 3: Generate Nginx config
-# -------------------------------
-echo "--- Generating Nginx config ---"
-envsubst '$PORT' < /etc/nginx/http.d/default.conf.template > /etc/nginx/http.d/default.conf
-
-echo "Generated Nginx config:"
-cat /etc/nginx/http.d/default.conf
-echo "--- End of Nginx config ---"
-
-# -------------------------------
-# Step 4: Fix Laravel permissions
-# -------------------------------
-chmod -R 775 storage bootstrap/cache || true
-
-# -------------------------------
-# Step 5: Start PHP-FPM
-# -------------------------------
-echo "--- Starting PHP-FPM ---"
+# Start PHP-FPM
 php-fpm &
 
-# -------------------------------
-# Step 6: Start Nginx (foreground!)
-# -------------------------------
-echo "--- Starting Nginx ---"
+# Start nginx (FOREGROUND, LAST)
 nginx -g "daemon off;"

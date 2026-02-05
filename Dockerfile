@@ -1,61 +1,39 @@
-# Stage 1: Build frontend assets
-FROM node:18-alpine AS frontend
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+FROM php:8.2-fpm-alpine
 
-# Stage 2: Backend with PHP + Nginx
-FROM php:8.2-fpm-alpine AS backend
-
-# Install system dependencies including Nginx and PHP extensions
+# Install system packages
 RUN apk add --no-cache \
     nginx \
-    git \
+    bash \
     curl \
-    unzip \
     zip \
+    unzip \
     libzip-dev \
-    libpng-dev \
-    libjpeg-turbo-dev \
-    freetype-dev \
-    libexif-dev \
-    oniguruma-dev \
     libpq-dev \
-    gettext \
- && docker-php-ext-configure gd --with-freetype --with-jpeg \
- && docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl gd
+    gettext
 
-# Copy Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Install PHP extensions (Postgres only)
+RUN docker-php-ext-install pdo pdo_pgsql
 
 # Set working directory
 WORKDIR /var/www
 
-# Copy Laravel app
-COPY . .
+# Copy application code
+COPY . /var/www
 
-# Copy built frontend assets
-COPY --from=frontend /app/public/build ./public/build
-
-# Copy Nginx template and entrypoint
+# Copy nginx TEMPLATE (important)
 COPY docker/nginx/nginx.conf.template /etc/nginx/http.d/default.conf.template
+
+# Copy entrypoint script
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Make entrypoint executable (build-time, correct)
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Install PHP dependencies for production
-RUN composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
+# Required dirs + permissions
+RUN mkdir -p /run/nginx /var/log/nginx \
+ && chown -R www-data:www-data /var/www
 
-# Set permissions for Laravel
-RUN chown -R nginx:nginx storage bootstrap/cache \
- && mkdir -p /run/nginx /var/log/nginx
+# DO NOT hardcode ports for Render
+# NO EXPOSE 10000
 
-# Ensure PHP-FPM listens on TCP 127.0.0.1:9000
-RUN sed -i 's|^listen = .*|listen = 127.0.0.1:9000|' /usr/local/etc/php-fpm.d/www.conf
-
-# Expose port 80 (Render will map $PORT)
-EXPOSE 80
-
-# ENTRYPOINT
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
