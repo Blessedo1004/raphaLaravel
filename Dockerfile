@@ -1,23 +1,36 @@
-# Use PHP CLI Alpine
-FROM php:8.2-cli-alpine
+# Stage 1 - Build Frontend (Vite)
+FROM node:18 AS frontend
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Stage 2 - Backend (Laravel + PHP + Composer)
+FROM php:8.2-fpm AS backend
 
 # Install system dependencies
-RUN apk add --no-cache bash git unzip libzip-dev
+RUN apt-get update && apt-get install -y \
+    git curl unzip libpq-dev libonig-dev libzip-dev zip \
+    && docker-php-ext-install pdo pdo_mysql mbstring zip
 
 # Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Set working directory
 WORKDIR /var/www
 
-# Copy application code
+# Copy app files
 COPY . .
 
-# Install Laravel dependencies
+# Copy built frontend from Stage 1
+COPY --from=frontend /app/public/dist ./public/dist
+
+# Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Expose Render port
-EXPOSE 10000
+# Laravel setup
+RUN php artisan config:clear && \
+    php artisan route:clear && \
+    php artisan view:clear
 
-# Start Laravel built-in server on Render's $PORT
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=$PORT"]
+CMD ["php-fpm"]
