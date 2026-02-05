@@ -6,9 +6,10 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Stage 2: Backend
+# Stage 2: Backend with PHP + Nginx
 FROM php:8.2-fpm-alpine AS backend
 
+# Install system dependencies including Nginx and PHP extensions
 RUN apk add --no-cache \
     nginx \
     git \
@@ -26,24 +27,33 @@ RUN apk add --no-cache \
  && docker-php-ext-configure gd --with-freetype --with-jpeg \
  && docker-php-ext-install pdo pdo_pgsql mbstring zip exif pcntl gd
 
+# Copy Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Set working directory
 WORKDIR /var/www
+
+# Copy Laravel app
 COPY . .
 
+# Copy built frontend assets
 COPY --from=frontend /app/public/build ./public/build
 
+# Copy Nginx template and entrypoint
 COPY docker/nginx/nginx.conf.template /etc/nginx/http.d/default.conf.template
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+# Install PHP dependencies for production
 RUN composer install --no-interaction --no-dev --prefer-dist --optimize-autoloader
 
-RUN chown -R nginx:nginx storage bootstrap/cache
-RUN mkdir -p /run/nginx /var/log/nginx
+# Set permissions for Laravel
+RUN chown -R nginx:nginx storage bootstrap/cache \
+ && mkdir -p /run/nginx /var/log/nginx
 
-# Fix Nginx binding
-RUN sed -i 's/listen       80;/listen       0.0.0.0:80;/' /etc/nginx/nginx.conf || true
+# Fix PHP-FPM user to match Nginx
+RUN sed -i 's/^user = .*/user = nginx/' /usr/local/etc/php-fpm.d/www.conf \
+ && sed -i 's/^group = .*/group = nginx/' /usr/local/etc/php-fpm.d/www.conf
 
+# ENTRYPOINT
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-

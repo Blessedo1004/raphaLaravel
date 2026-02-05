@@ -23,22 +23,24 @@ php artisan view:cache
 #!/bin/sh
 set -e
 
+# Show Render PORT for debugging
 echo "--- NGINX CONFIG DEBUG ---"
 echo "Render PORT: ${PORT}"
 
-# Generate nginx config with Render's PORT
+# Generate Nginx config with Render PORT
 envsubst < /etc/nginx/http.d/default.conf.template > /etc/nginx/http.d/default.conf
 
 echo "Generated Nginx config:"
 cat /etc/nginx/http.d/default.conf
 echo "--- END NGINX CONFIG DEBUG ---"
 
-# Fix Laravel permissions
+# Fix Laravel permissions (storage, cache)
 chmod -R 775 storage bootstrap/cache || true
 
-# Start PHP-FPM
+# Start PHP-FPM in background
 php-fpm &
 
-# Start Nginx (foreground)
+# Start Nginx in foreground
 nginx -g "daemon off;"
+
 
