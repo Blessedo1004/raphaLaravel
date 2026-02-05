@@ -20,29 +20,25 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# Start PHP-FPM in the background
-php-fpm -D
+#!/bin/sh
+set -e
 
-# Process Nginx configuration template
-# --- DEBUGGING START ---
 echo "--- NGINX CONFIG DEBUG ---"
-echo "Current value of PORT: ${PORT}"
-# Set PORT to 80 if it's not already defined for envsubst
-export PORT=${PORT:-80}
-echo "PORT value after default check: ${PORT}"
-echo "Processing Nginx configuration template..."
+echo "Render PORT: ${PORT}"
 
-# Check if the template file exists before trying to process it
-if [ ! -f "/etc/nginx/http.d/default.conf.template" ]; then
-    echo "ERROR: Nginx template file /etc/nginx/http.d/default.conf.template not found!"
-    exit 1
-fi
-
+# Generate nginx config with Render's PORT
 envsubst < /etc/nginx/http.d/default.conf.template > /etc/nginx/http.d/default.conf
 
-echo "Generated Nginx config (/etc/nginx/http.d/default.conf):"
+echo "Generated Nginx config:"
 cat /etc/nginx/http.d/default.conf
 echo "--- END NGINX CONFIG DEBUG ---"
 
-# Start Nginx in the foreground
+# Fix Laravel permissions
+chmod -R 775 storage bootstrap/cache || true
+
+# Start PHP-FPM
+php-fpm &
+
+# Start Nginx (foreground)
 nginx -g "daemon off;"
+
