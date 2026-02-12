@@ -7,7 +7,7 @@
             <img class="logo-main mx-auto d-block mx-sm-0" src="{{asset('images/logo-white1.webp')}}" alt="logo" >
          </a>
           <h5 class="text-center text-lg-start mt-3">
-            We've sent a password reset code to {{ $email }}. Please check your inbox or spam folder and type in the code below.
+            We've sent you a password reset code. Please check your inbox or spam folder and type in the code below.
           </h5>
 
           {{-- verification form starts--}}
@@ -44,7 +44,7 @@
           {{-- resend button--}}
            <form action="{{ route('forgot-password.resend') }}" method="POST">
             @csrf
-            <input type="hidden" name="email" value="{{ $email }}">
+            <input type="hidden" name="email" value="{{ old('email', $email ?? '') }}">
             <button type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" id="resendCodeButton" disabled>Resend Code <span class="resend_countdown">(<span class="resend_countdown_value">59</span>)</span></button>
             @if(session('resendSuccess2'))
               <div class="alert alert-success mt-3">

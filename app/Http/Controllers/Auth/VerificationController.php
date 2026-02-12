@@ -62,7 +62,7 @@ class VerificationController extends Controller
 
          Mail::to($userData['email'])->send(new PreregisterEmail($newCode));
         session()->flash('from_verification_form', true);
-        return back()->with('resendSuccess','Code resent. Check your email');
+        return back()->with('resendSuccess','Code resent. Check your email')->with('email', $userData['email']);
     }
 
    
