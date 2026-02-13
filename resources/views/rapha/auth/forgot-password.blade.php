@@ -11,7 +11,7 @@
           </h5>
 
           {{-- verification form starts--}}
-          <form action="{{ route('forgotPassword') }}" method="post">
+          <form action="{{ route('forgotPassword.submit') }}" method="post">
             @csrf
             <div class="form-group">
               <input type="email" name="email" class="form-control verificationInput" required placeholder="Enter email">

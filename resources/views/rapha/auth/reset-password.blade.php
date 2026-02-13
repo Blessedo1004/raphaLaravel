@@ -17,7 +17,7 @@
             @endif
 
           {{-- reset form starts--}}
-          <form action="{{ route('resetPassword') }}" method="post">
+          <form action="{{ route('resetPassword.submit') }}" method="post">
             @csrf
 
             <input type="hidden" name="email" value="{{ old('email', $email ?? '') }}">

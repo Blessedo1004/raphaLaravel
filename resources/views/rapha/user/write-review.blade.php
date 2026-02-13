@@ -1,7 +1,7 @@
 <x-user-layout title="Write a Review">
   <x-slot name="content">
     <div class="row mt-5">
-         <form action="{{ route('write-review') }}" method="post">
+         <form action="{{ route('write-review.store') }}" method="post">
         @csrf
         <h3 class="text-center">Select a Rating:</h3>
         <div class="rating text d-flex justify-content-center ">

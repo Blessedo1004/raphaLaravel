@@ -11,7 +11,7 @@
           </h5>
 
           {{-- verification form starts--}}
-          <form action="{{ route('forgotpassword.verify') }}" method="post">
+          <form action="{{ route('forgotpassword.verify.submit') }}" method="post">
             @csrf
             <div class="form-group">
               <input type="text" name="code" class="form-control verificationInput" required placeholder="Enter verification code">
@@ -42,7 +42,7 @@
           </h5>
 
           {{-- resend button--}}
-           <form action="{{ route('forgot-password.resend') }}" method="POST">
+           <form action="{{ route('forgot-password.resend.submit') }}" method="POST">
             @csrf
             <input type="hidden" name="email" value="{{ old('email', $email ?? '') }}">
             <button type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" id="resendCodeButton" disabled>Resend Code <span class="resend_countdown">(<span class="resend_countdown_value">59</span>)</span></button>

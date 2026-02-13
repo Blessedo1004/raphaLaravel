@@ -132,7 +132,7 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
     Route::delete('/delete-review/{review}', 'deleteReview')->name('delete-review')->middleware('throttle:action');
     Route::delete('/delete-account/{account}', 'deleteAccount')->name('delete-account')->middleware('throttle:action');
     Route::put('/edit-reservation/{edit}','editReservation')->name('edit-reservation')->middleware('throttle:action');
-    Route::delete('/delete-reservation/{reservation}','delete-reservation')->name('delete-reservation')->middleware('throttle:action');
+    Route::delete('/delete-reservation/{reservation}','deleteReservation')->name('delete-reservation')->middleware('throttle:action');
     });
     
 });

@@ -99,7 +99,7 @@
             <h4 class="mt-3"> <span class="name">Number of Rooms :</span> {{$details->number_of_rooms}}</h4>
             <h4 class="mt-3"> <span class="name">Reservation ID :</span> {{$details->reservation_id}}</h4>
             @if($route === "admin-pending")
-              <h4 class="mt-3"> <span class="name">Expiry Date :</span> {{$details->expires_at}}</h4>
+              <h4 class="mt-3"> <span class="name">Expiry Date :</span> {{$details->expires_at->format('F j, Y')}}</h4>
               <a href="{{ route('checkin', $details->id) }}" class="reg_btn btn mx-auto d-block text-white mt-4 col-4">Check In</a>
 
               @elseif($route === "admin-active")

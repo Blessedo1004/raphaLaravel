@@ -199,7 +199,7 @@ class EditController extends Controller
     
     // delete reservation
     public function deleteReservation (PendingReservation $reservation){
-         $room = Room::where('id', $reservation->room_id)->get();
+         $room = Room::where('id', $reservation->room_id)->first();
         $room->update(['availability' => $room->availability + $reservation->number_of_rooms]);
         $reservation->delete();
         return redirect()->route('reservations')->with('reservationDeleteSuccess','Reservation Deleted Successfully');

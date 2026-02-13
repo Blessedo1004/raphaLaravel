@@ -17,7 +17,7 @@
       
                  <a href="{{ route('rapha.home') }}" class="url mt-5 mt-lg-0">Back To Home</a>
                  {{-- Form starts --}}
-                   <form action="{{ route('rapha.signup') }}" method="POST" class="mt-5">
+                   <form action="{{ route('rapha.signup.store') }}" method="POST" class="mt-5">
                     @csrf
 
                     <h1 class="mt-4">Sign Up</h1>

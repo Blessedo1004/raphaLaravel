@@ -95,7 +95,7 @@
             <h4 class="mt-3"> <span class="name">Reservation ID :</span> {{$details->reservation_id}}</h4>
             @if($route === "pending")
               <h4 class="mt-3"> 
-                  <span class="name">Expiry Date :</span> {{$details->expires_at}}
+                  <span class="name">Expiry Date :</span> {{$details->expires_at->format('F j, Y')}}
               </h4>
               <div class="d-flex justify-content-center mt-4">
                  <a href="{{ route('show-edit-reservation', $details->id) }}" class="btn reg_btn text-light">Edit</a>

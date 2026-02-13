@@ -5,7 +5,7 @@
         <div class="col-12">
           <h2 class="text-center"><strong>Make Reservation</strong></h2>
           {{-- Reservation form starts --}}
-          <form action="{{ route('make-reservation') }}" method="post">
+          <form action="{{ route('make-reservation.store') }}" method="post">
             @csrf
           <!-- Room Select starts -->
           <div class="form-group mt-5">

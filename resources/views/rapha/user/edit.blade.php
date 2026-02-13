@@ -48,7 +48,7 @@
                 </div>
                 @endif
                
-            <input type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" value="Change {{ $name }}" id="editBtn">
+            <input type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" value="Submit" id="editBtn">
           </form>
          
 

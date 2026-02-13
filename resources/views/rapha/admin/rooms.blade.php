@@ -27,7 +27,7 @@
                     <td>{{$room->guest_number}}</td>
                     <td>{{$room->availability}}</td>
                     <td>
-                      <a href="{{ route('edit-room-availability', $room->id) }}">
+                      <a href="{{ route('edit-room-availability.update', $room->id) }}">
                         <i class="fa-solid fa-user-pen" title="Edit {{ $room->name }} Availability"></i>
                       </a>
                     </td>
