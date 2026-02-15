@@ -62,7 +62,7 @@ class AuthController extends Controller
             Cache::forget('preregister_email_token'. $userData['email']);
         }
         
-        $code = str_pad(random_int(1, 999999), 6, '0', STR_PAD_LEFT);
+        $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
         Cache::put('preregister_user'. $code, $userData, 60 * 20);
         Cache::put('preregister_email_token'. $userData['email'], $code, 60 * 20);
 

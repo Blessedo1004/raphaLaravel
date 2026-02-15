@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\ForgotPasswordEmail;
-use App\Mail\PreregisterEmail;
+
 
 class ForgotPasswordController extends Controller
 {
@@ -48,7 +47,7 @@ class ForgotPasswordController extends Controller
             return back()->withErrors(['email' => 'Email doesn\'t exist']);
         }
 
-       $code = str_pad(random_int(1, 999999), 6, '0', STR_PAD_LEFT);
+       $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
         $email = $lowerCaseEmail;
         Cache::put('forgot_password_for' . $code, $email, 60 * 20);
         Cache::put('forgot_password_email_code' . $email, $code, 60 * 20);
@@ -69,7 +68,7 @@ class ForgotPasswordController extends Controller
 
      //verify code
     public function codeVerification(Request $request){
-      $code = $request->validate(['code'=>'required|integer']);
+      $code = $request->validate(['code'=>'required|string']);
 
       $userEmail = Cache::get('forgot_password_for' . $code['code']);
 
@@ -100,7 +99,7 @@ class ForgotPasswordController extends Controller
         }
        
 
-        $newCode = str_pad(random_int(1, 999999), 6, '0', STR_PAD_LEFT);
+        $newCode = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
         $userEmail = $email['email'];
 
          Cache::put('forgot_password_for'. $newCode, $userEmail, 60 * 20);
@@ -114,7 +113,7 @@ class ForgotPasswordController extends Controller
      //reset password
     public function resetPassword(Request $request){
         $details = $request->validate([
-            'code' => 'required|integer',
+            'code' => 'required|string',
             'email' => 'required|email',
              'password' => [
                             'required',
