@@ -18,7 +18,7 @@ class EditController extends Controller
         $placeholder = 'New first name';
         $route = 'edit-first-name';
         $name = 'first_name';
-        $profile = User::where('id', Auth::user()->id)->first();
+        $profile = Auth::user();
         return view('rapha.user.edit', compact('header','placeholder','route','name','profile'));
     }
 
@@ -39,7 +39,7 @@ class EditController extends Controller
         $placeholder = 'New last name';
         $route = 'edit-last-name';
         $name = 'last_name';
-        $profile = User::where('id', Auth::user()->id)->first();
+        $profile = Auth::user();
         return view('rapha.user.edit', compact('header','placeholder','route','name','profile'));
     }
 
@@ -60,7 +60,7 @@ class EditController extends Controller
         $placeholder = 'New User name';
         $route = 'edit-user-name';
         $name = 'user_name';
-        $profile = User::where('id', Auth::user()->id)->first();
+        $profile = Auth::user();
         return view('rapha.user.edit', compact('header','placeholder','route','name','profile'));
     }
 
@@ -82,7 +82,7 @@ class EditController extends Controller
         $placeholder = 'New Phone Number';
         $route = 'edit-phone-number';
         $name = 'phone_number';
-        $profile = User::where('id', Auth::user()->id)->first();
+        $profile = Auth::user();
         return view('rapha.user.edit', compact('header','placeholder','route','name','profile'));
     }
 
@@ -104,7 +104,7 @@ class EditController extends Controller
         $placeholder = 'New Password';
         $route = 'change-password';
         $name = 'password';
-        $profile = User::where('id', Auth::user()->id)->first();
+        $profile = Auth::user();
         return view('rapha.user.edit', compact('header','placeholder','route','name','profile'));
     }
 
