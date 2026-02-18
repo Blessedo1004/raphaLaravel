@@ -105,21 +105,33 @@ class UserController extends Controller
             'number_of_rooms' => 'required|integer|min:1'
         ]);
 
+        return DB::transaction(function () use ($validatedData) {
+            $room = Room::where('id', $validatedData['room_id'])->lockForUpdate()->first();
 
-        $reservationID = Str::random(6);
-        $expiry = Carbon::parse($validatedData['check_in_date'])->addDay();
-        $user = Auth::user();
-        $userEmail = $user->email;
-        $validatedData['reservation_id'] = $reservationID;
-        $validatedData['expires_at'] = $expiry;
+            if ($room->getOriginal('availability') <= 0){
+                return back()->withErrors(['error' => 'Room is fully booked.',
+                 ]);
+            }
 
-        $reservation = PendingReservation::create($validatedData);
-        $room = Room::where('id', $validatedData['room_id'])->first();
-        $room->update(['availability' => $room->availability - $validatedData['number_of_rooms']]);
-        $reservation->load('room');
-        Mail::to($userEmail)->send(new ReservationEmail($reservation));
+            if ($room->getOriginal('availability') < $validatedData['number_of_rooms']){
+                return back()->withErrors(['error' => 'Not enough rooms available.',
+                 ]);
+            }
 
-        return redirect()->route('reservations')->with('reservationSuccess', 'Reservation made. Please check your email for reservation details.');
+            $reservationID = Str::random(6);
+            $expiry = Carbon::parse($validatedData['check_in_date'])->addDay();
+            $user = Auth::user();
+            $userEmail = $user->email;
+            $validatedData['reservation_id'] = $reservationID;
+            $validatedData['expires_at'] = $expiry;
+
+            $reservation = PendingReservation::create($validatedData);
+            $room->update(['availability' => $room->getOriginal('availability') - $validatedData['number_of_rooms']]);
+            $reservation->load('room');
+            Mail::to($userEmail)->send(new ReservationEmail($reservation));
+
+            return redirect()->route('reservations')->with('reservationSuccess', 'Reservation made. Please check your email for reservation details.');
+        });
     }
 
     //show write review page

@@ -33,7 +33,7 @@ class CleanExpiredPendingReservations extends Command
             ->chunkById(100, function ($expiredReservations) use (&$deletedCount) {
                 foreach ($expiredReservations as $reservation) {
                     if ($reservation->room) {
-                        $reservation->room->availability += $reservation->number_of_rooms;
+                        $reservation->room->availability = $reservation->room->getOriginal('availability') + $reservation->number_of_rooms;
                         $reservation->room->save();
                     }
 

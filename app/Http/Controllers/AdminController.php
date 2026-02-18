@@ -193,7 +193,7 @@ class AdminController extends Controller
         ]);
 
         $room = Room::where('id', $checkout->room_id)->first();
-        $room->update(['availability' => $room->availability + $checkout->number_of_rooms]);
+        $room->update(['availability' => $room->getOriginal('availability') + $checkout->number_of_rooms]);
         $checkout->delete();
         return redirect()->route('admin-completed-reservations')->with('checkoutSuccess', 'Check Out Successful');
     }

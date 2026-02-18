@@ -71,6 +71,13 @@
           <!-- Check-out Date ends -->
 
           <input type="submit" value="Make Reservation" class="btn reg_btn text-white mt-5 mx-auto d-block" id="makeReservationBtn">
+          @if($errors->any())
+            @foreach ($errors->all() as $error)
+              <div class="alert alert-danger col-8 col-md-6 col-lg-9 mt-3 text-center mb-5">
+                {{ $error }}
+              </div>
+            @endforeach
+          @endif
         </form>
         {{-- Reservation form ends --}}
         </div>

@@ -181,15 +181,15 @@ class EditController extends Controller
         
         //updates room availability is the new room is same as old room
         if ($oldRoomID === $validatedData['room_id']){
-            $room->update(['availability' => $room->availability - ($newNoOfRooms - $oldNoOfRooms)]);
+            $room->update(['availability' => $room->getOriginal('availability') - ($newNoOfRooms - $oldNoOfRooms)]);
             return redirect()->route('reservations')->with('reservationEditSuccess','Reservation Updated Successfully');
         }
 
         //updates room availability is the new room is different from old room
         else{
-            $room->update(['availability' => $room->availability +  $oldNoOfRooms]);
+            $room->update(['availability' => $room->getOriginal('availability') +  $oldNoOfRooms]);
             $newRoom = Room::where('id', $validatedData['room_id'])->first();
-            $newRoom->update(['availability' => $newRoom->availability -  $newNoOfRooms]);
+            $newRoom->update(['availability' => $newRoom->getOriginal('availability') -  $newNoOfRooms]);
             return redirect()->route('reservations')->with('reservationEditSuccess','Reservation Updated Successfully');
         }
         
@@ -200,7 +200,7 @@ class EditController extends Controller
     // delete reservation
     public function deleteReservation (PendingReservation $reservation){
          $room = Room::where('id', $reservation->room_id)->first();
-        $room->update(['availability' => $room->availability + $reservation->number_of_rooms]);
+        $room->update(['availability' => $room->getOriginal('availability') + $reservation->number_of_rooms]);
         $reservation->delete();
         return redirect()->route('reservations')->with('reservationDeleteSuccess','Reservation Deleted Successfully');
     }
