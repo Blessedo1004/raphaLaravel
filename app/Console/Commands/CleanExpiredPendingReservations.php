@@ -28,12 +28,13 @@ class CleanExpiredPendingReservations extends Command
      */
     public function handle()
     {
+        $deletedCount = 0;
         PendingReservation::with('room')
             ->where('expires_at', '<', Carbon::now())
             ->chunkById(100, function ($expiredReservations) use (&$deletedCount) {
                 foreach ($expiredReservations as $reservation) {
                     if ($reservation->room) {
-                        $reservation->room->availability = $reservation->room->getOriginal('availability') + $reservation->number_of_rooms;
+                        $reservation->room->availability = (int)$reservation->room->getAttributes()['availability'] + $reservation->number_of_rooms;
                         $reservation->room->save();
                     }
 
