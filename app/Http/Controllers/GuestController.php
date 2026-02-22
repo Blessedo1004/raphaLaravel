@@ -8,8 +8,8 @@ class GuestController extends Controller
 {
 
     public function home(){
-      $reviews =  Review::withoutGlobalScope('user')->limit(5)->orderBy('id', 'desc')->get();
-      $reviews->load('user','rating');
+      $reviews =  Review::withoutGlobalScope('user')->limit(5)->orderBy('id', 'desc')->get(['id','user_id','rating_id','content']);
+      $reviews->load('user:id,first_name,last_name','rating:id,rating_photo');
         return view('rapha.home', compact('reviews'));
     }
 
