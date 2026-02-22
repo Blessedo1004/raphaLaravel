@@ -24,7 +24,7 @@ class UserController extends Controller
 
     //show make reservation page
     public function showMakeReservation($selectedRoom = null){
-        $rooms = Room::orderBy('name')->get();
+        $rooms = Room::orderBy('name')->get(['id','name','guest_number']);
         $selectedRoom = $selectedRoom ? $selectedRoom : null;
         return view('rapha.user.make-reservation', compact('rooms', 'selectedRoom'));
     }
@@ -72,8 +72,8 @@ class UserController extends Controller
         $pendingEdit = $request->session()->get('pendingEdit');
         $pendingDelete = $request->session()->get('pendingDelete');
         $route = "pending";
-        $reservations = PendingReservation::orderBy('id', 'desc')->paginate(10)->onEachSide(0);
-        $rooms = Room::all();
+        $reservations = PendingReservation::with('room:id,name')->select('id','room_id','created_at')->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
+        $rooms = Room::orderBy('name')->get(['id','name']);
         return view('rapha.user.reservations', compact('reservations','details', 'pendingEdit', 'rooms','route','pendingDelete'));
     }
 
@@ -81,7 +81,7 @@ class UserController extends Controller
     public function showActiveReservations(Request $request){
         $details = $request->session()->get('details');
         $route = "active";
-        $reservations = ActiveReservation::orderBy('id', 'desc')->paginate(10)->onEachSide(0);
+        $reservations = ActiveReservation::with('room:id,name')->select('id','room_id','created_at')->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
         return view('rapha.user.reservations', compact('reservations','details','route'));
     }
 
@@ -90,7 +90,7 @@ class UserController extends Controller
     public function showCompletedReservations(Request $request){
         $details = $request->session()->get('details');
         $route = "completed";
-        $reservations = CompletedReservation::orderBy('id', 'desc')->paginate(10)->onEachSide(0);
+        $reservations = CompletedReservation::with('room:id,name')->select('id','room_id','created_at')->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
         return view('rapha.user.reservations', compact('reservations','details','route'));
     }
 

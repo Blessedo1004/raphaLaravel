@@ -110,7 +110,7 @@ class AdminController extends Controller
     }
     //show all pending reservations
      public function showAllPendingReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->with(['user','room'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
+        $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
         $details = $request->session()->get('details');
         $route = "admin-pending";
         $searchWildcard = 'PendingReservation';
@@ -119,7 +119,7 @@ class AdminController extends Controller
 
     //show all active reservations
     public function showAllActiveReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ??  ActiveReservation::withoutGlobalScope('user')->with(['user','room'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
+        $reservations = $request->session()->get('reservations') ??  ActiveReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
         $details = $request->session()->get('details');
         $route = "admin-active";
         $searchWildcard = 'ActiveReservation';
@@ -128,7 +128,7 @@ class AdminController extends Controller
 
     //show all completed reservations
     public function showAllCompletedReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ?? CompletedReservation::withoutGlobalScope('user')->with(['user','room'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
+        $reservations = $request->session()->get('reservations') ?? CompletedReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
         $details = $request->session()->get('details');
         $route = "admin-completed";
         $searchWildcard = 'CompletedReservation';
