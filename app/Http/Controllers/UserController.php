@@ -13,7 +13,9 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationEmail;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -164,7 +166,10 @@ class UserController extends Controller
 
     //show user profile
     public function showProfile(){
-        $profile = Auth::user();;
+        $userID = Auth::id();
+        $profile =  Cache::remember("user_profile_{$userID}", now()->addMinutes(15), function () use ($userID) {
+            return User::findOrFail($userID);
+        });
         session()->flash('edit_form', true);
         return view('rapha.user.profile', compact('profile'));
     }

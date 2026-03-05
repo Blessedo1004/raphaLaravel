@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Room;
 use App\Models\Review;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -137,7 +139,10 @@ class AdminController extends Controller
 
     //show admin user profile
     public function showAdminProfile(){
-        $profile = Auth::user();
+        $userID = Auth::id();
+        $profile =  Cache::remember("user_profile_{$userID}", now()->addMinutes(15), function () use ($userID) {
+            return User::findOrFail($userID);
+        });
         session()->flash('edit_form', true);
         return view('rapha.admin.profile', compact('profile'));
     }

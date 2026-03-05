@@ -9,6 +9,8 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Pagination\Paginator;
+use App\Models\User;
+use App\Observers\UserObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,10 +27,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        //Uses bootstrap for pagination
         Paginator::useBootstrap();
+
+        // Register the UserObserver to handle cache invalidation
+        User::observe(UserObserver::class);
         
+        // Register the LayoutComposer for the user layout
         View::composer('components.user-layout', LayoutComposer::class);
 
+        // Define rate limiters for authentication and general actions
         RateLimiter::for('auth', function (Request $request) {
             return Limit::perMinutes(2,5)->by($request->ip());
         });
