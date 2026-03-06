@@ -10,6 +10,7 @@
 
             let myChart = null;
 
+         // Disable button until both dates are selected   
             function toggleButton() {
                 if (startingDate.value && endingDate.value) {
                     fetchAnalyticsButton.disabled = false;
@@ -24,6 +25,7 @@
                 endingDate.addEventListener('change', toggleButton);
             }
 
+            // Handle form submission
             analyticsForm.addEventListener('submit', async (e)=>{
                 e.preventDefault()
                 const formData = new FormData(e.target)
@@ -46,6 +48,7 @@
                 throw new Error(`Network response was not ok, status: ${response.status}`);
             }
 
+            //display data
                 const data = await response.json();
                 if (data && data.length > 0) {
                     let tableHtml = '<div class="col-9 mx-auto d-block mt-4"><table class="table table-bordered fade-in"><thead><tr><th>Room Name</th><th>Completed Reservations</th></tr></thead><tbody>';

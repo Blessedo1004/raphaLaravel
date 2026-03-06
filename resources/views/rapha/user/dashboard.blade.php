@@ -61,7 +61,7 @@
           </div>
         @endforeach
       @endif
-      <h6 class="text-center"><a href="{{ route('admin-reservations') }}" class="url">View All Reservations</a></h6>
+      <h6 class="text-center"><a href="{{ route('reservations') }}" class="url">View All Reservations</a></h6>
       </div>
     </div>
   </x-slot>
