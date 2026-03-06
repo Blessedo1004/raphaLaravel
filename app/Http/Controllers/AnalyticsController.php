@@ -7,94 +7,24 @@ use App\Models\CompletedReservation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Room;
+use Carbon\Carbon;
 
 class AnalyticsController extends Controller
 {
-    //show selected year analytics
-    public function roomYearlyAnalytics($year)
-    { 
-        if(Auth::user()->role ==="admin"){
-              $allBookedRooms = CompletedReservation::withoutGlobalScope('user')
-            ->whereYear('created_at', $year)
-            ->select('room_id', DB::raw('count(*) as bookings_count'))
-            ->groupBy('room_id')
-            ->orderByDesc('bookings_count')
-            ->get();
-        }    
 
-        else{
-             $allBookedRooms = CompletedReservation::whereYear('created_at', $year)
-            ->select('room_id', DB::raw('count(*) as bookings_count'))
-            ->groupBy('room_id')
-            ->orderByDesc('bookings_count')
-            ->get();
-        }
-
-        if ($allBookedRooms->isEmpty()) {
-            return response()->json([]);
-        }
-        
-        
-        $roomIds = $allBookedRooms->pluck('room_id');
-        $rooms = Room::find($roomIds)->keyBy('id');
-
-        $result = $allBookedRooms->map(function ($bookedRoom) use ($rooms) {
-            $room = $rooms->get($bookedRoom->room_id);
-            return [
-                'room_name' => $room ? $room->name : 'Unknown Room',
-                'bookings_count' => $bookedRoom->bookings_count,
-            ];
-        });
-
-        return response()->json($result);
-    }
-
-    //show analytics of searched room
-    public function getRoomYearlyAnalyticsSearch(Request $request){
+    //show analytics 
+    public function getRoomAnalytics (Request $request){
         $validatedData = $request->validate([
-            'year' => 'required|integer',
-            'search' => 'required|string'
+            "startingDate" => "required|date",
+            "endingDate" => 'required|date|after_or_equal:startingDate'
         ]);
 
-        $year = $validatedData['year'];
-        $search = $validatedData['search'];
-
-        $room = Room::where('name', $search)->first();
-
-        if (!$room) {
-            return response()->json(["room" => $search, "count" => 0]);
-        }
-
-        if(Auth::user()->role ==="admin"){
-            $count = CompletedReservation::withoutGlobalScope('user')
-                ->whereYear('created_at', $year)
-                ->where("room_id", $room->id)
-                ->count();
-        }
-
-        else{
-            $count = CompletedReservation::whereYear('created_at', $year)
-                ->where("room_id", $room->id)
-                ->count();
-        }
-        return response()->json(["room" => $search, "count" => $count]);
-
-    }
-
-    //show monthly analytics of all rooms
-    public function getRoomMonthlyAnalytics (Request $request){
-        $validatedData = $request->validate([
-            "year" => "required|integer",
-            "month" => 'required|integer'
-        ]);
-
-        $year = $validatedData["year"];
-        $month = $validatedData["month"];
+        $startingDate = Carbon::parse($validatedData["startingDate"]);
+        $endingDate = Carbon::parse($validatedData["endingDate"]);
 
             if(Auth::user()->role ==="admin"){
              $allBookedRooms = CompletedReservation::withoutGlobalScope('user')
-            ->whereYear('created_at', $year)
-            ->whereMonth('created_at', $month)
+            ->whereBetween('created_at', [$startingDate->copy()->startOfDay(), $endingDate->copy()->endOfDay()])
             ->select('room_id', DB::raw('count(*) as bookings_count'))
             ->groupBy('room_id')
             ->orderByDesc('bookings_count')
@@ -102,8 +32,7 @@ class AnalyticsController extends Controller
         }    
 
         else{
-             $allBookedRooms = CompletedReservation::whereYear('created_at', $year)
-            ->whereMonth('created_at', $month)
+             $allBookedRooms = CompletedReservation::whereBetween('created_at', [$startingDate->copy()->startOfDay(), $endingDate->copy()->endOfDay()])
             ->select('room_id', DB::raw('count(*) as bookings_count'))
             ->groupBy('room_id')
             ->orderByDesc('bookings_count')
@@ -129,7 +58,7 @@ class AnalyticsController extends Controller
         return response()->json($result);
     }
 
-    //show monthly analytics of searched room
+    //show analytics of searched room
     public function getRoomMonthlyAnalyticsSearch(Request $request){
         $validatedData = $request->validate([
             'year2' => 'required|integer',

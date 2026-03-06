@@ -33,38 +33,16 @@ class UserController extends Controller
 
     //show user dashboard
      public function showDashboard(){
-        $pending = PendingReservation::get()->count();
-        $active = ActiveReservation::get()->count();
-        $completed = CompletedReservation::get()->count();
-        $currentYear = date('Y');
-        $driver = DB::connection()->getDriverName();
-        $yearExpression = ($driver === 'sqlite')
-            ? "strftime('%Y', created_at)"
-            : "YEAR(created_at)";
-
-        $years = CompletedReservation::select(DB::raw("{$yearExpression} as year"))
-            ->distinct()
-            ->orderBy('year', 'DESC')
-            ->pluck('year')
-            ->toArray();
-        return view('rapha.user.dashboard', compact('pending', 'active', 'completed', 'years', 'currentYear'));
+        $pending = PendingReservation::count();
+        $active = ActiveReservation::count();
+        $completed = CompletedReservation::count();
+        $latestPendingReservations = PendingReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id')->limit(5)->get();
+        return view('rapha.user.dashboard', compact('pending', 'active', 'completed', 'latestPendingReservations'));
     }
 
-    //show user monthly analytics page
-        public function showUserMonthlyAnalytics(){
-        $currentYear = date('Y');
-        $driver = DB::connection()->getDriverName();
-        $yearExpression = ($driver === 'sqlite')
-            ? "strftime('%Y', created_at)"
-            : "YEAR(created_at)";
-
-        $years = CompletedReservation::withoutGlobalScope('user')
-            ->select(DB::raw("{$yearExpression} as year"))
-            ->distinct()
-            ->orderBy('year', 'DESC')
-            ->pluck('year')
-            ->toArray();
-        return view('rapha.user.monthly-analytics', compact('years', 'currentYear'));
+    //show user analytics page
+        public function showUserAnalytics(){
+        return view('rapha.user.analytics');
     }
 
 

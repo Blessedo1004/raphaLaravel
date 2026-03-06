@@ -29,45 +29,39 @@
     </div>
     </div>
 
-        <div class="container">
-      <div class="row">
-        <h2 class="text-center mt-5"><strong>Yearly Analytics</strong></h2>
-
-        <div class="form-group">
-          <div class="year_selection">
-              <label for="years"><h5>Year:</h5></label>
-              <select id="years" name="year" class="mt-2">
-                  <option value="" selected disabled>Choose a year</option>
-                    @foreach ($years as $year)
-                      <option value="{{ $year }}" {{ $year == old('year') || ($currentYear && $year == $currentYear) ? 'selected' : '' }}>{{$year}}</option>
-                    @endforeach
-                </select>
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+         <h2 class="text-center mt-5"><strong>Latest Pending Reservations</strong></h2>
+       @if($latestPendingReservations->isEmpty())
+        <h4 class="text-center mt-4">No reservations found</h4>
+      @else
+        @foreach ($latestPendingReservations->groupBy(function($reservation) {
+            return $reservation->created_at->format('Y-m-d');
+        }) as $date => $reservationsOnDate)
+        <div class="col-12 col-lg-10 bg-light mt-3">
+          <h3 class="text-center mt-5 date_heading">
+            @if(Carbon\Carbon::parse($date)->isToday())
+              Today
+            @elseif(Carbon\Carbon::parse($date)->isYesterday())
+              Yesterday
+            @else
+              {{ Carbon\Carbon::parse($date)->format('F j, Y') }}
+            @endif
+          </h3>
+          @foreach ($reservationsOnDate as $reservation)
+            <div class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2 mb-3">
+                <div class="row justify-content-center">
+                  <h5 class="col-12 col-sm-6 col-xl-4 text-center text-md-start">{{$reservation->user->last_name . " " . $reservation->user->first_name }}</h5>
+                  <h5 class="col-12 col-sm-6 col-xl-4 text-center text-md-start">{{$reservation->room->name}}</h5>
+                </div>
+                
+                <h6 class="mt-2 text-center">{{$reservation->created_at->format('g:i A')}}</h6>
+              </div>
+          @endforeach
           </div>
-
-        </div>
-
-         <form id="roomAnalytics" method="post">
-          @csrf
-          <input type="hidden" name="year" id="year">
-            <div class="col-11 col-sm-8 mt-4 mx-auto d-block">
-              <div class="input-group my-4" id="roomSearch">
-                <input 
-                type="text" 
-                id="roomAnalyticsSearch" 
-                name="search" 
-                value=""
-                class="bg-white form-control"
-                placeholder="Type room name..."
-              >
-              <input type="submit" class="btn reg_btn text-light input-group-text" value="Search">
-             </div>
-            </div> 
-        </form>
-
-        <div class="search_error text-danger text-center"></div>
-
-        <div class="col-12 text-center mt-3" id="analyticsTable"></div>
-
+        @endforeach
+      @endif
+      <h6 class="text-center"><a href="{{ route('admin-reservations') }}" class="url">View All Reservations</a></h6>
       </div>
     </div>
   </x-slot>

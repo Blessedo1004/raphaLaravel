@@ -17,39 +17,17 @@ class AdminController extends Controller
 {
     //show admin dashboard
     public function showAdminDashboard(){
-        $pending = PendingReservation::withoutGlobalScope('user')->get()->count();
-        $active = ActiveReservation::withoutGlobalScope('user')->get()->count();
-        $completed = CompletedReservation::withoutGlobalScope('user')->get()->count();
-        $currentYear = date('Y');
-        $driver = DB::connection()->getDriverName();
-        $yearExpression = ($driver === 'sqlite')
-            ? "strftime('%Y', created_at)"
-            : "YEAR(created_at)";
-
-        $years = CompletedReservation::withoutGlobalScope('user')
-            ->select(DB::raw("{$yearExpression} as year"))
-            ->distinct()
-            ->orderBy('year', 'DESC')
-            ->pluck('year')
-            ->toArray();
-        return view('rapha.admin.dashboard', compact('pending', 'active', 'completed', 'years', 'currentYear'));
+        $pending = PendingReservation::withoutGlobalScope('user')->count();
+        $active = ActiveReservation::withoutGlobalScope('user')->count();
+        $completed = CompletedReservation::withoutGlobalScope('user')->count();
+        $users = User::where('role','regular')->count();
+        $latestPendingReservations = PendingReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id')->limit(5)->get();
+        return view('rapha.admin.dashboard', compact('pending', 'active', 'completed','users','latestPendingReservations'));
     }
 
-    //show admin monthly analytics page
-    public function showAdminMonthlyAnalytics(){
-        $currentYear = date('Y');
-        $driver = DB::connection()->getDriverName();
-        $yearExpression = ($driver === 'sqlite')
-            ? "strftime('%Y', created_at)"
-            : "YEAR(created_at)";
-
-        $years = CompletedReservation::withoutGlobalScope('user')
-            ->select(DB::raw("{$yearExpression} as year"))
-            ->distinct()
-            ->orderBy('year', 'DESC')
-            ->pluck('year')
-            ->toArray();
-        return view('rapha.admin.monthly-analytics', compact('years', 'currentYear'));
+    //show admin analytics page
+    public function showAdminAnalytics(){
+        return view('rapha.admin.analytics');
     }
 
     //show all rooms

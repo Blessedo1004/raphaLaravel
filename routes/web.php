@@ -120,7 +120,7 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
     Route::get('/notifications','showNotifications')->name('user-notifications');
     Route::get('/notifications/mark-as-read/{id}','markAsRead')->name('user-mark-as-read');
     Route::get('/notifications/mark-all-as-read','markAllAsRead')->name('user-mark-all-as-read');
-    Route::get('/monthly-analytics','showUserMonthlyAnalytics')->name('user-analytics');
+    Route::get('/analytics','showUserAnalytics')->name('user-analytics');
     });
 
     
@@ -154,7 +154,7 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
             Route::get('/checkout/{checkout}', 'checkOut')->name('checkout');
             Route::get('/search/{search}', 'search')->name('search');
         });
-        Route::get('/monthly-analytics','showAdminMonthlyAnalytics')->name('admin-analytics');
+        Route::get('/analytics','showAdminAnalytics')->name('admin-analytics');
         Route::get('/profile','showAdminProfile')->name('admin-profile');
         Route::get('/notifications','showNotifications')->name('admin-notifications');
         Route::get('/notifications/mark-as-read/{id}','markAsRead')->name('admin-mark-as-read');
@@ -171,10 +171,8 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
 //Analytics route
 Route::group(['middleware'=>['auth','cache.headers:no_store,private']],function(){
     Route::controller(AnalyticsController::class)->group(function(){
-        Route::get('/year/{year}', 'roomYearlyAnalytics')->name('room-yearly-analytics');
-        Route::post('/roomYearlyAnalyticsSearch', 'getRoomYearlyAnalyticsSearch')->name('yearly-room-analytics-search');
-        Route::post('/roomMonthlyAnalytics', 'getRoomMonthlyAnalytics')->name('monthly-room-analytics');
-        Route::post('/roomMonthlyAnalyticsSearch', 'getRoomMonthlyAnalyticsSearch')->name('monthly-room-analytics-search');
+        Route::post('/roomAnalytics', 'getRoomAnalytics')->name('room-analytics');
+        Route::post('/roomAnalyticsSearch', 'getRoomAnalyticsSearch')->name('room-analytics-search');
     });
 });
     
