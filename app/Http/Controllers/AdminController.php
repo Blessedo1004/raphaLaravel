@@ -12,6 +12,7 @@ use App\Models\Review;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use App\Models\User;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -52,42 +53,31 @@ class AdminController extends Controller
 
     //show clients reviews
     public function showClientReviews(){
-        $currentYear = date('Y');
-        $driver = DB::connection()->getDriverName();
-        $yearExpression = ($driver === 'sqlite')
-            ? "strftime('%Y', created_at)"
-            : "YEAR(created_at)";
-
-        $years = CompletedReservation::withoutGlobalScope('user')
-            ->select(DB::raw("{$yearExpression} as year"))
-            ->distinct()
-            ->orderBy('year', 'DESC')
-            ->pluck('year')
-            ->toArray();
         $reviews = Review::withoutGlobalScope('user')->with('rating')->paginate(10)->onEachSide(0);
-        return view('rapha.admin.client-reviews', compact('reviews', 'years', 'currentYear'));
+        return view('rapha.admin.client-reviews', compact('reviews'));
     }
 
     //show filtered clients reviews
     public function showFilteredClientReviews(Request $request){
         $validatedData = $request->validate([
-            "year" => "required|integer",
-            "month" => "required|integer",
+            "startingDate" => "required|date",
+            "endingDate" => "required|date|after_or_equal:startingDate",
             "rating" => "required|string"
         ]);
 
-        $year = $validatedData["year"];
-        $month = $validatedData["month"];
+        $startingDate = Carbon::parse($validatedData["startingDate"]);
+        $endingDate = Carbon::parse($validatedData["endingDate"]);
         $rating = $validatedData["rating"];
 
         if ($rating === "all"){
-            $reviews = Review::withoutGlobalScope('user')->whereYear("created_at", $year)->whereMonth("created_at", $month)->with('rating')->paginate(10)->onEachSide(0);
+            $reviews = Review::withoutGlobalScope('user')->whereBetween("created_at", [$startingDate->copy()->startOfDay(), $endingDate->copy()->endOfDay()])->with('rating')->paginate(10)->onEachSide(0);
             return response()->json($reviews);
         }
 
-        $reviews = Review::withoutGlobalScope('user')->whereYear("created_at", $year)->whereMonth("created_at", $month)->where("rating_id", $rating)->with('rating')->paginate(10)->onEachSide(0);
+        $reviews = Review::withoutGlobalScope('user')->whereBetween("created_at", [$startingDate->copy()->startOfDay(), $endingDate->copy()->endOfDay()])->where("rating_id", $rating)->with('rating')->paginate(10)->onEachSide(0);
         return response()->json($reviews);
     }
+    
     //show all pending reservations
      public function showAllPendingReservations(Request $request){
         $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);

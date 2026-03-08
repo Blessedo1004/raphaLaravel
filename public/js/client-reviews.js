@@ -1,8 +1,6 @@
 // Select all necessary elements from the DOM
-const yearSelect = document.querySelector('#yearSelect');
-const monthSelect = document.querySelector('#monthSelect');
-const hiddenYear = document.querySelector('#year');
-const hiddenMonth = document.querySelector('#month');
+const startingDateInput = document.querySelector('#startingDate');
+const endingDateInput = document.querySelector('#endingDate');
 const filterClientReviews = document.querySelector('#filterClientReviews');
 const clientReviewsForm = document.querySelector('#client-reviews');
 const reviewDiv = document.querySelector('#reviews');
@@ -13,8 +11,8 @@ const reviewsTotal = document.querySelector('.reviews-total');
 // --- State Management ---
 // Global variable to store the current state of filters
 let currentFilterParams = {
-    year: '',
-    month: '',
+    startingDate: '',
+    endingDate: '',
     rating: 'all'
 };
 
@@ -27,35 +25,26 @@ if (allRadio) {
 
 // Function to enable/disable the filter button based on input
 function checkFilterData() {
-    if (filterClientReviews && hiddenYear && hiddenMonth) {
-        const isYearSelected = hiddenYear.value && hiddenYear.value.length > 0;
-        const isMonthSelected = hiddenMonth.value && hiddenMonth.value.length > 0;
-        filterClientReviews.disabled = !(isYearSelected && isMonthSelected);
+    if (filterClientReviews && startingDateInput && endingDateInput) {
+        const isStartingDateSelected = startingDateInput.value && startingDateInput.value.length > 0;
+        const isEndingDateSelected = endingDateInput.value && endingDateInput.value.length > 0;
+        filterClientReviews.disabled = !(isStartingDateSelected && isEndingDateSelected);
     }
 }
 
-// Set the initial value for the hidden year and month inputs from the dropdowns
-if (yearSelect && yearSelect.value && hiddenYear) {
-    hiddenYear.value = yearSelect.value;
-}
-if (monthSelect && monthSelect.value && hiddenMonth) {
-    hiddenMonth.value = monthSelect.value;
-}
 checkFilterData(); // Initial check on page load
 
 
 // --- Event Listeners ---
 
-if (yearSelect) {
-    yearSelect.addEventListener('change', () => {
-        if (hiddenYear) hiddenYear.value = yearSelect.value;
+if (startingDateInput) {
+    startingDateInput.addEventListener('change', () => {
         checkFilterData();
     });
 }
 
-if (monthSelect) {
-    monthSelect.addEventListener('change', () => {
-        if (hiddenMonth) hiddenMonth.value = monthSelect.value;
+if (endingDateInput) {
+    endingDateInput.addEventListener('change', () => {
         checkFilterData();
     });
 }
@@ -66,8 +55,8 @@ if (clientReviewsForm) {
         e.preventDefault(); // Prevent full page reload
 
         // Update the global filter state from the form inputs
-        currentFilterParams.year = hiddenYear ? hiddenYear.value : '';
-        currentFilterParams.month = hiddenMonth ? hiddenMonth.value : '';
+        currentFilterParams.startingDate = startingDateInput ? startingDateInput.value : '';
+        currentFilterParams.endingDate = endingDateInput ? endingDateInput.value : '';
         const selectedRating = clientReviewsForm.querySelector('input[name="rating"]:checked');
         currentFilterParams.rating = selectedRating ? selectedRating.value : 'all';
 

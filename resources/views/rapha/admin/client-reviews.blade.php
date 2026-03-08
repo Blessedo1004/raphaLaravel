@@ -4,43 +4,27 @@
     <div class="container mt-2">
       <div class="row">
         <h2 class="text-center mt-5 mb-5"><strong>Client Reviews</strong></h2>
-         <div class="form-group">
-          <div class="year_selection">
-              <label for="years"><h5>Year:</h5></label>
-              <select id="yearSelect" name="year" class="mt-2">
-                  <option value="" selected disabled>Choose a year</option>
-                    @foreach ($years as $year)
-                      <option value="{{ $year }}" {{ $year == old('year') || ($currentYear && $year == $currentYear) ? 'selected' : '' }}>{{$year}}</option>
-                    @endforeach
-                </select>
-          </div>
 
-        </div>
-
-         <div class="form-group">
-          <div class="month_selection">
-              <label for="months"><h5>Month:</h5></label>
-              <select id="monthSelect" name="month" class="mt-2">
-                  <option value="" selected disabled>Choose a month</option>
-                  @php
-                    $months = [
-                      1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April',
-                      5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August',
-                      9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December'
-                  ]; 
-                  @endphp
-                  @foreach ($months as $num =>$month)
-                      <option value="{{ $num }}">{{ $month }}</option>
-                  @endforeach
-              </select>
-          </div>
-
-        </div>
 
         <form id="client-reviews" method="post">
           @csrf
-          <input type="hidden" name="year" id="year">
-          <input type="hidden" name="month" id="month">
+          <div class="form-group">
+            <div class="d-flex justify-content-center gap-3">
+              <label for="startingDate"><h5>Starting Date:</h5></label>
+              <input type="date" name="startingDate" id="startingDate" class="form-control">
+            </div>
+
+          </div>
+
+         <div class="form-group">
+              <div class="d-flex justify-content-center mt-4 gap-3">
+                  <label for="endingDate"><h5>Ending Date:</h5></label>
+                  <input type="date" name="endingDate" id="endingDate" class="form-control">
+
+              </div>
+
+          </div>
+          
           <h5 class="text-center mt-4">Filter By:</h5>
           
           <div class="row d-flex justify-content-center">
