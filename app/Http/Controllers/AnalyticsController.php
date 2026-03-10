@@ -59,39 +59,39 @@ class AnalyticsController extends Controller
     }
 
     //show analytics of searched room
-    public function getRoomMonthlyAnalyticsSearch(Request $request){
-        $validatedData = $request->validate([
-            'year2' => 'required|integer',
-            'month2' => 'required|integer',
-            'search' => 'required|string'
-        ]);
+    // public function getRoomMonthlyAnalyticsSearch(Request $request){
+    //     $validatedData = $request->validate([
+    //         'year2' => 'required|integer',
+    //         'month2' => 'required|integer',
+    //         'search' => 'required|string'
+    //     ]);
 
-        $year = $validatedData['year2'];
-        $month = $validatedData['month2'];
-        $search = $validatedData['search'];
+    //     $year = $validatedData['year2'];
+    //     $month = $validatedData['month2'];
+    //     $search = $validatedData['search'];
 
-        $room = Room::where('name', $search)->first();
+    //     $room = Room::where('name', $search)->first();
 
-        if (!$room) {
-            return response()->json(["room" => $search, "count" => 0]);
-        }
+    //     if (!$room) {
+    //         return response()->json(["room" => $search, "count" => 0]);
+    //     }
 
-        if(Auth::user()->role ==="admin"){
-            $count = CompletedReservation::withoutGlobalScope('user')
-                ->whereYear('created_at', $year)
-                ->whereMonth('created_at', $month)
-                ->where("room_id", $room->id)
-                ->count();
-        }
+    //     if(Auth::user()->role ==="admin"){
+    //         $count = CompletedReservation::withoutGlobalScope('user')
+    //             ->whereYear('created_at', $year)
+    //             ->whereMonth('created_at', $month)
+    //             ->where("room_id", $room->id)
+    //             ->count();
+    //     }
 
-        else{
-            $count = CompletedReservation::whereYear('created_at', $year)
-                ->whereMonth('created_at', $month)
-                ->where("room_id", $room->id)
-                ->count();
-        }
-        return response()->json(["room" => $search, "count" => $count]);
+    //     else{
+    //         $count = CompletedReservation::whereYear('created_at', $year)
+    //             ->whereMonth('created_at', $month)
+    //             ->where("room_id", $room->id)
+    //             ->count();
+    //     }
+    //     return response()->json(["room" => $search, "count" => $count]);
 
-    }
+    // }
 
 }
