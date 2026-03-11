@@ -1,3 +1,4 @@
+import './bootstrap';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -248,3 +249,13 @@ window.addEventListener('pageshow', function(event) {
     window.location.reload();
   }
 });
+
+        window.Echo.channel('pending-reservation')
+        .listen('PendingReservationEvent', (e) => { 
+            console.log(e.message);
+        }) 
+
+        window.Echo.private(`private-pending-reservation.${window.userId}`)
+        .listen('PendingReservationEvent', (e) => { 
+            console.log(e.message);
+        })

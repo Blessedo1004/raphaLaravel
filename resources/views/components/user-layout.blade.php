@@ -186,6 +186,7 @@
 <!-- Delete account modal ends -->
  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
+         window.userId = {{ Auth::user()->id }};
         window.loginUrl = "{{ route('login') }}";
   </script>
   <script src="{{ asset('js/main.js') }}?v={{ filemtime(public_path('js/main.js')) }}"></script>

@@ -16,6 +16,7 @@ use App\Mail\ReservationEmail;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Events\PendingReservationEvent;
 
 class UserController extends Controller
 {
@@ -36,7 +37,7 @@ class UserController extends Controller
         $pending = PendingReservation::count();
         $active = ActiveReservation::count();
         $completed = CompletedReservation::count();
-        $latestPendingReservations = PendingReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id')->limit(5)->get();
+        $latestPendingReservations = PendingReservation::with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id','desc')->limit(5)->get();
         return view('rapha.user.dashboard', compact('pending', 'active', 'completed', 'latestPendingReservations'));
     }
 
@@ -101,14 +102,16 @@ class UserController extends Controller
             $reservationID = Str::random(6);
             $expiry = Carbon::parse($validatedData['check_in_date'])->addDay();
             $user = Auth::user();
+            $admin = User::where('role', 'admin')->first();
             $userEmail = $user->email;
             $validatedData['reservation_id'] = $reservationID;
             $validatedData['expires_at'] = $expiry;
 
             $reservation = PendingReservation::create($validatedData);
             $room->update(['availability' => $room->getOriginal('availability') - $validatedData['number_of_rooms']]);
-            $reservation->load('room');
+            $reservation->load('room','user');
             Mail::to($userEmail)->send(new ReservationEmail($reservation));
+            event(new PendingReservationEvent('New Reservation', $admin->id));
 
             return redirect()->route('reservations')->with('reservationSuccess', 'Reservation made. Please check your email for reservation details.');
         });

@@ -9,8 +9,9 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EditController;
 use App\Http\Controllers\AnalyticsController;
+use Illuminate\Support\Facades\Broadcast;
 
-
+Broadcast::routes();
 
 // guest routes starts
 Route::middleware('cache.headers:no_store,private')->controller(AuthController::class)->group(function(){

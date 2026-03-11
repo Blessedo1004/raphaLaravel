@@ -26,6 +26,7 @@
             }
 
             // Handle form submission
+          if (analyticsForm) {  
             analyticsForm.addEventListener('submit', async (e)=>{
                 e.preventDefault()
                 const formData = new FormData(e.target)
@@ -135,7 +136,7 @@
                      analyticsTable.innerText = `Couldn't fetch analytics data.`;
                      };
             })
-
+          }
 
     // //search
 
