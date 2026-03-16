@@ -241,7 +241,7 @@ xmark.addEventListener('click', ()=>{
           })
         }
     
-}); // This closes the DOMContentLoaded listener
+
 
 // Force reload on back/forward navigation to prevent bfcache issues
 window.addEventListener('pageshow', function(event) {
@@ -250,7 +250,7 @@ window.addEventListener('pageshow', function(event) {
   }
 });
 
-      let count = 0
+      let count;
       const broadcastDiv = document.querySelector('.broadcast-div')
         // window.Echo.channel('pending-reservation')
         // .listen('PendingReservationEvent', (e) => { 
@@ -259,12 +259,14 @@ window.addEventListener('pageshow', function(event) {
 
         window.Echo.private(`private-pending-reservation.${window.userId}`)
         .listen('PendingReservationEvent', (e) => { 
+          count = count || 0;
           count++
-            broadcastDiv.innerHTML = `          <div class="col-8 col-md-3 broadcast mx-auto d-block bg-light text-center py-2">
+            broadcastDiv.innerHTML = `<div class="col-8 col-md-3 broadcast mx-auto d-block bg-light text-center py-2">
                <h6>${count} ${e.message}</h6> 
           </div>`
         })
 
+        if (broadcastDiv){
         broadcastDiv.addEventListener('click', ()=>{
           fetch('/admin/reservations/pending-broadcast')
           .then(response => response.json())
@@ -342,6 +344,6 @@ window.addEventListener('pageshow', function(event) {
           broadcastDiv.innerHTML = ''
           count=0
         })
+      }
 
-
-        
+}); // This closes the DOMContentLoaded listener        
