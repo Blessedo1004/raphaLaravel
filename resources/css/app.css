@@ -11,6 +11,11 @@
 }
 
 /* styles*/
+.broadcast{
+  border: 1px solid #896d50;
+  border-radius:20px;
+  cursor: pointer;
+}
 textarea{
   resize: none;
 }

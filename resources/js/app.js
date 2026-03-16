@@ -250,12 +250,98 @@ window.addEventListener('pageshow', function(event) {
   }
 });
 
-        window.Echo.channel('pending-reservation')
-        .listen('PendingReservationEvent', (e) => { 
-            console.log(e.message);
-        }) 
+      let count = 0
+      const broadcastDiv = document.querySelector('.broadcast-div')
+        // window.Echo.channel('pending-reservation')
+        // .listen('PendingReservationEvent', (e) => { 
+        //     console.log(e.message);
+        // }) 
 
         window.Echo.private(`private-pending-reservation.${window.userId}`)
         .listen('PendingReservationEvent', (e) => { 
-            console.log(e.message);
+          count++
+            broadcastDiv.innerHTML = `          <div class="col-8 col-md-3 broadcast mx-auto d-block bg-light text-center py-2">
+               <h6>${count} ${e.message}</h6> 
+          </div>`
         })
+
+        broadcastDiv.addEventListener('click', ()=>{
+          fetch('/admin/reservations/pending-broadcast')
+          .then(response => response.json())
+          .then(data =>{
+              const container = document.getElementById('reservations-container');
+              if(!container) return;
+
+              const reservations = data.reservations.data;
+              const routeName = data.route; // e.g., "admin-pending"
+              
+              if(reservations.length === 0){
+                  container.innerHTML = '<h4 class="text-center mt-4">No reservations found</h4>';
+                  return;
+              }
+
+              // Group by date
+              const grouped = reservations.reduce((groups, res) => {
+                  const date = res.created_at.split('T')[0];
+                  if (!groups[date]) groups[date] = [];
+                  groups[date].push(res);
+                  return groups;
+              }, {});
+
+              let html = '';
+              const today = new Date().toISOString().split('T')[0];
+              const yesterday = new Date(Date.now() - 864e5).toISOString().split('T')[0];
+
+              for (const [date, resList] of Object.entries(grouped)) {
+                  let dateLabel = '';
+                  if(date === today) dateLabel = 'Today';
+                  else if(date === yesterday) dateLabel = 'Yesterday';
+                  else {
+                      const d = new Date(date);
+                      dateLabel = d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                  }
+
+                  html += `
+                    <div class="col-12 col-lg-10 bg-light mt-3 mx-auto d-block">
+                        <h3 class="text-center mt-5 date_heading">${dateLabel}</h3>
+                  `;
+
+                  resList.forEach(res => {
+                      const time = new Date(res.created_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                      
+                      // Construct URL manually based on routeName
+                      let url = '';
+                      if(routeName === 'admin-pending') url = `/admin/reservations/pending/${res.id}`;
+                      else if(routeName === 'admin-active') url = `/admin/reservations/active/${res.id}`;
+                      else if(routeName === 'admin-completed') url = `/admin/reservations/completed/${res.id}`;
+
+                      html += `
+                        <a href="${url}" class="text-black mx-auto d-block col-11 col-md-8 reservation_div mt-4 py-2 mb-3">
+                            <div class="row justify-content-center">
+                              <h5 class="col-12 col-sm-6 col-xl-4 text-center text-md-start">${res.user.last_name} ${res.user.first_name}</h5>
+                              <h5 class="col-12 col-sm-6 col-xl-4 text-center text-md-start">${res.room.name}</h5>
+                            </div>
+                            <h6 class="mt-2 text-center">${time}</h6>
+                        </a>
+                      `;
+                  });
+
+                  html += `</div>`;
+              }
+              
+              container.innerHTML = html;
+          })
+          .catch(error => {
+              console.error('Error fetching reservations:', error);
+              // Optionally display an error message to the user
+              const container = document.getElementById('reservations-container');
+              if (container) {
+                  container.innerHTML = '<h4 class="text-center mt-4 text-danger">Failed to load reservations. Please try again.</h4>';
+              }
+          })
+          broadcastDiv.innerHTML = ''
+          count=0
+        })
+
+
+        

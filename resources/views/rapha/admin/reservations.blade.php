@@ -14,6 +14,11 @@
           {{session('checkoutSuccess')}}
         </div>
       @endif
+      
+      <div class="broadcast-div">
+
+
+      </div>
       <div class="row justify-content-center">
         <div class="col-12 col-md-8 reservation_col">
           <div class="row justify-content-center">
@@ -49,13 +54,14 @@
         </form>
        </div>
       </div>
+      <div id="reservations-container">
       @if($reservations->isEmpty())
         <h4 class="text-center mt-4">No reservations found</h4>
       @else
         @foreach ($reservations->groupBy(function($reservation) {
             return $reservation->created_at->format('Y-m-d');
         }) as $date => $reservationsOnDate)
-        <div class="col-12 col-lg-10 bg-light mt-3">
+        <div class="col-12 col-lg-10 bg-light mt-3 mx-auto d-block">
           <h3 class="text-center mt-5 date_heading">
             @if(Carbon\Carbon::parse($date)->isToday())
               Today
@@ -81,6 +87,7 @@
             {{ $reservations->links() }}
         </div>
       @endif
+      </div>
         
         
       </div>

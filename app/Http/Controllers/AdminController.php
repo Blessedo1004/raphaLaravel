@@ -87,6 +87,16 @@ class AdminController extends Controller
         return view('rapha.admin.reservations', compact('reservations','details','route','searchWildcard'));
     }
 
+    //show all pending reservations (broadcast)
+     public function showAllPendingBroadcastReservations(Request $request){
+        $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
+        $route = "admin-pending";
+        return response()->json([
+            'reservations' => $reservations,
+            'route' => $route,
+        ]);
+    }
+
     //show all active reservations
     public function showAllActiveReservations(Request $request){
         $reservations = $request->session()->get('reservations') ??  ActiveReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);

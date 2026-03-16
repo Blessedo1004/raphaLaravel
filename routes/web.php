@@ -146,6 +146,7 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
         Route::get('/dashboard', 'showAdminDashboard')->name('admin-dashboard');
         Route::group(['prefix'=>'reservations'], function(){
             Route::get('/pending', 'showAllPendingReservations')->name('admin-reservations');
+            Route::get('/pending-broadcast', 'showAllPendingBroadcastReservations')->name('admin-broadcast-reservations');
             Route::get('/pending/{pending}','showPendingDetails')->name('admin-pending');
             Route::get('/active', 'showAllActiveReservations')->name('admin-active-reservations');
             Route::get('/active/{details}','showActiveDetails')->name('admin-active');
