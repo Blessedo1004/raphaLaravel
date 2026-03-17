@@ -67,7 +67,7 @@
                                         <div class="col-lg-6 text-center">
                                             <p class="slider-teaser mb-0">Discover the perfect blend of comfort and adventure at Rapha Hotel Short lets. Nestled in the heart of nature, it’s your gateway to unforgettable moments and the ultimate escape.</p>
                                                 <div class="spacer-30"></div>
-                                                <a class="btn-main mb10 mb-3" href="apartment.html">Discover Apartments</a>
+                                                <a class="btn-main mb10 mb-3" href="{{ route('room.apartment') }}">Discover Apartments</a>
                                         </div>
 
                                         <div class="spacer-single"></div>
