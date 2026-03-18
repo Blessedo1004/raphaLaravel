@@ -53,9 +53,10 @@ window.addEventListener('load', () => {
         if (resetCountdownValue === 0){
            document.querySelector('.resend_countdown').style.display="none"
             resendButton.disabled = false
+              clearInterval(resetCountDownInterval)
         }
      }
-        setInterval(resendCountdown,1000)
+        let resetCountDownInterval = setInterval(resendCountdown,1000)
     }
 
 //fade out alerts after 3 seconds
