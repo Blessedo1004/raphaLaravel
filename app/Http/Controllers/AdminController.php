@@ -22,7 +22,7 @@ class AdminController extends Controller
         $active = ActiveReservation::withoutGlobalScope('user')->count();
         $completed = CompletedReservation::withoutGlobalScope('user')->count();
         $users = User::where('role','regular')->count();
-        $latestPendingReservations = PendingReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id')->limit(5)->get();
+        $latestPendingReservations = PendingReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id', 'desc')->limit(5)->get();
         return view('rapha.admin.dashboard', compact('pending', 'active', 'completed','users','latestPendingReservations'));
     }
 
