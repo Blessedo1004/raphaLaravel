@@ -72,7 +72,7 @@ setTimeout(() => {
   }
 }, 3000);
 
-    // user profile navigation display
+    // navigation display on smaller screens
     const bars = document.querySelector('.fa-bars');
     const xmark = document.querySelector('.fa-xmark');
 
