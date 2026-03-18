@@ -1,61 +1,89 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Room Reservation System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A full-featured room reservation system built with Laravel, SQLite, Bootstrap 5, and Vanilla JavaScript, designed to simulate real-world booking workflows with role-based access control, analytics, caching, and real-time notifications.
 
-## About Laravel
+🚀 Features
+👤 User Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Create and manage reservations (pending, active, completed)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+View latest pending reservations (limited to 5) on the dashboard
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Analyze reservations by selecting a custom date range
 
-## Learning Laravel
+View analytics using both table and bar chart
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Write and manage reviews
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Receive checkout notifications via email
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+🛠️ Admin Features
 
-## Laravel Sponsors
+View latest pending reservations across all users (limited to 5)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+View total number of registered users from the dashboard
 
-### Premium Partners
+Manage all reservations (check-in / check-out)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Receive real-time alerts for new reservations
 
-## Contributing
+Access system-wide analytics using custom date ranges (table + bar chart)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Filter and manage user reviews (by date and rating)
 
-## Code of Conduct
+📊 Analytics
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Analyze reservation data by selecting a start date and end date
 
-## Security Vulnerabilities
+Interactive data visualization with table and bar chart views
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Visualization powered by Chart.js
 
-## License
+⚡ Performance Optimization
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Implemented caching using Redis to improve performance and reduce database load
+
+Optimized frequently accessed data (e.g., dashboard insights, analytics queries)
+
+🔔 Notifications
+Real-time Notifications
+
+Implemented using Laravel Reverb
+
+Admins receive instant alerts when new reservations are made
+
+Clicking the alert loads the latest pending reservations
+
+Email Notifications
+
+Reservation checkout updates sent via Resend
+
+🧱 Tech Stack
+
+Backend: Laravel
+
+Database: SQLite
+
+Frontend: Bootstrap 5, Vanilla JavaScript
+
+Caching: Redis
+
+Real-time: Laravel Reverb
+
+Mailing: Resend
+
+Charts: Chart.js
+
+📌 Recent Improvements
+
+Added dashboard view for latest pending reservations (users & admins)
+
+Implemented date-range-based analytics (table + chart)
+
+Introduced real-time admin alerts using Laravel Reverb
+
+Integrated Redis caching for performance optimization
+
+Added email notifications using Resend
+
+Improved dashboard insights (including total users count)
