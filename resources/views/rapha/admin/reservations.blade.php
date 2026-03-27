@@ -83,9 +83,11 @@
           @endforeach
           </div>
         @endforeach
+        @if(method_exists($reservations, 'links'))
         <div class="d-flex justify-content-center mt-4">
             {{ $reservations->links() }}
         </div>
+        @endif
       @endif
       </div>
         
