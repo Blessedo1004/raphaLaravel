@@ -25,15 +25,6 @@
                         
               @endforeach
             @endif
-
-            @if(session('emailFailed'))
-              <div class="alert alert-danger mt-3">
-                  {{ session('failed') }}
-              </div>
-              
-            @endif
-            
-
             <input type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" value="Check Email">
           </form>
          

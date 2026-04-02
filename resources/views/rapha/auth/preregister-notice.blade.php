@@ -43,7 +43,7 @@
           {{-- resend button--}}
           <form action="{{ route('preregister.resend.submit') }}" method="POST">
             @csrf
-            <input type="hidden" name="email" value="{{ old('email', $email ?? '') }}">
+            <input type="hidden" name="email" value="{{ $email }}">
             <button type="submit" class="btn mt-4 reg_btn text-light mx-auto d-block" id="resendCodeButton" disabled>Resend Code <span class="resend_countdown">(<span class="resend_countdown_value">59</span>)</span></button>
             @if(session('resendSuccess'))
               <div class="alert alert-success mt-3">
