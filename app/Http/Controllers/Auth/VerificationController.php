@@ -15,7 +15,7 @@ class VerificationController extends Controller
     // show preregister notice
 
     public function showPreregisterNotice(Request $request){
-        $email = $request->session()->get('prereg_email');
+        $email = $request->session()->get('email');
         return view('rapha.auth.preregister-notice', compact('email'));
     }
 
