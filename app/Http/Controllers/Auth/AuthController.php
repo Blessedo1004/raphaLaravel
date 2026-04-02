@@ -71,7 +71,7 @@ class AuthController extends Controller
         session()->flash('show_preregister_notice', true);
         
 
-        return redirect()->route('preregister.notice')->with('prereg_email', $userData['email']);
+        return redirect()->route('preregister.notice')->with('email', $userData['email']);
         
     }
 
