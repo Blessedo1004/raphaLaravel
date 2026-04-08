@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <title>{{ $title ?? 'Rapha Hotel' }}</title>
-    <meta name="description" content="{{ $metaDescription ?? 'Welcome to Rapha Hotel, a luxurious hotel in the heart of the city. We offer a wide range of rooms and suites, as well as a variety of amenities to make your stay as comfortable as possible.' }}">
+    <meta name="description" content="{{ $description ?? 'Welcome to Rapha Hotel, a luxurious hotel in the heart of the city. We offer a wide range of rooms and suites, as well as a variety of amenities to make your stay as comfortable as possible.' }}">
     <meta content="" name="keywords" >
     <meta content="" name="author" >
     <!-- CSS Files

@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EditController;
 use App\Http\Controllers\AnalyticsController;
 use Illuminate\Support\Facades\Broadcast;
+use App\Livewire\Signup;
 
 Broadcast::routes();
 
@@ -17,9 +18,11 @@ Broadcast::routes();
 Route::middleware('cache.headers:no_store,private')->controller(AuthController::class)->group(function(){
     Route::get('/login','showLogin')->name('login');
     Route::post('/login','login')->name('rapha.login')->middleware('throttle:auth');
-    Route::get('/signup','showSignUp')->name('rapha.signup');
-    Route::post('/signup','signUp')->name('rapha.signup.store')->middleware('throttle:auth');
+    // Route::get('/signup','showSignUp')->name('rapha.signup');
+    // Route::post('/signup','signUp')->name('rapha.signup.store')->middleware('throttle:auth');
 });
+
+    Route::get('/signup', Signup::class)->name('rapha.signup');
 
 Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 

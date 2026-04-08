@@ -14,7 +14,7 @@ class AddAdminSeeder extends Seeder
      */
     public function run(): void
     {
-            $user =  User::where('id',1);
+            $user =  User::where('id',2);
        $user->update([
         "role" =>"admin"
        ]);

@@ -26,18 +26,11 @@ showPassword.addEventListener('click',()=>{
 })
 }
 
-//adds margin top to form groups
-window.addEventListener('load', () => {
-  document.querySelectorAll('.form-group').forEach(formGroup=>{
-    formGroup.classList.add('mt-3')
-  })
-})
 
 //preloader
 window.addEventListener('load', () => {
   setTimeout(()=>{
     document.querySelector('.preloader').style.display="none"
-    document.querySelector('.content').style.display="block"
   }, 1500)
 })
 

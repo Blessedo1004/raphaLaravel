@@ -1,6 +1,6 @@
 Room Reservation System
 
-A full-featured room reservation system built with Laravel, SQLite, Bootstrap 5, and Vanilla JavaScript, designed to simulate real-world booking workflows with role-based access control, analytics, caching, and real-time notifications.
+A full-featured room reservation system built with Laravel, MySql, Bootstrap 5, Vanilla JavaScript, and Livewire, designed to simulate real-world booking workflows with role-based access control, analytics, caching, and real-time notifications.
 
 🚀 Features
 👤 User Features
@@ -64,7 +64,7 @@ Backend: Laravel
 
 Database: SQLite
 
-Frontend: Bootstrap 5, Vanilla JavaScript
+Frontend: Bootstrap 5, Vanilla JavaScript, Livewire
 
 Caching: Redis
 
@@ -87,3 +87,4 @@ Integrated Redis caching for performance optimization
 Added email notifications using Resend
 
 Improved dashboard insights (including total users count)
+Implemented Livewire for interactivity
