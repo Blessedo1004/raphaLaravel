@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RatingSeeder::class,
             RoomTableSeeder::class,
+            AddAdminSeeder::class,
         ]);
     }
 }
