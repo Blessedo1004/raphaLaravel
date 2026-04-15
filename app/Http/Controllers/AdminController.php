@@ -77,43 +77,6 @@ class AdminController extends Controller
         $reviews = Review::withoutGlobalScope('user')->whereBetween("created_at", [$startingDate->copy()->startOfDay(), $endingDate->copy()->endOfDay()])->where("rating_id", $rating)->with('rating')->paginate(10)->onEachSide(0);
         return response()->json($reviews);
     }
-    
-    //show all pending reservations
-     public function showAllPendingReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
-        $details = $request->session()->get('details');
-        $route = "admin-pending";
-        $searchWildcard = 'PendingReservation';
-        return view('rapha.admin.reservations', compact('reservations','details','route','searchWildcard'));
-    }
-
-    //show all pending reservations (broadcast)
-     public function showAllPendingBroadcastReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ??  PendingReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
-        $route = "admin-pending";
-        return response()->json([
-            'reservations' => $reservations,
-            'route' => $route,
-        ]);
-    }
-
-    //show all active reservations
-    public function showAllActiveReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ??  ActiveReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
-        $details = $request->session()->get('details');
-        $route = "admin-active";
-        $searchWildcard = 'ActiveReservation';
-        return view('rapha.admin.reservations', compact('reservations','details','route','searchWildcard'));
-    }
-
-    //show all completed reservations
-    public function showAllCompletedReservations(Request $request){
-        $reservations = $request->session()->get('reservations') ?? CompletedReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
-        $details = $request->session()->get('details');
-        $route = "admin-completed";
-        $searchWildcard = 'CompletedReservation';
-        return view('rapha.admin.reservations', compact('reservations','details','route','searchWildcard'));
-    }
 
     //show admin user profile
     public function showAdminProfile(){
@@ -123,74 +86,6 @@ class AdminController extends Controller
         });
         session()->flash('edit_form', true);
         return view('rapha.admin.profile', compact('profile'));
-    }
-
-    //show pending reservation details
-    public function showPendingDetails($details){
-        $details = PendingReservation::withoutGlobalScope('user')->findOrFail($details);
-        $details->load('room');
-        return back()->with('reservationModal','reservationDetails')->with('details',$details);
-    }
-
-    //show active reservation details
-     public function showActiveDetails($details){
-        $details = ActiveReservation::withoutGlobalScope('user')->findOrFail($details);
-        $details->load('room');
-        return back()->with('reservationModal','reservationDetails')->with('details',$details);
-    }
-
-    //show completed reservation details
-    public function showCompletedDetails($details){
-        $details = CompletedReservation::withoutGlobalScope('user')->findOrFail($details);
-        $details->load('room');
-        return back()->with('reservationModal','reservationDetails')->with('details',$details);
-    }
-
-    //checkin
-    public function checkIn($checkin){
-        $checkin = PendingReservation::withoutGlobalScope('user')->findOrFail($checkin);
-        ActiveReservation::create([
-            "user_id" => $checkin->user_id,
-            "room_id" => $checkin->room_id,
-            "check_in_date" => $checkin->check_in_date,
-            "check_out_date" => $checkin->check_out_date,
-            "reservation_id" => $checkin->reservation_id,
-            "number_of_rooms" => $checkin->number_of_rooms
-        ]);
-
-        $checkin->delete();
-
-        return redirect()->route('admin-active-reservations')->with('checkinSuccess', 'Check In Successful');
-    }
-
-    //checkout
-    public function checkout($checkout){
-        $checkout = ActiveReservation::withoutGlobalScope('user')->findOrFail($checkout);
-        CompletedReservation::create([
-            "user_id" => $checkout->user_id,
-            "room_id" => $checkout->room_id,
-            "check_in_date" => $checkout->check_in_date,
-            "check_out_date" => $checkout->check_out_date,
-            "reservation_id" => $checkout->reservation_id,
-            "number_of_rooms" => $checkout->number_of_rooms
-        ]);
-
-        $room = Room::where('id', $checkout->room_id)->first();
-        $room->update(['availability' => $room->getOriginal('availability') + $checkout->number_of_rooms]);
-        $checkout->delete();
-        return redirect()->route('admin-completed-reservations')->with('checkoutSuccess', 'Check Out Successful');
-    }
-
-    //search
-    public function search(Request $request, $search){
-        $searchterm = $request->search;
-        $modelClass = "App\\Models\\{$search}";
-        $reservations = $modelClass::withoutGlobalScope('user')
-            ->with('room')
-            ->where('reservation_id', 'like', "%{$searchterm}%")
-            ->orderBy('id', 'desc')->get();
-            
-       return back()->with('reservations',$reservations);
     }
 
     //show notifications

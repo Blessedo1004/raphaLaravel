@@ -22,7 +22,7 @@
 
             <input type="hidden" name="email" value="{{ old('email', $email ?? '') }}">
             
-            <input type="hidden" name="code" value="{{ old('code', $code ?? '') }}">
+            <input type="hidden" name="token" value="{{ old('token', $token ?? '') }}">
             
              {{-- Password --}}
                     <div class="form-group">

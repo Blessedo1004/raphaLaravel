@@ -9,6 +9,9 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EditController;
 use App\Http\Controllers\AnalyticsController;
+use App\Livewire\AdminActiveReservation;
+use App\Livewire\AdminPendingReservation;
+use App\Livewire\AdminCompletedReservation;
 use Illuminate\Support\Facades\Broadcast;
 use App\Livewire\Signup;
 
@@ -18,8 +21,6 @@ Broadcast::routes();
 Route::middleware('cache.headers:no_store,private')->controller(AuthController::class)->group(function(){
     Route::get('/login','showLogin')->name('login');
     Route::post('/login','login')->name('rapha.login')->middleware('throttle:auth');
-    // Route::get('/signup','showSignUp')->name('rapha.signup');
-    // Route::post('/signup','signUp')->name('rapha.signup.store')->middleware('throttle:auth');
 });
 
     Route::get('/signup', Signup::class)->name('rapha.signup');
@@ -147,18 +148,6 @@ Route::group(['middleware'=>['auth','can:manage-regular','cache.headers:no_store
 Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,private'],'prefix'=>'admin'],function(){
     Route::controller(AdminController::class)->group(function(){
         Route::get('/dashboard', 'showAdminDashboard')->name('admin-dashboard');
-        Route::group(['prefix'=>'reservations'], function(){
-            Route::get('/pending', 'showAllPendingReservations')->name('admin-reservations');
-            Route::get('/pending-broadcast', 'showAllPendingBroadcastReservations')->name('admin-broadcast-reservations');
-            Route::get('/pending/{pending}','showPendingDetails')->name('admin-pending');
-            Route::get('/active', 'showAllActiveReservations')->name('admin-active-reservations');
-            Route::get('/active/{details}','showActiveDetails')->name('admin-active');
-            Route::get('/completed', 'showAllCompletedReservations')->name('admin-completed-reservations');
-            Route::get('/completed/{details}','showCompletedDetails')->name('admin-completed');
-            Route::get('/checkin/{checkin}', 'checkIn')->name('checkin');
-            Route::get('/checkout/{checkout}', 'checkOut')->name('checkout');
-            Route::get('/search/{search}', 'search')->name('search');
-        });
         Route::get('/analytics','showAdminAnalytics')->name('admin-analytics');
         Route::get('/profile','showAdminProfile')->name('admin-profile');
         Route::get('/notifications','showNotifications')->name('admin-notifications');
@@ -170,6 +159,11 @@ Route::group(['middleware'=>['auth','can:manage-admin','cache.headers:no_store,p
         Route::get('/client-reviews','showClientReviews')->name('client-reviews'); 
         Route::post('/client-reviews','showFilteredClientReviews')->name('client-reviews.filter'); 
     });
+        Route::group(['prefix'=>'reservations'], function(){
+            Route::get('/pending', AdminPendingReservation::class)->name('admin-reservations');
+            Route::get('/active', AdminActiveReservation::class)->name('admin-active-reservations');
+            Route::get('/completed', AdminCompletedReservation::class)->name('admin-completed-reservations');
+        });
 });
 //admin routes ends
 

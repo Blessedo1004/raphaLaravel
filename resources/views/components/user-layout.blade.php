@@ -9,6 +9,7 @@
   <title>{{ $title }} </title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @livewireStyles
 </head>
 <body>
 @if(session('loginSuccess'))
@@ -186,7 +187,6 @@
 <!-- Delete account modal ends -->
  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-         window.userId = {{ Auth::user()->id }};
         window.loginUrl = "{{ route('login') }}";
   </script>
   <script src="{{ asset('js/main.js') }}?v={{ filemtime(public_path('js/main.js')) }}"></script>
@@ -197,5 +197,7 @@
     @if (Route::currentRouteName() === 'client-reviews')
       <script src="{{ asset('js/client-reviews.js') }}?v={{ filemtime(public_path('js/client-reviews.js')) }}"></script>
   @endif
+
+  @livewireScripts
 </body>
 </html>

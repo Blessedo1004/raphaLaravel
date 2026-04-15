@@ -31,17 +31,17 @@
       <div class="row justify-content-center">
         <div class="col-12 col-md-8 reservation_col">
           <div class="row justify-content-center">
-            <x-reservation-nav :activePage="Route::currentRouteName()" page="reservations">
-              Pending
-            </x-reservation-nav>
+            <a href="{{ route('reservations' ) }}" @class(['py-3 col-5 col-sm-4 btn reservation_nav', 'active2' => request()->routeIs('reservations')])>
+             Pending
+            </a>
               
-            <x-reservation-nav :activePage="Route::currentRouteName()" page="active-reservations">
-              Active
-            </x-reservation-nav>
+            <a href="{{ route('active-reservations' ) }}" @class(['py-3 col-5 col-sm-4 btn reservation_nav', 'active2' => request()->routeIs('active-reservations')])>
+             Active
+            </a>
 
-            <x-reservation-nav :activePage="Route::currentRouteName()" page="completed-reservations">
+            <a href="{{ route('completed-reservations' ) }}" @class(['py-3 col-5 col-sm-4 btn reservation_nav', 'active2' => request()->routeIs('completed-reservations')])>
               Completed
-            </x-reservation-nav>
+            </a>
           
         @if($route === "pending")
             <h6 class="text-center mt-5 text-danger col-sm-8 mx-auto d-block">Note: All pending reservations that haven't been cleared at the counter will expire 24 hours after the check-in-date (WAT). Please do well to visit the counter and check-in with your reservation details.</h6>

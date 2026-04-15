@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\ForgotPasswordEmail;
-
+use Illuminate\Support\Str;
 
 class ForgotPasswordController extends Controller
 {
@@ -24,8 +24,8 @@ class ForgotPasswordController extends Controller
 
     public function showResetPassword(Request $request){
         $email = $request->session()->get('email');
-        $code = $request->session()->get('code');
-        return view('rapha.auth.reset-password', compact('email', 'code'));
+        $token = $request->session()->get('token');
+        return view('rapha.auth.reset-password', compact('email', 'token'));
     }
 
     // forgot password
@@ -77,9 +77,16 @@ class ForgotPasswordController extends Controller
         return back()->withErrors(['email' =>'Code is invalid or expired']);
       }
 
+      Cache::forget('forgot_password_for' . $code['code']);
+      Cache::forget('forgot_password_email_code' . $userEmail);
+
+      $token = Str::random(64);
+
+      Cache::put('forgot_password_for' . $token, $userEmail, 60*20);
+      Cache::put('forgot_password_email_token' . $userEmail, $token, 60*20);
       session()->flash('from_verification_form', true);
       
-      return redirect()->route('resetPassword')->with('email', $userEmail)->with('code', $code['code'])->with('codeVerifySuccess' ,'Email verified! You can now reset your password');
+      return redirect()->route('resetPassword')->with('email', $userEmail)->with('token', $token)->with('codeVerifySuccess' ,'Code verified! You can now reset your password');
     }
 
     //resend code
@@ -113,7 +120,7 @@ class ForgotPasswordController extends Controller
      //reset password
     public function resetPassword(Request $request){
         $details = $request->validate([
-            'code' => 'required|string',
+            'token' => 'required|string',
             'email' => 'required|email',
              'password' => [
                             'required',
@@ -127,7 +134,7 @@ class ForgotPasswordController extends Controller
                         ],
         ]);
         
-        $cachedEmail = Cache::get('forgot_password_for' . $details['code']);
+        $cachedEmail = Cache::get('forgot_password_for' . $details['token']);
 
         if(!$cachedEmail || $cachedEmail != $details['email']){
             session()->flash('from_verification_form', true);
@@ -137,8 +144,8 @@ class ForgotPasswordController extends Controller
         $user= User::where('email', $cachedEmail);
         $user->update(['password' => Hash::make($details['password'])]);
 
-        Cache::forget('forgot_password_for' . $details['code']);
-        Cache::forget('forgot_password_email_code' . $cachedEmail);
+        Cache::forget('forgot_password_for' . $details['token']);
+        Cache::forget('forgot_password_email_token' . $cachedEmail);
 
         return redirect()->route('rapha.login')->with('resetSuccess', 'Password Reset Successful! You can now login');
     }

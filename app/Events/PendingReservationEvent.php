@@ -13,28 +13,24 @@ use Illuminate\Queue\SerializesModels;
 class PendingReservationEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    /**
-     * Create a new event instance.
-     */
     public $message;
     public $user_id;
+
     public function __construct($message, $user_id)
     {
         $this->message = $message;
         $this->user_id = $user_id;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
-     */
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('private-pending-reservation.' . $this->user_id),
-            // new Channel('pending-reservation'),
+            new PrivateChannel('pending-reservation.' . $this->user_id),
         ];
+    }
+
+    public function broadcastAs()
+    {
+        return 'PendingReservationEvent';
     }
 }

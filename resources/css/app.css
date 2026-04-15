@@ -11,10 +11,11 @@
 }
 
 /* styles*/
-.broadcast{
+.broadcast-div{
   border: 1px solid #896d50;
   border-radius:20px;
   cursor: pointer;
+  z-index: 1000;
 }
 textarea{
   resize: none;
@@ -104,6 +105,7 @@ textarea{
 .reservation_div{
     box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
     border-radius: 10px;
+    cursor: pointer;
 }
 .name{
   font-weight: 400;

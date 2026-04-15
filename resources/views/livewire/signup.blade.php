@@ -129,7 +129,7 @@
                     </div>
 
                      <div class="col-12">
-                          <button type="submit" class="btn mt-4 reg_btn text-light col-7 col-md-6 col-lg-9"> Sign Up</button>
+                          <button class="btn mt-4 reg_btn text-light col-7 col-md-6 col-lg-9"> Sign Up</button>
                      </div>
                     
                      <div class="col-8 col-sm-7 col-md-6 col-lg-9 mt-3 text-center mb-4">

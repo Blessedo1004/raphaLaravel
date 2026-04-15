@@ -72,7 +72,7 @@
 
 
                         {{-- Password --}}
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                           <label for="password">Password:</label>
                           <input 
                             type="password"
