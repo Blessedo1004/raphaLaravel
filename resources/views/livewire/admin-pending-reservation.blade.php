@@ -1,9 +1,9 @@
     <div> 
-      @if ($showNotification)
+      {{-- @if ($showNotification)
           <div class="broadcast-div col-10 col-md-5 text-center py-1 mx-auto d-block mt-2" wire:click="refreshList">
               New reservation available - click to refresh
           </div>
-      @endif
+      @endif --}}
 
         
         <form>

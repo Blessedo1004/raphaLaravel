@@ -1,6 +1,6 @@
     <div> 
         @if (session()->has('checkin-success'))
-            <div class="alert alert-success text-center col-md-8 mx-auto d-block">
+            <div class="alert alert-success text-center col-md-2 mx-auto d-block">
                 {{ session('checkin-success') }}
             </div>
         @endif

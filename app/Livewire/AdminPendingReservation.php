@@ -36,11 +36,11 @@ class AdminPendingReservation extends Component
         $this->showNotification = true;
     }
 
-    public function refreshList()
-    {
-        $this->showNotification = false;
+    // public function refreshList()
+    // {
+    //     $this->showNotification = false;
 
-    }
+    // }
 
     public function showDetails ($id){
         $this->details = PendingReservation::withoutGlobalScope('user')->with('user','room')->findOrFail($id);
@@ -67,7 +67,7 @@ class AdminPendingReservation extends Component
         $checkin->delete();
         session()->flash('checkin-success', 'Check In Successful');
 
-        $this->redirect('/admin/active', navigate: true);
+        $this->redirect('/admin/reservations/active', navigate: true);
     }
 
         public function mount()

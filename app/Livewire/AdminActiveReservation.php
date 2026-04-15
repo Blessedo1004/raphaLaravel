@@ -44,7 +44,7 @@ class AdminActiveReservation extends Component
         $room->update(['availability' => $room->getOriginal('availability') + $checkout->number_of_rooms]);
         session()->flash('checkout-success', 'Check Out Successful');
 
-        $this->redirect('/admin/completed', navigate: true);
+        $this->redirect('/admin/reservations/completed', navigate: true);
     }
 
     public function render()

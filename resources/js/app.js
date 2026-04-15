@@ -4,21 +4,28 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 document.addEventListener('DOMContentLoaded', function() {
 
 function initUI() {
+
     // SHOW / HIDE PASSWORD
     const showPassword = document.querySelector('#showPasswordCheckbox');
     const password = document.querySelector('#password');
     const passwordConfirm = document.querySelector('#password_confirmation');
 
     if (showPassword && password) {
-        showPassword.addEventListener('click', () => {
-            const isPassword = password.type === "password";
 
-            password.type = isPassword ? "text" : "password";
+        // prevent duplicate listeners
+        if (!showPassword.dataset.bound) {
+            showPassword.addEventListener('click', () => {
+                const isPassword = password.type === "password";
 
-            if (passwordConfirm) {
-                passwordConfirm.type = isPassword ? "text" : "password";
-            }
-        });
+                password.type = isPassword ? "text" : "password";
+
+                if (passwordConfirm) {
+                    passwordConfirm.type = isPassword ? "text" : "password";
+                }
+            });
+
+            showPassword.dataset.bound = "true";
+        }
     }
 
     // PRELOADER
@@ -31,11 +38,7 @@ function initUI() {
     }
 }
 
-
-
 window.addEventListener('load', initUI);
-
-window.addEventListener('DOMContentLoaded', initUI);
 
 //Livewire navigation
 document.addEventListener('livewire:navigated', initUI);
