@@ -125,7 +125,7 @@
 
                     <div class="form-group">
                       <input type="checkbox" id="showPasswordCheckbox">
-                      <label>Show Password</label>
+                      <label for="showPasswordCheckbox">Show Password</label>
                     </div>
 
                      <div class="col-12">

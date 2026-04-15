@@ -2,55 +2,43 @@ import './bootstrap';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 document.addEventListener('DOMContentLoaded', function() {
-    // show and hide passwords
-const showPassword = document.querySelector('#showPasswordCheckbox');
-const password = document.querySelector('#password');
-const passwordConfirm = document.querySelector('#password_confirmation');
-let clicked = false;
-if (showPassword){
-showPassword.addEventListener('click',()=>{
-  if (!clicked){
-    password.type="text"
-    if (passwordConfirm){
-    passwordConfirm.type="text"
+
+function initUI() {
+    // SHOW / HIDE PASSWORD
+    const showPassword = document.querySelector('#showPasswordCheckbox');
+    const password = document.querySelector('#password');
+    const passwordConfirm = document.querySelector('#password_confirmation');
+
+    if (showPassword && password) {
+        showPassword.addEventListener('click', () => {
+            const isPassword = password.type === "password";
+
+            password.type = isPassword ? "text" : "password";
+
+            if (passwordConfirm) {
+                passwordConfirm.type = isPassword ? "text" : "password";
+            }
+        });
     }
-    clicked=true;
-  }
-  else if(clicked){
-    password.type="password";
-    if (passwordConfirm){
-    passwordConfirm.type="password"
+
+    // PRELOADER
+    const preloader = document.querySelector('.preloader');
+
+    if (preloader) {
+        setTimeout(() => {
+            preloader.style.display = "none";
+        }, 1500);
     }
-    clicked=false
-  }
-})
 }
 
 
-//preloader
-window.addEventListener('load', () => {
-  setTimeout(()=>{
-    document.querySelector('.preloader').style.display="none"
-  }, 1500)
-})
 
- // resend code button countdown
-    const resendButton = document.querySelector('#resendCodeButton');
+window.addEventListener('load', initUI);
 
-    if(resendButton){
-      
-     function resendCountdown (){
-      let resetCountdownValue = Number(document.querySelector('.resend_countdown_value').innerText); 
-        resetCountdownValue--
-        document.querySelector('.resend_countdown_value').innerText = resetCountdownValue
-        if (resetCountdownValue === 0){
-           document.querySelector('.resend_countdown').style.display="none"
-            resendButton.disabled = false
-              clearInterval(resetCountDownInterval)
-        }
-     }
-        let resetCountDownInterval = setInterval(resendCountdown,1000)
-    }
+window.addEventListener('DOMContentLoaded', initUI);
+
+//Livewire navigation
+document.addEventListener('livewire:navigated', initUI);
 
 //fade out alerts after 3 seconds
 setTimeout(() => {

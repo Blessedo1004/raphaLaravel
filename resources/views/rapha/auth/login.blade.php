@@ -85,7 +85,7 @@
 
                         <div class="form-group">
                           <input type="checkbox" id="showPasswordCheckbox">
-                          <label>Show Password</label>
+                          <label for="showPasswordCheckbox">Show Password</label>
                         </div>
                         <div class="col-12">
                           <input type="submit" class="btn mt-4 reg_btn text-light  col-7 col-md-6 col-lg-9" value="Log In">
