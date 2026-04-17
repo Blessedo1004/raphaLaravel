@@ -126,7 +126,7 @@ class UserController extends Controller
     public function writeReview (Request $request){
         $verified = $request->validate([
             "rating_id" => "required|exists:ratings,id",
-            "content" => "required|string|min:20|max:250"       
+            "content" => "required|string|min:20|max:250|regex:/^[^<>]*$/",       
     ]);
         Review::create($verified);
         return redirect()->route('reviews')->with('reviewSuccess','Review Created. Thank you!');

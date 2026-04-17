@@ -163,6 +163,24 @@ xmark.addEventListener('click', ()=>{
         }
     }
 
+    //enable resend button after 60secs
+    const resendButton = document.querySelector('#resendCodeButton');
+    const resendCountDownSpan = document.querySelector('.resend_countdown');
+    const resetCountDown = document.querySelector('.resend_countdown_value');
+
+    if (resendButton && resendCountDownSpan && resetCountDown) {
+    let resendCountDownValue = document.querySelector('.resend_countdown_value').innerText;
+    let resendInterval = setInterval(()=>{
+        resendCountDownValue--
+        resetCountDown.innerText = resendCountDownValue
+
+        if(resendCountDownValue === 0){
+            resendCountDownSpan.style.display = 'none';
+            resendButton.disabled=false;
+            clearInterval(resendInterval)
+        }
+    }, 1000)
+}
     // ensures user doesn't submit same review again
     function checkValues(ratingValue) {
         const hiddenRating = document.querySelector('#ratingHidden');

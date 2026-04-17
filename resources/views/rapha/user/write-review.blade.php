@@ -23,7 +23,7 @@
         <!-- validation errors -->
         @if($errors->any())
           @foreach ($errors->all() as $error)
-            <div class="alert alert-danger mt-3">
+            <div class="alert alert-danger mt-3 text-center col-md-4 mx-auto d-block">
               {{ $error }}
             </div>
           @endforeach

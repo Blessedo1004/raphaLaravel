@@ -37,26 +37,59 @@ class Signup extends Component
     }
     }
 
-    protected function rules(): array
-    {
-        return [
-            'first_name' => 'required|string|min:3|max:20',
-            'last_name' => 'required|string|min:3|max:20',
-            'user_name' => 'required|string|min:6|max:20|unique:users,user_name',
-            'phone_number' => 'required|string|size:11',
-            'email' => 'required|email|unique:users,email',
-            'password' => [
-                'required',
-                'string',
-                'min:8',
-                'regex:/[a-z]/',
-                'regex:/[A-Z]/',
-                'regex:/[0-9]/',
-                'regex:/[@$!%*#?&]/',
-                'confirmed',
-            ],
-        ];
-    }
+protected function rules(): array
+{
+    return [
+        'first_name' => [
+            'required',
+            'string',
+            'min:3',
+            'max:20',
+            'regex:/^[^<>]*$/',
+        ],
+
+        'last_name' => [
+            'required',
+            'string',
+            'min:3',
+            'max:20',
+            'regex:/^[^<>]*$/',
+        ],
+
+        'user_name' => [
+            'required',
+            'string',
+            'min:6',
+            'max:20',
+            'unique:users,user_name',
+            'regex:/^[^<>]*$/',
+        ],
+
+        'phone_number' => [
+            'required',
+            'string',
+            'size:11',
+            'regex:/^[^<>]*$/',
+        ],
+
+        'email' => [
+            'required',
+            'email',
+            'unique:users,email',
+        ],
+
+        'password' => [
+            'required',
+            'string',
+            'min:8',
+            'regex:/[a-z]/',
+            'regex:/[A-Z]/',
+            'regex:/[0-9]/',
+            'regex:/[@$!%*#?&]/',
+            'confirmed',
+        ],
+    ];
+}
 
     public function signup()
     {
