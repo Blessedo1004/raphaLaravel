@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Admin;
 
 use App\Models\CompletedReservation;
 use Livewire\Component;
@@ -30,9 +30,9 @@ class AdminCompletedReservation extends Component
     {
         if($this->searchTerm){
             $reservations = CompletedReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->where('reservation_id', 'LIKE', "%{$this->searchTerm}%")->get();
-            return view('livewire.admin-completed-reservation', compact('reservations'));
+            return view('livewire.admin.completed-reservation', compact('reservations'));
         }
         $reservations = CompletedReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
-        return view('livewire.admin-completed-reservation', compact('reservations'));
+        return view('livewire.admin.completed-reservation', compact('reservations'));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Admin;
 
 use Livewire\Component;
 use Livewire\Attributes\Layout;
@@ -51,9 +51,9 @@ class AdminActiveReservation extends Component
     {
         if($this->searchTerm){
             $reservations = ActiveReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->where('reservation_id', 'LIKE', "%{$this->searchTerm}%")->get();
-            return view('livewire.admin-active-reservation', compact('reservations'));
+            return view('livewire.admin.active-reservation', compact('reservations'));
         }
         $reservations = ActiveReservation::withoutGlobalScope('user')->with(['user:id,first_name,last_name','room:id,name'])->select(['id', 'user_id' , 'room_id', 'created_at'])->orderBy('id', 'desc')->paginate(10)->onEachSide(0);
-        return view('livewire.admin-active-reservation', compact('reservations'));
+        return view('livewire.admin.active-reservation', compact('reservations'));
     }
 }

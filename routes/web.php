@@ -9,11 +9,11 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EditController;
 use App\Http\Controllers\AnalyticsController;
-use App\Livewire\AdminActiveReservation;
-use App\Livewire\AdminPendingReservation;
-use App\Livewire\AdminCompletedReservation;
+use App\Livewire\Admin\AdminActiveReservation;
+use App\Livewire\Admin\AdminPendingReservation;
+use App\Livewire\Admin\AdminCompletedReservation;
 use Illuminate\Support\Facades\Broadcast;
-use App\Livewire\Signup;
+use App\Livewire\Auth\Signup;
 
 Broadcast::routes();
 
