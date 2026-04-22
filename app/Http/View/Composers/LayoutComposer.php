@@ -9,9 +9,9 @@ class LayoutComposer
 {
     public function compose(View $view)
     {
-        if (Auth::check()) {
-            $notificationCount = Auth::user()->unreadNotifications->count();
-            $view->with('notificationCount', $notificationCount);
-        }
+        // if (Auth::check()) {
+        //     $notificationCount = Auth::user()->unreadNotifications->count();
+        //     $view->with('notificationCount', $notificationCount);
+        // }
     }
 }

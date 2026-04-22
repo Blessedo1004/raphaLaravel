@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         
         // Register the LayoutComposer for the user layout
-        View::composer('components.user-layout', LayoutComposer::class);
+        // View::composer('components.user-layout', LayoutComposer::class);
 
         // Define rate limiters for authentication and general actions
         RateLimiter::for('auth', function (Request $request) {

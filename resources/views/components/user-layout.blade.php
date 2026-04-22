@@ -97,11 +97,7 @@
             </x-nav>
           </div>
 
-          <div class="col-5 col-md-3 col-lg-12 text-center">
-            <x-nav :activePage="Route::currentRouteName()" page="user-notifications">
-             <i class="fa-solid fa-bell"></i> Notifications @if(isset($notificationCount) && $notificationCount > 0) <span class="badge bg-danger">{{ $notificationCount }}</span> @endif
-            </x-nav>
-          </div>
+          <livewire:notifications/>
 
           <div class="col-5 col-md-3 col-lg-12 text-center">
              <x-nav :activePage="Route::currentRouteName()" page="profile">
@@ -142,11 +138,7 @@
             </x-nav-two>
           </div>
 
-          <div class="col-5 col-md-3 col-lg-12 text-center">
-            <x-nav :activePage="Route::currentRouteName()" page="admin-notifications">
-             <i class="fa-solid fa-bell"></i> Notifications @if($notificationCount && $notificationCount > 0) <span class="badge bg-danger">{{ $notificationCount }}</span> @endif
-            </x-nav>
-          </div>
+          <livewire:admin.notifications />
 
           <div class="col-5 col-md-3 col-lg-12 text-center">
              <x-nav :activePage="Route::currentRouteName()" page="admin-profile">

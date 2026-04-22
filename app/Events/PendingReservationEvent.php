@@ -13,12 +13,10 @@ use Illuminate\Queue\SerializesModels;
 class PendingReservationEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $message;
     public $user_id;
 
-    public function __construct($message, $user_id)
+    public function __construct($user_id)
     {
-        $this->message = $message;
         $this->user_id = $user_id;
     }
 

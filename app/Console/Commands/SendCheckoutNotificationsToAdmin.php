@@ -7,6 +7,7 @@ use App\Models\ActiveReservation;
 use App\Models\User;
 use App\Notifications\CheckOut;
 use Carbon\Carbon;
+use App\Events\NotificationEvent;
 
 class SendCheckoutNotificationsToAdmin extends Command
 {
@@ -39,6 +40,7 @@ class SendCheckoutNotificationsToAdmin extends Command
                 foreach ($reservations as $reservation) {
                     foreach ($admins as $admin) {
                         $admin->notify(new CheckOut($reservation));
+                        event(new NotificationEvent($admin->id));
                         $notificationCount++;
                     }
                 }

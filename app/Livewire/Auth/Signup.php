@@ -8,6 +8,7 @@ use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use App\Mail\PreregisterEmail;
+use Illuminate\Support\Facades\Auth;
 
 #[Layout('layouts.app')]
 #[Title('Sign Up')]
@@ -115,6 +116,12 @@ protected function rules(): array
 
     public function render()
     {
+        if(Auth::check()){
+            if (Auth::user()->role === 'admin') {
+                return redirect()->route('admin-dashboard');
+            }
+            return redirect()->route('dashboard');
+        }
         return view('livewire.auth.signup');
     }
 }

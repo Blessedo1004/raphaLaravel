@@ -21,7 +21,7 @@ class AdminPendingReservation extends Component
     public $modalShow = false;
     public $details;
     public $userId;
-    public $showNotification = false;
+    public $showReservation = false;
 
     public function getListeners()
     {
@@ -33,14 +33,9 @@ class AdminPendingReservation extends Component
 
     public function handleNewReservation()
     {
-        $this->showNotification = true;
+        $this->showReservation = true;
     }
 
-    // public function refreshList()
-    // {
-    //     $this->showNotification = false;
-
-    // }
 
     public function showDetails ($id){
         $this->details = PendingReservation::withoutGlobalScope('user')->with('user','room')->findOrFail($id);

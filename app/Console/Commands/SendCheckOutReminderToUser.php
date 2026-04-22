@@ -4,10 +4,10 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\ActiveReservation;
-use App\Models\User;
 use App\Notifications\CheckOutReminder;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CheckOutReminderMail;
+use App\Events\NotificationEvent;
 
 class SendCheckOutReminderToUser extends Command
 {
@@ -38,6 +38,7 @@ class SendCheckOutReminderToUser extends Command
                 foreach ($reservations as $reservation) {
                     if ($reservation->user) {
                         $reservation->user->notify(new CheckOutReminder($reservation));
+                        event(new NotificationEvent($reservation->user->id));
                         Mail::to($reservation->user->email)->send(new CheckOutReminderMail($reservation));
                     }
                 }

@@ -83,7 +83,7 @@
                           >
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                           <input type="checkbox" id="showPasswordCheckbox">
                           <label for="showPasswordCheckbox">Show Password</label>
                         </div>

@@ -11,12 +11,12 @@
 }
 
 /* styles*/
-.broadcast-div{
+/* .broadcast-div{
   border: 1px solid #896d50;
   border-radius:20px;
   cursor: pointer;
   z-index: 1000;
-}
+} */
 textarea{
   resize: none;
 }
@@ -80,7 +80,7 @@ textarea{
   position:fixed;
   width:100%;
   height:100vh;
-  z-index:2;
+  z-index:1000;
   top:0;
   bottom:0;
   left:0;
@@ -200,6 +200,7 @@ input[type="date"] {
 .nav-column{
     box-shadow: 0 0 10px hsla(0, 0%, 0%, 0.20);
     border-radius: 10px;
+    z-index: 900;
 }
 
 .nav-row{
@@ -400,7 +401,6 @@ input[type="date"]{
   top:22vh;
   left:0;
   background:white;
-  z-index:2;
 }
 }
 
@@ -480,7 +480,6 @@ margin-top:20vh;
   top:17vh;
   left:0;
   background:white;
-  z-index:1;
 }
 }
 /* small tablets styles ends */

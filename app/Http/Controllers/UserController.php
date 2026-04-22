@@ -111,7 +111,7 @@ class UserController extends Controller
             $room->update(['availability' => $room->getOriginal('availability') - $validatedData['number_of_rooms']]);
             $reservation->load('room','user');
             Mail::to($userEmail)->send(new ReservationEmail($reservation));
-            event(new PendingReservationEvent('New Pending Reservations', $admin->id));
+            event(new PendingReservationEvent($admin->id));
 
             return redirect()->route('reservations')->with('reservationSuccess', 'Reservation made. Please check your email for reservation details.');
         });

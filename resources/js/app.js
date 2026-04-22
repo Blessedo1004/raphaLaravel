@@ -36,6 +36,19 @@ function initUI() {
             preloader.style.display = "none";
         }, 1500);
     }
+
+    //fade out alerts after 3 seconds
+    setTimeout(() => {
+        const alerts = document.querySelectorAll('.alert-success');
+        if (alerts){
+        alerts.forEach(alert => {
+            alert.classList.add('fade-out');
+            alert.addEventListener('animationend', () => {
+                alert.classList.add('d-none');
+            });
+        });
+    }
+    }, 3000);
 }
 
 window.addEventListener('load', initUI);
@@ -43,18 +56,6 @@ window.addEventListener('load', initUI);
 //Livewire navigation
 document.addEventListener('livewire:navigated', initUI);
 
-//fade out alerts after 3 seconds
-setTimeout(() => {
-    const alerts = document.querySelectorAll('.alert-success');
-    if (alerts){
-    alerts.forEach(alert => {
-        alert.classList.add('fade-out');
-        alert.addEventListener('animationend', () => {
-            alert.classList.add('d-none');
-        });
-    });
-  }
-}, 3000);
 
     // navigation display on smaller screens
     const bars = document.querySelector('.fa-bars');
