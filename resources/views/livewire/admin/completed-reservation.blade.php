@@ -26,7 +26,7 @@
         @foreach ($reservations->groupBy(function($reservation) {
             return $reservation->created_at->format('Y-m-d');
         }) as $date => $reservationsOnDate)
-        <div class="col-12 bg-light mt-3 mx-auto d-block">
+        <div class="col-12 bg-light mt-3 mx-auto d-block" wire:transition>
           <h3 class="text-center mt-5 date_heading">
             @if(Carbon\Carbon::parse($date)->isToday())
               Today
@@ -58,7 +58,7 @@
         
       <!-- modal starts -->
        @if($modalShow)
-      <div class="modal_container mt-4 mt-sm-0">
+      <div class="modal_container mt-4 mt-sm-0" wire:transition>
         <div class="modal_content">
             <h1 class="text-end mb-3">
                 <i class="fa-solid fa-xmark" id="reservationModalClose" title="close" wire:click="closeModal"></i>
