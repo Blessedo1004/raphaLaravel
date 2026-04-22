@@ -44,7 +44,7 @@ class ForgotPasswordController extends Controller
 
         if (!$user) {
             session()->flash('from_verification_form', true);
-            return back()->withErrors(['email' => 'Email doesn\'t exist']);
+            return redirect()->route('forgotpassword.verify');
         }
 
        $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);

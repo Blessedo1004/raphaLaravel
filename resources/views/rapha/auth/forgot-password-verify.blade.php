@@ -7,7 +7,7 @@
             <img class="logo-main mx-auto d-block mx-sm-0" src="{{asset('images/logo-white1.webp')}}" alt="logo" >
          </a>
           <h5 class="text-center text-lg-start mt-3">
-            We've sent you a password reset code. Please check your inbox or spam folder and type in the code below.
+            If you have an active account with a valid email address, you'll receive a code. Please check your inbox or spam folder and type in the code below.
           </h5>
 
           {{-- verification form starts--}}
