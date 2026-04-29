@@ -13,7 +13,7 @@
         <h2 class="text-center mb-5"><strong>User Profile</strong></h2>
 
         {{-- first name --}}
-        <h4 class="text-center d-flex justify-content-center">First Name: &nbsp;{{$profile->first_name}}
+        <h4 class="text-center d-flex justify-content-center">First Name: &nbsp;{{ucfirst($profile->first_name)}}
            <a href="{{ route('show-edit-first-name') }}">
             <i class="fa-solid fa-user-pen" title="Edit"></i>
           </a> 
@@ -21,7 +21,7 @@
         </h4>
 
         {{-- last name --}}
-         <h4 class="text-center d-flex justify-content-center mt-3">Last Name: &nbsp;{{$profile->last_name}}
+         <h4 class="text-center d-flex justify-content-center mt-3">Last Name: &nbsp;{{ucfirst($profile->last_name)}}
            <a href="{{ route('show-edit-last-name') }}">
             <i class="fa-solid fa-user-pen" title="Edit"></i>
           </a> 
