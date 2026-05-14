@@ -90,6 +90,9 @@ const closeReservationModal = document.querySelector('#reservationModalClose')
             toggle.addEventListener('click', ()=>{
                 const {id} = toggle.dataset;
                 if(!clicked){
+                    document.querySelectorAll('[class^="review_actions"]').forEach(action =>{
+                        action.style.display = 'none'
+                    });
                     document.querySelector(`.action_${id}`).style.display = 'block';
                     clicked = true;
                 }
