@@ -25,55 +25,55 @@ class AuthController extends Controller
     }
 
     //show sign up view
-     public function showSignUp (){
-            if(Auth::check()){
-                if (Auth::user()->role === 'admin') {
-                    return redirect()->route('admin-dashboard');
-                }
-            return redirect()->route('dashboard');
-        }
-        return view ('rapha.auth.signup');
-    }
+    //  public function showSignUp (){
+    //         if(Auth::check()){
+    //             if (Auth::user()->role === 'admin') {
+    //                 return redirect()->route('admin-dashboard');
+    //             }
+    //         return redirect()->route('dashboard');
+    //     }
+    //     return view ('rapha.auth.signup');
+    // }
 
     // save user details temporarily and send verification code
-    public function signUp (Request $request){
-        $userData = $request->validate([
-            'first_name'=>'required|string|min:3|max:20',
-            'last_name'=>'required|string|min:3|max:20',
-            'user_name'=>'required|string|min:6|max:20|unique:users,user_name',
-            'phone_number'=>'required|string|size:11',
-            'email'=>'required|email|unique:users,email',
-            'password' => [
-                            'required',
-                            'string',
-                            'min:8',
-                            'regex:/[a-z]/',
-                            'regex:/[A-Z]/',
-                            'regex:/[0-9]/',
-                            'regex:/[@$!%*#?&]/',
-                            'confirmed',
-                        ],
-        ]);
+    // public function signUp (Request $request){
+    //     $userData = $request->validate([
+    //         'first_name'=>'required|string|min:3|max:20',
+    //         'last_name'=>'required|string|min:3|max:20',
+    //         'user_name'=>'required|string|min:6|max:20|unique:users,user_name',
+    //         'phone_number'=>'required|string|size:11',
+    //         'email'=>'required|email|unique:users,email',
+    //         'password' => [
+    //                         'required',
+    //                         'string',
+    //                         'min:8',
+    //                         'regex:/[a-z]/',
+    //                         'regex:/[A-Z]/',
+    //                         'regex:/[0-9]/',
+    //                         'regex:/[@$!%*#?&]/',
+    //                         'confirmed',
+    //                     ],
+    //     ]);
 
-         $existingCode =   Cache::get('preregister_email_token'. $userData['email']);
+    //      $existingCode =   Cache::get('preregister_email_token'. $userData['email']);
 
-        if($existingCode){
-            Cache::forget('preregister_user'. $existingCode);
-            Cache::forget('preregister_email_token'. $userData['email']);
-        }
+    //     if($existingCode){
+    //         Cache::forget('preregister_user'. $existingCode);
+    //         Cache::forget('preregister_email_token'. $userData['email']);
+    //     }
         
-        $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
-        Cache::put('preregister_user'. $code, $userData, 60 * 20);
-        Cache::put('preregister_email_token'. $userData['email'], $code, 60 * 20);
+    //     $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+    //     Cache::put('preregister_user'. $code, $userData, 60 * 20);
+    //     Cache::put('preregister_email_token'. $userData['email'], $code, 60 * 20);
 
-        Mail::to($userData['email'])->send(new PreregisterEmail($code));
+    //     Mail::to($userData['email'])->send(new PreregisterEmail($code));
 
-        session()->flash('show_preregister_notice', true);
+    //     session()->flash('show_preregister_notice', true);
         
 
-        return redirect()->route('preregister.notice')->with('email', $userData['email']);
+    //     return redirect()->route('preregister.notice')->with('email', $userData['email']);
         
-    }
+    // }
 
 
     //login
@@ -98,7 +98,7 @@ class AuthController extends Controller
           $request->session()->regenerate();
 
           if (Auth::user()->role === 'admin') {
-              return redirect()->route('admin-dashboard')->with('loginSuccess', 'Login Successful');
+              return redirect()->intended(route('admin-dashboard'))->with('loginSuccess', 'Login Successful');
           }
 
           return redirect()->intended(route('dashboard'))->with('loginSuccess', 'Login Successful');
